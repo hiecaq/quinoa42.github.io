@@ -1,0 +1,40 @@
+@import "colors";
+
+body {
+    @include background();
+}
+
+main {
+    max-width: 60%;
+    margin: auto;
+}
+
+a:link {
+    text-decoration: none;
+    @include foreground('secondary');
+}
+
+a:visited {
+    text-decoration: none;
+    @include foreground('secondary-faint');
+}
+
+a:hover {
+    text-decoration: underline;
+    @include foreground('secondary');
+}
+
+.reading-info {
+    display: flex;
+    justify-content: space-between;
+    span {
+        @include foreground('faint');
+    }
+    .left, .right {
+        display: inline-block;
+    }
+}
+
+h1 {
+    font-size: 1.8em;
+}

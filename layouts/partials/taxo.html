@@ -1,0 +1,6 @@
+{{ range .content.Param .taxo }}
+    {{ $name := . }}
+    {{ with $.content.Site.GetPage (printf "/%s/%s" $.taxo ($name | urlize)) }}
+    <li><a href="{{ .Permalink }}">{{ $name }}</a></li>
+    {{ end }}
+{{ end }}

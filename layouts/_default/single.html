@@ -1,0 +1,36 @@
+{{ define "title" }}
+  {{ .Title }} &ndash; {{ .Site.Title }}
+{{ end }}
+
+{{ define "main" }}
+<article>
+  <header>
+    <h1>{{ .Title }}</h1>
+    <div class="reading-info">
+      <div class="left">
+        <span>{{ .WordCount }} words</span>
+        <span>
+          &bull;
+        </span>
+        <span>{{ .ReadingTime }} min read</span>
+      </div>
+      <div class="right">
+        <span><time>published at {{ .Date.Format "01-02-2006" }}</time></span>
+        <span>
+          &bull;
+        </span>
+        <span><time>last modified at {{ .Lastmod.Format "01-02-2006" }}</time></span>
+      </div>
+    </div>
+  </header>
+  {{ .Content }}
+  <footer class="reading-info">
+    <div class="left">
+      {{ partial "taglist.html" . }}
+    </div>
+    <div class="right">
+      <a href="{{ .Permalink }}">permallink to this post</a>
+    </div>
+  </footer>
+</article>
+{{ end }}

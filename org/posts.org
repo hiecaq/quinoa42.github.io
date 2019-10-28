@@ -1,0 +1,878 @@
+#+hugo_base_dir: ../
+#+hugo_auto_set_lastmod: t
+
+* Tech notes
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: Oceanus
+:END:
+** DONE Set up haskell-ide-engine and xmonad :@software:Haskell:xmonad:Vim:ArchLinux:
+CLOSED: [2019-07-09 Tue]
+:PROPERTIES:
+:EXPORT_FILE_NAME: hie-and-xmonad.en.md
+:END:
+Now that I have tons of time during this break, I decided to [[http://learnyouahaskell.com/][learn myself a haskell]] and as a way to apply what I've learned, I've planed to switch from [[https://awesomewm.org][awesomeWM]] to [[https://xmonad.org][xmonad]]. Besides, I've being troubled with my awesome config's memory leak, which I haven't got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.
+
+*** Tool used
+Short version: do not use Arch's =ghc= and xmonad installed via pacman.
+
+Conceptually I end up with a separation of things I deal with that need a dev environment ([[https://github.com/commercialhaskell/stack][stack]], xmonad, and scripting) and things that I just "use" ([[https://pandoc.org/#][pandoc]] and [[https://github.com/jaor/xmobar][xmobar]]). The former is around =stack= and the static-linked environment it comes with, which I got by installing [[https://aur.archlinux.org/packages/stack-static/][stack-static]] on AUR, and the latter is simply pacman-installed. This mimics the way I deal with Rust on Arch: my personal projects and other stuff are built around pacman-installed =rustup=, while =exa=, =ripgrep= and other tools are simply pacman managed.
+
+At this point after having a static-linked stack, =stack setup= will give you the static-linked ghc and ghci as [[https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/][Brian Buccola suggested]].
+
+Make sure stack's bin path is in your $PATH, which can be set in =~/.stack/config.yaml=, like this:
+#+begin_src yaml
+  local-bin-path: /home/quinoa42/bin
+#+end_src
+
+Then you'd want the [[https://github.com/haskell/haskell-ide-engine][haskell-ide-engine]], which is a lsp-compatible language server for Haskell, like =rls= for Rust. To install it simply do:
+#+begin_src sh
+  stack install cabal-install # static-linked cabal-install, seems required
+  git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
+  cd haskell-ide-engine
+  stack ./install.hs hie-8.6.5
+#+end_src
+You might also want [[https://hoogle.haskell.org][hoogle]] for documentation lookup, which can be installed directly via pacman because it read from =Hackage= directly (if my understanding is correct).
+
+Now that we have all the tools we need, we can set up our editor's LSP client (for which I use neovim and =LSPClient-neovim= btw) to use =hie-wrapper= when editing a haskell file.
+
+*** Stack-driven Xmonad config
+This part is based on a combination of blog posts from [[https://qiita.com/aiya000/items/be55d899e9c92dd57c35][aiya000]], [[https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/][Brian Buccola]] and [[https://www.ncaq.net/2019/02/05/15/42/31/][ncaq]].
+
+To begin with, inside your =~/.xmonad=, create a new =stack.yaml=:
+#+begin_example
+  resolver: lts-13.27
+
+  packages:
+    - .
+#+end_example
+
+Then add a new =package.yaml= as [[https://www.ncaq.net/2019/02/05/15/42/31/][ncaq]] suggest:
+#+begin_example
+  name: xmonad-<yourname>
+  version: 0.1.0
+  synopsis: xmonad setting
+  github: <yourname>/.xmonad
+  author: <yourname>
+  maintainer: <youremail>@example.com
+  copyright: © <yourname>
+  license: MIT
+  dependencies:
+    - X11
+    - base
+    - xmonad
+    - xmonad-contrib
+  executables:
+    xmonad:
+      main: xmonad.hs
+      ghc-options:
+        - -Wall
+        - -fwarn-tabs
+        - -threaded
+        - -O2
+        - -with-rtsopts=-N4
+#+end_example
+And =stack install= should compile your favorite =xmonad= executable into the bin path.
+
+To make xmonad's own compile system (=xmonad --recompile=) work, create an executable script =build= at the same dir level as [[https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/][Brian Buccola]] suggests:
+#+begin_src sh
+  # ~/.xmonad/build
+  #!/bin/sh
+
+  stack ghc -- \
+    --make xmonad.hs \
+    -i \
+    -ilib \
+    -fforce-recomp \
+    -main-is main \
+    -v0 \
+    -Wall \
+    -fwarn-tabs \
+    -threaded \
+    -O2 \
+    -with-rtsopts=-N4 \
+    -o "$1"
+
+  exec install xmonad-x86_64-linux ~/bin/xmonad
+#+end_src
+Now you have a full dev environment around xmonad!
+
+=~/.xmonad= now looks like this:
+#+begin_example
+  .
+  ├── build
+  ├── package.yaml
+  ├── stack.yaml
+  ├── stack.yaml.lock
+  ├── xmonad-xxx.cabal
+  └── xmonad.hs
+#+end_example
+
+*** Inspiration and Reference
+- [[https://www.reddit.com/r/haskell/comments/7a1ty3/whats_the_correct_way_to_install_ghc_and_cabal_on/][Whats the 'correct' way to install ghc and cabal on arch linux?]] on [[https://www.reddit.com/r/xmonad/][r/haskell]]
+- [[https://www.reddit.com/r/xmonad/comments/73z1ew/could_not_find_module/][Could not find module]] on [[https://www.reddit.com/r/xmonad/][r/xmonad]]
+- [[https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/][How to install xmonad and xmobar via stack]] by Brian Buccola
+- [[https://www.ncaq.net/2019/02/05/15/42/31/][EmacsのHaskellの開発環境をinteroからHaskell IDE Engineに移行しました]] by ncaq (in Japanese)
+- [[https://qiita.com/aiya000/items/be55d899e9c92dd57c35][xmonad.hsでモジュール分割をする]] by aiya000 (in Japanese)
+
+** DONE Auto-complete user-defined LaTeX packages and classes with Vimtex :@software:Vim:latex:
+CLOSED: [2019-05-17 Fri]
+:PROPERTIES:
+:EXPORT_FILE_NAME: vimtex-user-defined-completion.en.md
+:END:
+[[https://github.com/lervag/vimtex][vimtex]] is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is [[https://en.wikibooks.org/wiki/LaTeX/Creating_Packages][quite easy]], but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!
+
+*** Auto-Complete =\usepackage= and =\documentclass=
+This is fairly easy: put them into =$TEXMFHOME= with a directory structure like this:
+#+begin_example
+  texmf
+  └── tex
+     └── latex
+        ├── mlaarticle
+        │  └── mlaarticle.cls
+        └── proofh
+           └── proofh.sty
+#+end_example
+Then it should work out of the box, otherwise try =sudo hashtex=.
+
+*** Auto-complete new commands and environments
+The problem is that commands and environments defined in these new packages are not in the candidate lists at all! It is easy to see from [[https://github.com/lervag/vimtex/tree/master/autoload/vimtex/complete][vimtex source code]] that these completion candidates are mostly hard-coded. Thus, the only things we need to do is to create files corresponding to our packages in this given format, and put them inside =vimtex/autoload/vimtex/complete=.
+
+The candidate file format is very straightforward: file is named =SOMEPACKAGE= if it is for a package of the same name, and =class-SOMECLASS= if it is for a class of the same name. In each file, candidates are separated by new lines, and to declare a command it will simply be its name, and to declare an environment it will be something like =\begin{ENV}=. After making this kind of files, the auto-completion works for our own packages!
+
+*** Further Readings
+LaTeX is not only great at scientific and technical writing, but also a great way to do most things you do with Docs and PowerPoints, because it is easy to set up your own content-and-format-independent templates, which enable better concentration on the content itself. Here are many resources that worth reading:
+- [[https://en.wikibooks.org/wiki/LaTeX/Creating_Packages][LaTeX/Creating Packages]] on Wikibooks
+- [[https://castel.dev/post/lecture-notes-1/][How I'm able to take notes in mathematics lectures using LaTeX and Vim]] by Gilles Castel
+- [[https://liam.page/2019/03/18/separation-of-content-and-presentation/][到底什么是「内容与样式分离」]] by Liam Huang
+- [[https://junyixu.github.io/2019/03/08/Happy-LaTeXing/][在 ArchLinux 上愉快地 LaTeXing]] by Junix
+
+** DONE Implement a simple fuzzy app launcher with fzf :@software:alacritty:fzf:compton:i3wm:
+CLOSED: [2019-01-27 Sun]
+:PROPERTIES:
+:EXPORT_FILE_NAME: replace-dmenu-with-fzf.en.md
+:END:
+One thing that I do really miss after switching from Mac OS to Arch Linux is [[https://www.alfredapp.com/][Alfred]]. I heard there is an alternative for Linux called [[https://github.com/albertlauncher/albert][Albert]] but I haven't tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don't feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn't fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.
+
+*** Tools used
+1. [[https://i3wm.org/][i3]]: I set the keyboard shortcuts and default window layout for the simple launcher in my i3 config. Any other window manager or desktop environment should work too.
+2. [[https://github.com/yshui/compton][compton]]: used to beautify the launcher: being transparent is always the easiest solution to make something pretty.
+3. [[https://github.com/jwilm/alacritty][alacritty]]: Fzf will be run in a terminal emulator. Any emulator that supports setting window class and running a command from CLI args should work too.
+4. [[https://github.com/junegunn/fzf][fzf]]
+
+*** Notable details
+First, to make the launcher looks nicer, we need to specify window layout and opacity of the launcher window. We can do this by using alacritty's =--class= flag to set the window class, and run the command we want (i.e. fzf), for example,
+#+begin_src sh
+  alacritty --class "fzfmenu" -e fzf
+#+end_src
+
+With this flag, alacritty will set the first value in =WM_CLASS= to the given name. We can check this by using =xprop= (thanks for the explanation on this from [[https://i3wm.org/docs/userguide.html][i3 User Guide]]):
+#+begin_src sh
+  $ xprop WM_CLASS
+  WM_CLASS(STRING)="fzfmenu", "Alacritty"
+#+end_src
+In [[https://i3wm.org/docs/userguide.html][i3]], the first argument will be referenced by =instance= while the second one by =class=. Similarly, in =compton=, the first argument matches to =class_i= while the second to =class_g=.
+
+Another problem is that, if not running the following command after fzf in background, the window of alacritty will just block there waiting for the command to finish; If we only use =&= when calling the command, it will get killed when alacritty quit after that immediately because alacritty owns it. The solution is to do this with =nohup COMMAND &=. We probably will never going to need the stdout from our command, so we can simply redirect stdout and stderr to =/dev/null= to prevent =nohup= to create =nohup.out= (see its [[https://linux.die.net/man/1/nohup][manpage]] for details).
+
+*** Scripts
+**** launch apps
+=fzf_run=:
+#+begin_src zsh
+  #!/usr/bin/env zsh
+  print -rl -- ${(ko)commands} | fzf | (nohup ${SHELL:-"/bin/sh"} &) >/dev/null 2>&1
+#+end_src
+Notice that to list all commands easily I used zsh as the shell for this script explicitly. =${commands}= will expand to the [[http://zsh.sourceforge.net/Doc/Release/Zsh-Modules.html#index-commands][command hash table]] and =k= flag will substitute keys instead of values, which are command names instead of full paths (found on an [[https://unix.stackexchange.com/a/120818][excellent Unix & Linux Stack Exchange answer]]).
+
+**** open a specific pdf with zathura
+I realize I need to do this quite often, so I wrote the following script (=fzf_zathura=):
+#+begin_src zsh
+  #!/usr/bin/env sh
+  fd -a -e "pdf" . ~/documents | fzf | (nohup xargs -I{} zathura "{}" >/dev/null 2>&1 &)
+#+end_src
+
+**** open a new tmux window to edit a file in dotfiles dir with neovim
+This is also a thing I do quite often. I named it =fzf_dotfiles=:
+#+begin_src zsh
+  #!/usr/bin/env zsh
+  fd --max-depth=4 -t f . ~/.dotfiles | fzf | xargs -I{} tmux new-window -n launcher nvim -f "{}"
+#+end_src
+Note that for this one we don't have to use =nohup &= because =tmux new-window= is non-blocking.
+
+*** Setting launching shortcuts
+Now we handle launching alacritty that runs the scripts in i3's config file:
+#+begin_example
+  bindsym $mod+space exec alacritty --class "fzfmenu" -e fzf_run
+  bindsym $mod+z exec alacritty --class "fzfmenu" -e fzf_zathura
+  bindsym $mod+v exec alacritty -d 120 24 --class "fzfmenu" -e fzf_dotfiles
+#+end_example
+
+*** Setting default window layout
+Also in i3's config file, add
+#+begin_example
+  for_window [instance="fzfmenu"] floating enable
+#+end_example
+
+*** Make it transparent
+Add this to compton's config file:
+#+begin_example
+  opacity-rule = [
+      "90:class_i = 'fzfmenu'"
+  ]
+#+end_example
+
+*** Conclusion
+Now we are done!
+#+attr_html: :alt screenshot
+[[https://i.imgur.com/6rDB3HC.png][https://i.imgur.com/6rDB3HC.png]]
+
+This launcher is super easy to tweak, and we can add any other functions we want. Goodbye dmenu!
+
+*** Reference
+- [[https://i3wm.org/docs/userguide.html][i3guide]]
+- [[https://linux.die.net/man/1/nohup][nohup(1) Linux man page]]
+- [[http://zsh.sourceforge.net/Doc/Release/Zsh-Modules.html#index-commands][Details about commands in the zsh/parameter Module]]
+- [[http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags][Zsh parameter Expansion Flags]]
+- [[https://unix.stackexchange.com/a/120818][Stéphane Chazelas' answer on how to print a list of all bins in PATH]]
+
+** DONE A workaround that handles after directory scripts for optional packages of Vim8 :@software:Vim:
+CLOSED: [2019-01-22 Tue]
+:PROPERTIES:
+:EXPORT_FILE_NAME: vim8-package-opt-after.en.md
+:END:
+Since I started to use Arch Linux, I've also switched from using plugins such as [[https://github.com/junegunn/vim-plug][vim-plug]] to using the native Vim8 packages utility. However, I encountered the problem where if we do =packadd SOMEPACKAGE= after (Neo)vim has initialized, and unfortunately if this plugin comes with an =after= directory, for example in an =autocmd= such as =autocmd FileType python vim-textobj-python=, the plugin will not work correctly due to the way Vim8 packages utility handles =after= directories.
+
+*** What's done by Vim when calling packadd?
+This is well explained in the [[https://neovim.io/doc/user/repeat.html#:packadd][official documentation]]. In short, when =packadd= is called explicitly, Vim will source =plugin/*.vim= under the package directory, and simply add =after= directory to the =runtimepath=. This causes the problem because scripts in the =after= directory are never sourced if the =packadd= happens after Vim has totally initialized, which it will be the case for a =packadd= invoked in =autocmd=.
+
+*** How to fix it?
+Well, since it's not sourced, let's just source it! The way I used is calling =runtime=, and here is a simple example:
+#+begin_src vimrc
+  autocmd FileType java :packadd vim-textobj-function
+      \ | runtime! OPT after/ftplugin/java/textobj-function.vim
+#+end_src
+When given =OPT=, =:runtime= will search the following files in the optional packages in =packpath=, which is the case we want. =!= simply means to source every matched files. The given match format should mimic the file structure under a particular package or plugin, as the example shows.
+
+*** Extra
+If we add =LanguageClient-neovim= also as an optional package, it will
+not autostart the servers correctly since the related code is in
+=autoload=. If we want to lazily set up the LSP related stuff when we
+open files of the supported types, an easy solution will be:
+
+#+begin_src vimrc
+  function LC_starts()
+      if has_key(g:LanguageClient_serverCommands, &filetype)
+          let g:quinoa42_loaded_lsp = 1
+          " fancy stuff here ...
+          LanguageClientStart
+      endif
+  endfunction
+
+  augroup Lazy_Loaded_LSP
+      au!
+      autocmd FileType rust,java,python
+                      \ if !exists('g:quinoa42_loaded_lsp') |
+                      \ call LC_starts() |
+                      \ endif
+  augroup END
+#+end_src
+*** Reference
+- [[https://neovim.io/doc/user/repeat.html#:packadd][Documentation about packages and packadd from Neovim]]
+
+** DONE Open tridactyl's external editor in a new tmux window :@software:tmux:Firefox:
+CLOSED: [2019-01-20 Sun]
+:PROPERTIES:
+:EXPORT_FILE_NAME: tridactyl-editorcmd-with-tmux.en.md
+:END:
+[[https://github.com/tridactyl/tridactyl][Tridactyl]] has been a decent replacement for [[https://github.com/vimperator/vimperator-labs][Vimperator]] or [[https://github.com/5digits/dactyl][Pentadactyl]] for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I'm using =tmux= for most of the time, I start to wondering if I could do some tweak with the =editorcmd= so that instead of a new terminal emulator window, a termporary tmux window will be opened.
+
+*** First attempt
+How =editorcmd= works is pretty simple: once the user invokes =editor()=, tridactyl will expand the first occurrence of =%f= into the filepath for the tempfile, or just append the filepath at the end if =%f= is not found (see [[https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255][this]] for details). So we could easily come up with the following code:
+#+begin_example
+  set editorcmd tmux new-window -n firefox 'nvim -f %f'
+#+end_example
+
+However, this actually doesn't work the way we want. What happens is that =tmux new-window= doesn't block until the window is closed. As a result, once the given command has returned, tridactyl will go straight to read from the provided tempfile, which will turn out to be empty since it's just opened by the Neovim in the new tmux window. We need to find a way to block the command until the window is closed.
+
+*** Solution
+A [[https://unix.stackexchange.com/a/137547][StackExchange answer]] points out the solution: to use =tmux wait-for=. =tmux wait-for <CHANNEL>= will block until receiving the signal on the given =CHANNEL=, while =tmux wait-for -S <CHANNEL>= will send such a signal to the =CHANNEL=. Thus, the solution will be:
+#+begin_example
+  set editorcmd tmux new-window -n firefox 'nvim -f %f; tmux wait-for -S firefox-neww-done' \; wait-for firefox-neww-done
+#+end_example
+
+This binding divides into two sequential command:
+#+begin_src sh
+  new-window -n firefox 'nvim -f %f; tmux wait-for -S firefox-neww-done'
+  wait-for firefox-neww-done
+#+end_src
+=\;= is to make sure the shell will not interpret this =;= so that it can be passed to =tmux=, where it also serves the purpose of dividing the commands (see the [[http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS][manpage]] for details).
+
+So in this new version, the second line will block until the first line returned, where in the first line the signal will not be sent until Neovim is closed. Once the signal is sent, the new =tmux= window will also be closed too. Everything works as expected!
+
+*** Reference
+- [[https://unix.stackexchange.com/a/137547][answer to the question 'Make tmux block until program completes' by Chris Johnsen]]
+- [[http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS][Manpage of tmux on OpenBSD]]
+- [[https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255][tridactyl source code on editorcmd]]
+
+** DONE Compile ruby with rbenv and brew-installed tcl-tk :@software:Ruby:OSX:
+CLOSED: [2017-11-22 Wed]
+:PROPERTIES:
+:EXPORT_FILE_NAME: ruby-tcl-tk.en.md
+:END:
+It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using =rbenv= and =ruby-build= with a brew-installed =tcl-tk= library.
+
+*** install tcl-tk
+#+begin_src sh
+  $ brew install tcl-tk
+#+end_src
+Then add =/usr/local/opt/tcl-tk/bin= to your path.
+
+Now if you type =wish=, a tiny GUI should appear, and also a REPL waiting for your input.
+
+Type
+#+begin_src sh
+  % info patchlevel
+#+end_src
+into the REPL, and a version such as =8.6.7= should appear reflecting the version installed by brew.
+
+*** compile ruby
+It turns out that =rbenv install= (or =ruby-build=) [[https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838][accept]] =CONFIGURE_OPTS= env variable. So we can use this one-line code to compile the ruby:
+#+begin_src sh
+  $ CONFIGURE_OPTS="--with-tcltkversion=8.6 --with-tcl-lib=/usr/local/opt/tcl-tk/lib --with-tk-lib=/usr/local/opt/tcl-tk/lib --with-tcl-include=/usr/local/opt/tcl-tk/include --with-tk-include=/usr/local/opt/tcl-tk/include" rbenv install 2.2.8
+#+end_src
+
+in =irb= with this ruby activated, (e.g. =rbenv local 2.2.8=), you should be able to see output like these with the commands:
+#+begin_src ruby
+  irb(main):001:0> require 'tk'
+  => true
+  irb(main):002:0> Tk::TK_PATCHLEVEL
+  => "8.6.7"
+#+end_src
+where the version output should match the =tcl-tk= version installed via =brew=.
+
+*** Reference
+- [[http://www.tkdocs.com/tutorial/install.html][Installing Tk]]
+- [[https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838][rbenv/ruby-build #77]]
+- [[https://qiita.com/ftakao2007/items/230050be7351db49383d][いまさらはじめる Ruby/Tk]]
+
+** DONE Eclim Setup :@software:eclim:Vim:
+CLOSED: [2017-10-12 Thu]
+:PROPERTIES:
+:EXPORT_FILE_NAME: eclim-setup.en.md
+:END:
+Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: [[http://eclim.org/index.html][Eclim]], which I have been wondering about since the time when I was still using Windows XP back in my high school.
+
+*** Get the necessary stuffs
+Firstly, download [[http://www.eclipse.org/downloads/eclipse-packages/][Eclipse]], in my case Eclipse for Java Developers, which I download & install via
+=brew cask=:
+#+begin_src sh
+  brew cask install eclipse-java
+#+end_src
+Then, download the =eclim.jar= from the github repo [[https://github.com/ervandew/eclim/releases/][releases page]].
+
+At this step, assume Eclipse and (neo)vim should all be installed on your computer; it's the time to install eclim. This could be done by just typing =java -jar eclim_2.7.0.jar= and use the GUI tool to finish the installing process. But for me I'd written a tiny lovely piece of code to help me do it automatically by using the provided [[http://eclim.org/install.html#unattended-automated-install][Automated install]] feature (this is also useful when you want to uninstall it):
+
+#+begin_src bash
+  #!/usr/bin/env bash
+
+  VIMPLUGIN_PATH="$HOME/.config/eclim"
+
+  ECLIPSE_PATH="/Applications/Eclipse Java.app/Contents/Eclipse"
+
+  if  [[ $1 = "install" ]] || [[ $1 = "uninstall" ]] && [[ -f $2 ]]; then
+      java \
+          -Dvim.files="$VIMPLUGIN_PATH" \
+          -Declipse.home="$ECLIPSE_PATH" \
+          -jar "$2" $1
+  else
+      echo "Usage: $0 [install|uninstall] [eclim.jar]"
+      exit 1
+  fi
+#+end_src
+
+*** Set it up with (neo)vim
+Note that with the default setting in my script, I actually installed Eclim to a directory =~/.config/eclim= instead of =.vim=. This is because I want to use [[https://github.com/junegunn/vim-plug][vim-plug]] to constrain it:
+#+begin_src vimrc
+  if executable('eclimd')
+      Plug '~/.config/eclim', { 'for' : 'java' }
+  endif
+#+end_src
+
+Also remember to add =/Applications/Eclipse Java.app/Contents/Eclipse/eclimd= to your path. One last thing is that to use its completion with deoplete, just add this to your =vimrc=:
+#+begin_src vimrc
+  if executable('eclimd')
+      let g:EclimCompletionMethod = 'omnifunc'
+  endif
+#+end_src
+
+*** compatible with javacomplete2
+It's not a good idea to have both Eclim and =javacomplete2= filling up the candidates for deoplete.
+
+So there is a workaround on [[http://blog.csdn.net/Listener_ri/article/details/50452572][CSDN]], which basically tests the return value of =eclim#project#util#GetCurrentProjectName()= to determine if the java file is in a project (and thus should use the completion provided by Eclim). Here is my version of code for my personal use:
+#+begin_src vimrc
+  function! Java_autocomplete()
+      if eclim#project#util#GetCurrentProjectName() == ''
+          let b:deoplete_omni_functions = [
+                      \ 'javacomplete#Complete'
+                      \]
+      else
+          let b:deoplete_omni_functions = [
+                      \ 'eclim#java#complete#CodeComplete'
+                      \]
+      endif
+  endfunction
+
+  augroup Java_deoplete
+      au!
+      autocmd FileType java call Java_autocomplete()
+  augroup END
+#+end_src
+
+Note that still =javacomplete2= will be load on background when a java file is opened, so it might slow down opening (neo)vim a lot. Since there seems to be no better solution, I comment out =Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }= by default.
+
+*** Reference
+- [[http://blog.csdn.net/Listener_ri/article/details/50452572][Solution on CSDN by ListenerRi]]
+
+** DONE Python environment configuration for Neovim :@software:Vim:Python:OSX:
+CLOSED: [2017-06-30 Fri]
+:PROPERTIES:
+:EXPORT_FILE_NAME: neovim-python.en.md
+:END:
+Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
+
+*** install pyenv
+The installing process is similar to [[id:cd8ac952-6060-4230-b07c-4eb6157a8d61][Ruby Setup]] here, just install [[https://github.com/pyenv/pyenv][pyenv]] instead. Don't forget to also install [[https://github.com/pyenv/pyenv-virtualenv][pyenv-virtualenv]], which is a handy tool in addition to =pyenv= that is capable of conveniently managing =virtualenv=.
+
+*** set up virtualenv
+See [[https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim][here]] for more details.
+#+begin_src sh
+  pyenv install --list # list all the available versions
+  pyenv install 2.7.13 # latest python2
+  pyenv install 3.6.1 # latest python3
+
+  pyenv virtualenv 2.7.13 neovim2 # virtualenv for python2
+  pyenv activate neovim2
+  pip install neovim
+  pyenv deactive
+
+  pyenv virtualenv 3.6.1 neovim3 # virtualenv for python3
+  pyenv activate neovim3
+  pip install neovim
+  pyenv deactivate
+#+end_src
+
+Then, we need to set the path for python provider in your Neovim config file (e.g. =init.nvim=):
+#+begin_src vimrc
+  " Python provider
+  if has("nvim")
+      let g:python_host_prog = $HOME . "/.pyenv/versions/neovim2/bin/python"
+      let g:python3_host_prog = $HOME . "/.pyenv/versions/neovim3/bin/python"
+  endif
+#+end_src
+
+Restart Neovim and then check if the providers work successfully:
+#+begin_example
+  :CheckHealth
+#+end_example
+
+It is supposed to print out =SUCCESS= in both =python2= and =python3= parts.
+
+*** Things you probably need
+I personally use [[https://github.com/junegunn/vim-plug][vim-plug]] to manage my plugins, [[https://github.com/Shougo/deoplete.nvim][deoplete]] to implement autocompletion, and [[https://github.com/w0rp/ale][ale]] to lint/fix my code. And for Python I use [[https://github.com/davidhalter/jedi][jedi]] to analysis my code and support autocompletion, [[https://pypi.python.org/pypi/flake8][flake8]] as the linter, [[https://github.com/google/yapf][YAPF]] and [[https://github.com/timothycrosley/isort][isort]] as the "fixers".
+
+First, install all these python tools (I personally install them for Python3):
+#+BEGIN_SRC sh
+  pyenv activate neovim3
+  python3 -m pip install flake8
+  pip install jedi
+  pip install yapf
+  pip install isort
+  pyenv deactivate
+#+END_SRC
+
+Install the plugins via =vim-plug= for Neovim if you haven't (you can use something else if you want):
+#+begin_src vimrc
+  if has("nvim")
+      Plug 'w0rp/ale'
+      Plug 'Shougo/deoplete.nvim', { 'do' : ':UpdateRemotePlugins' }
+      Plug 'Shougo/echodoc.vim' " it can show function def at the command line
+      Plug 'zchee/deoplete-jedi', { 'for' : 'python' } " deoplete source for python
+  endif
+#+end_src
+
+Next, if you want, manually set the linter/fixer for =ale=:
+#+begin_src vimrc
+  let g:ale_linters = {
+              \   'python' : ['flake8'],
+              \}
+
+  let g:ale_fixers = {
+              \   'python': [
+              \       'yapf',
+              \       'isort',
+              \   ],
+              \}
+#+end_src
+
+Here is the tricky part. Since our special virtualenv(s) for Neovim is not activated usually, =pyenv= will prevent Neovim to call the executables. So we have to set the executable paths manually:
+#+begin_src vimrc
+  " use flake8 installed at the virtualenv for neovim
+  let g:ale_python_flake8_executable = $HOME . "/.pyenv/versions/neovim3/bin/flake8"
+  let g:ale_python_flake8_use_global = 1
+  " use yapf installed at the virtualenv for neovim
+  let g:ale_python_yapf_executable = $HOME . "/.pyenv/versions/neovim3/bin/yapf"
+  let g:ale_python_yapf_use_global = 1
+  " use isort installed at the virtualenv for neovim
+  let g:ale_python_isort_executable = $HOME . "/.pyenv/versions/neovim3/bin/isort"
+  let g:ale_python_isort_use_global = 1
+#+end_src
+
+As a problem I encountered, the intended global config file for =YAPF=, located at =~/.config/yapf/style=, is not used when called from =ale=. Put the file at =~/.style.yapf= would fix this problem.
+
+One last thing about fixers and linters is that the preceding result will be overwrited by the following ones. For example, when calling =ALEFix=, my configuration will cause =isort= to run after =YAPF=, which will potentially generate some blank lines. I don't have perfect solution for this yet, but run =ALEFix= again could fix these empty lines.
+
+There are many other settings for the plugins. You can check out my [[https://github.com/quinoa42/dotfiles/blob/master/applications/nvim/init.vim#L288][dotfiles repo]] if you are interested.
+
+Note that there are some useful plugins for Python that worth having a look:
+- [[https://github.com/python-mode/python-mode][python-mode]]
+- [[https://github.com/vim-python/python-syntax][python-syntax]]
+
+*** reference
+- [[https://github.com/pyenv/pyenv][pyenv github repo]]
+- [[https://github.com/pyenv/pyenv-virtualenv][pyenv-virtualenv github repo]]
+- [[https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim][Setting up Python for Neovim]]
+
+** DONE Process Substitution and redirection without command :@software:shell:zsh:bash:
+CLOSED: [2017-06-22 Thu]
+:PROPERTIES:
+:EXPORT_FILE_NAME: process-substitution-and-redirection-without-command.en.md
+:END:
+Today I found an interesting [[https://www.v2ex.com/t/370077][discussion]] about some interesting statements:
+#+BEGIN_SRC sh
+  $ echo <(<<<"I am a cool here-string")
+  /dev/fd/11
+  $ cat <(<<<"I am a cool here-string")
+  I am a cool here-string
+#+END_SRC
+
+To understand how this works, we need to split the statements into pieces.
+
+*** here-string
+There isn't much to say about =<<<=, named /here-string/, which can be understood as a brief form of [[https://www.gnu.org/software/bash/manual/html_node/Redirections.html][heredoc]]. It simply redirects the string after it to =stdin=.
+
+*** Redirection with no command
+Bash (as latest as 4.2.46) does not support this feature. This is [[http://zsh.sourceforge.net/Doc/Release/Redirection.html#Redirections-with-no-command][supported by zsh]]: > ... if the parameter =NULLCMD= is set, its value will be used as a command with the given redirections. If both =NULLCMD= and =READNULLCMD= are set, then the value of the latter will be used instead of that of the former when the redirection is an input. The default for =NULLCMD= is =cat=...
+
+So, in our case, consider the following code as an example:
+#+BEGIN_SRC zsh
+  $ <<< "I am a cool here string"
+  I am a cool here string
+#+END_SRC
+This is reasonable because =<<<"hi"= is interpreted as =cat <<< "hi"=.
+
+*** Process Substitution
+What is Process Substitution then? the [[https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html#Process-Substitution][document]] says: >Process substitution allows a process's input or output to be referred to using a filename. It takes the form of =<(list)= or =>(list)=. The process /list/ is run asynchronously, and its input or output appears as a filename. This filename is passed as an argument to the current command as the result of the expansion. If the =>(list)= form is used, writing to the file will provide input for /list/.
+
+It would be more clear if we take the statements as examples:
+#+BEGIN_SRC zsh
+  $ echo <(<<<"I am a cool here-string")
+#+END_SRC
+
+The output of =<<<"I am a cool here-string= is =I am a cool here-string=, which is then referred as a file (in this case, =/dev/fd/11=). Next, this file's name is Substituted into the place where the =<()= was, as the result of expansion. As a result, the final statement is =echo /ev/fd/11=, which simply prints out =/ev/fd/11=.
+#+BEGIN_SRC zsh
+  $ cat <(<<<"I am a cool here-string")
+#+END_SRC
+
+similarly, after expansion the statement will be =cat /dev/fd/11=, which prints the file =/dev/fd/11=. The output will be =I am a cool here-string=, which is the output of the process =<<<"I am a cool here-string"=.
+
+*** Another example
+Hope this can help to show how these features work even further:
+#+BEGIN_SRC zsh
+  $ cat temp
+  hello
+  $ cat temp <(<<<"world") > >(sed -E "s/hello/goodbye/")
+  goodbye
+  world
+#+END_SRC
+
+*** Reference
+- [[https://www.v2ex.com/t/370077][discussionabout this topic on v2ex]]
+- [[https://www.gnu.org/software/bash/manual/html_node/Redirections.html][heredoc and here-string]]
+- [[http://zsh.sourceforge.net/Doc/Release/Redirection.html#Redirections-with-no-command][Redirections with no command]]
+- [[https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html#Process-Substitution][Process Substitution]]
+
+** DONE Fix display of special characters of tmux under ssh with t flag :@software:ssh:tmux:
+CLOSED: [2017-04-09 Sun]
+:PROPERTIES:
+:EXPORT_FILE_NAME: tmux-force-utf8.en.md
+:END:
+I am used to use tmux on our server via ssh with the simple but elegant command =ssh blabla@hostname -t tmux=, but today I suddenly realized that under my tmux all the Unicode special characters doesn't display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.
+
+Firstly I checked that if I simply =ssh blabla@hostname= and then =tmux= to generate or attach to a session, the session does show those characters correctly. Also, if I run =ssh blabla@hostname -t nvim=, Unicode special characters I set in my =Neovim= status line also display correctly. So I confirm that the problem is probably caused by =-t= flag, which is said to =force pseudo-terminal allocation=, by =man= page.
+
+So I guess =tmux= called under =ssh -t= thinks that =UTF-8= is not supported. The solution is quite simple, because tmux supports =-u= flag:
+#+begin_quote
+  the -u flag explicitly informs tmux that UTF-8 is supported.
+#+end_quote
+
+So, just start tmux with =-u= flag:
+#+begin_src sh
+  ssh blabla@hostname -t tmux -u
+#+end_src
+
+** DONE Terminfo for iterm2 and tmux that support italics, truecolor and fixed ctrl-h :@software:terminal:tmux:
+CLOSED: [2016-11-23 Wed]
+:PROPERTIES:
+:EXPORT_FILE_NAME: terminfo-truecolor.en.md
+:END:
+Everyone likes true color. But the true color support doesn't come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.
+
+*** iterm2
+Make a new file called =term-256color-italic.terminfo=, and add these:
+#+begin_example
+  # A xterm-256color based TERMINFO that adds the escape sequences for italic.
+  xterm-256color-italic|xterm with 256 colors and italic,
+    sitm=\E[3m, ritm=\E[23m,
+    kbs=\177,
+    use=xterm-256color,
+#+end_example
+
+then,
+#+begin_src sh
+  tic xterm-256color-italic.terminfo
+#+end_src
+
+Open iterm's =Preferences/profiles/Terminal= page, and edit =Report Terminal Type= into =xterm-256color-italic=.
+
+iTerm natively support true color.
+
+*** tmux
+Make a new file called =tmux.terminfo=, and add these:
+#+begin_example
+  # A screen-256color based TERMINFO that adds the escape sequences for italic.
+  # run to add to term db: tic -x tmux.terminfo
+  tmux|tmux terminal multiplexer,
+    ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
+    use=xterm, use=screen,
+    kbs=\177,
+
+  tmux-256color|tmux with 256 colors,
+    use=xterm-256color, use=tmux,
+    kbs=\177,
+#+end_example
+
+then,
+#+begin_src sh
+  tic -x tmux.terminfo
+#+end_src
+
+Also add these to your =.tmux.conf=:
+#+begin_src tmux
+  # use italic
+  set -g default-terminal "tmux-256color"
+  # true color!!!
+  set-option -ga terminal-overrides ",xterm-256color-italic:Tc"
+#+end_src
+
+*** neovim
+Now , time to set up neovim (using
+[[https://github.com/icymind/NeoSolarized][NeoSolarized]]):
+#+begin_src vimrc
+  " enable 256 colors
+  set t_Co=256
+  if has('nvim') " enable true color
+      set termguicolors
+      set t_8f=^[[38;2;%lu;%lu;%lum
+      set t_8b=^[[48;2;%lu;%lu;%lum
+  endif
+
+  " color theme
+  colorscheme NeoSolarized
+  " set background type
+  set background=dark
+#+end_src
+
+Note that =^[= is the special character =\e=.
+
+*** Reference
+- [[https://github.com/icymind/NeoSolarized][NeoSolarized]]
+- [[https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/][Italic fonts in iTerm2, tmux, and vim]]
+- [[http://apple.stackexchange.com/a/249385][Answer by Bret Fisher in a question on AskDifferent]]
+- [[https://github.com/neovim/neovim/wiki/FAQ#my-ctrl-h-mapping-doesnt-work][Solution to fix ctrl-h for neovim]]
+
+** DONE Run Foobar2000 in Mac :@software:OSX:wine:
+CLOSED: [2016-11-06 Sun]
+:PROPERTIES:
+:EXPORT_FILE_NAME: mac-foobar2000.en.md
+:END:
+Today I realized that iTunes does not support =*.flac= files at all. Stubborn user as I am, *NO ONE* can force me to get used to their way of doing things. It's okay for iTunes to only support its own format of lossless music, but I just choose to not use it.
+
+So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:
+
+*** wineskin
+Wineskin is a third-party tool to easily make wine wrapper. A wrapper works as a native osx app, and inside the wrapper runs your favorite windows program.
+
+To use it, simply download its official app [[http://wineskin.urgesoftware.com/tiki-index.php?page=Downloads][Wineskin Winery]].
+
+Unzip the file and throw it somewhere or into =Applications= if you like, then update the Wrapper Version and install some versions of Engines (usually newest works just fine). Things like =WS*Wine****= is the normal Wrapper which compiled from the official wine source code, while =WS*WineCX****= compiled from the [[https://www.codeweavers.com/][Crossover]] wine source code.
+
+*** wrapper for Foobar2000
+Here I chose =Wineskin-2.6.2= for wrapper and =WS9Wine1.9.2.1= for Engine.
+
+Since I use a Chinese lazy pack of Foobar2000, I add the following command to =Configuration - Custom Commands=:
+#+begin_src bash
+  export LANG=zh_CN.UTF-8
+#+end_src
+
+Also, install Chinese font support via =winetricks=:
+#+begin_src bash
+  winetricks wenquanyi
+  winetricks fakechinese
+#+end_src
+
+I found a handy ready-to-use environment setup progress via =winetricks= [[https://hydrogenaud.io/index.php/topic,110516.msg923588.html#msg923588][here]]:
+#+begin_example
+  gdiplus_winxp
+  wsh57
+  fontsmooth=rgb
+  msscript
+  ie8
+  msls31
+  w_workaround_wine_bug-25648
+  msxml3
+  wmp10
+  vb6run
+  vcrun2010
+#+end_example
+
+*** problems
+Now most parts of my Foobar2000 work well. The only problem I encounter is that one of my WSH Panel is broken:
+#+begin_example
+  WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff >> http://br3tt.deviantart.com): Parsing file"C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js"
+  Error: WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff >> http://br3tt.deviantart.com): Microsoft JScript runtime error:
+  Automation server can't create object
+  File: C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js
+  Ln: 3207, Col: 1
+  <source text only available at compile time>
+#+end_example
+
+There are mainly two solution for this:
+1. [[http://www.cnblogs.com/sirrah/articles/2349099.html][JS中automation服务器不能创建对象]]
+2. [[https://leftosa.wordpress.com/2013/05/08/fix-for-automation-server-cant-create-object/][Fix for "Automation Server Can't Create Object"]]
+Neither of them work for me. So I delete the line of the source code that imports =Browser.js=. Although I cannot use this function anymore, no more error found.
+
+** DONE Ruby Setup :@software:Ruby:
+CLOSED: [2016-10-28 Fri]
+:PROPERTIES:
+:EXPORT_FILE_NAME: ruby-setup.en.md
+:ID:       cd8ac952-6060-4230-b07c-4eb6157a8d61
+:END:
+Here I record what I did to install ruby on my macbook.
+
+*** rbenv
+[[https://github.com/rbenv/rbenv#readme][rbenv]] works as a ruby environment manager.
+#+begin_src sh
+      brew update
+      brew install rbenv
+#+end_src
+
+and setup rbenv based on the instruction in:
+#+begin_src sh
+      rbenv init
+#+end_src
+
+*** ruby-build
+[[https://github.com/rbenv/ruby-build#readme][ruby-build]] is a plugin that provides rbenv with function =rbenv install=, which just works as installing differnt version of ruby into rbenv.
+
+if you install rbenv with HomeBrew, it should be already installed, but if not,
+#+begin_src sh
+      brew install ruby-build
+#+end_src
+
+*** install ruby
+To see the list of ruby versions available:
+#+begin_src sh
+      rbenv install -l
+#+end_src
+
+To install ruby (for example, 2.3.1):
+#+begin_src sh
+      rbenv install 2.3.1
+      rbenv rehash
+#+end_src
+
+use a certain version of ruby to be used globally:
+#+begin_src sh
+      rbenv global 2.3.1
+#+end_src
+
+*** bundler
+[[http://bundler.io/][bundler]] is a standalone gem that is able to manage gems, and it has can be integrated easily with rbenv via [[https://github.com/rbenv/rbenv/wiki/Plugins#bundler-integration][binstubs]].
+#+begin_src sh
+      rbenv version ### check if the current ruby versio
+      gem install bundler ##
+#+end_src
+
+* Zatsudan
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: Whimsia
+:END:
+Zatsudan is for all posts unrelated to tech, science and math. Written in some random language.
+** DONE (restart) :@meta:
+CLOSED: [2019-10-28 Mon 00:18]
+:PROPERTIES:
+:EXPORT_FILE_NAME: switch-to-ox-hugo.zh.md
+:ID:       033d377b-cec1-46bf-933a-a3359592403c
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-10-28 Mon 00:18]
+- State "TODO"       from              [2019-10-27 Sun 22:51]
+:END:
+过去的2个月时间里，我的周遭发生了很大的变化。一方面，我来到了大城市独立生活；另一方面，因为工作环境的原因（指不能用 Linux 办公），我不得不尝试在 Windows 下搭建一个舒适的环境。尝试过的读者们肯定知道， Windows 下使用 Vim/Neovim 简直是一场灾难。因此，我把目光投向了另一个编辑器界的顶点： Emacs。
+
+其实我接触 Emacs 比 Vim 还早。当时 NOIP 集训的时候，来带队的学长用的就是 Emacs，顺带着把我带入坑了。当时我也没时间去学习 Elisp，更加没时间去维护我的配置，更重要的是我没法把我的配置带进考场，最后也就不了了之。
+
+之后我开始尝试使用 Vim，并在大学正式入门，使用 Vim 和 Neovim 完成了大学期间的所有的作业。越用 Vim，我对 Vim 的哲学越深感认同，无论是 text object 还是 modal editing 都如此自然，就好像是在和机器对话。 Neovim 虽然是与旧体制的一次割裂，但它带来的生态活力确实让停滞的 Vim 圈子重新转动了起来。这期间我也尝试过诸如 Intellij 之类的 IDE，但每次我都在一段时间后滚回了 Vim。一方面，这些 IDE 的 Vim 插件鲜有能完美j复刻 Native Vim 所有 motion/text object 和 operator 效果的，更不要说可定制性和生态系统了： Vimscript 是 Turing complete 的，和 JSON 这些配置语言中间隔了一道不可逾越之壁；另一方面， IDE 让我感觉它们只是让我离理解事物更远，我不知道它们是什么时候保存的我的文件，我不知道它们什么时候会根据硬盘上的更新重读文件，我不知道它们什么时候 stage 了我的修改，我不知道我要怎么从那复杂的 GUI 和见都没见过的菜单中找到我想要的功能，更重要的是我不知道该怎么把一些功能组合成一键调用的宏放到我的 nmap/vmap/imap 里。而命令行下的 Tmux+Vim 是如此简单直白，如此易于掌握。每一个自带的功能都可以用help查阅，每一个新增的功能都是我手动添加开启。我了解我环境的一切，我知道我的环境没有冗余功能，我也知道我的环境出现了问题该如何去 DEBUG、修复。
+
+但不知不觉，我已经离Vim的哲学之一越来越远： Do one thing, do it well. 我安慰自己，我的庞大 Neovim 配置仍然遵循 UNIX 哲学；它的 one thing 就是文本编辑，因此所有文本编辑的事情它都在做。但有时候我还是会想，既然我需要如此多的功能，那我为什么不用更加全能，更加综合性的 Emacs 呢？
+
+于是乎，趁着这个机会，我花了将近2个月的时间体验了新时代的 Emacs。我还是按照我自己的风格，不去选用 Spacemacs 和 Doom Emacs 这样的大型配置（因为它们的问题和 IDE 类似），而是四处 google 和翻文档，从零开始积攒了我自己的配置文件。这个过程中，我对 Emacs 也是越来越喜欢，而到我配置文件基本完成的一刻，也就是今天，我也算是完成了从 Vim 皈依到 Emacs 的个人转变。
+
+我觉得 Emacs 和 Vim 相比，主要有以下几个优缺点:
++ Keymap :: Emacs 的 Keymap 有优先级，输入时会依次 fallback，也可以按需、按 mode 等等开启或关闭，这和Vim只能靠 global/buffer local mapping 来区分相比优势很大。
++ 复杂的 keybinding :: 这个毫无疑问是缺点。不是 Modal editing 的 Emacs 需要很复杂的 Ctrl, Alt, Shift 和其他按键依次组合才能选中某个常见功能，比如 =C-x 5 o= 是选中另一个 frame。当然，Emacs 社区有很多解决这个难题的方案： =which-key= ，自动提示已输入 prefix 开头的所有 key binding； =hydra= （和类似的 =Hercules=)，可选地省略公共 prefix，快速输入指令；当然，还有 Evil，the Extensible Vi Layer. 说Vi明显是自谦，因为它实现了绝大部分Vi IMproved 常用的功能。和上面提到的 Keymap 配合，甚至可以实现很多原生 Vim 做不到的效果。
++ Lisp :: 虽然Vimscript也是 Turing complete，但 Lisp 真的很酷，真的很酷，真的很酷。除了很酷之外，Emacs 生态的插件很少需要外部依赖，很多都是完全用 Emacs Lisp 实现的(比如 =Editorconfig=)，不像 Neovim 需要 Python/ruby 等等编写的 Remote Plugin。
++ 超长的初始化时间 :: 我的 Neovim 初始化只需要 300ms，而 Emacs 光是启动 headless daemon 就需要将近2秒。好在 Emacs 自己有规避方案，也就是把 Emacs 当作一个服务器来跑，用 emacsclient 来从这个服务器调起窗口。这个使用环境下，Random file access 需要的时间极大缩短，能和 Neovim 媲美。
++ 丰富的原生功能 :: Emacs 自带的 built-in 涵盖了非常广的功能，而且这个规模还在扩大。统一的可堪一用的原生环境提供了更加统一的接口。
++ Org mode :: 如果说 Emacs 有什么杀手锏是 Vim 永远也无法实现的，那恐怕就是 Org mode 了。GUI 的 Emacs 支持类富文本显示，可以给不同级别的 heading 设置不同的字体，包括颜色和大小。它还可以用非等宽字体显示文本片段，也可以行内显示插入的图片和公式。更强的是 Org Babel 提供的 literate programming 支持（我的 Emacs 配置就是使用 literate programming style 编写的），这让写解题报告和写代码同步成为了可能。更不要说Org Mode自带的 Task management 支持了，与此相关的著作互联网上到处都是，我就不再复述了。值得一提的是 Org mode 支持内部的全局（指全盘）GUID reference，这就让到处移动文件和目录树但不破坏 relative link 成为了可能。
+
+我也进入了不少 Emacs User 都会进入的奇妙状态：想用 Org mode 把那些看起来非常有关联却又得分开使用不同软件来实现的需求用 Org mode 来统一。这其中包括了收集文档/网页剪裁/个人 WIKI /任务管理/个人 blog 等等等等。就我最近的体验来看，Emacs 和 Org mode 已经非常接近我想要的效果了。这个话展开讲可能又是几千个字，所以留待以后再谈。但作为这个大工程的一部分，从今日起，我的博客也搬迁到了 [[https://ox-hugo.scripter.co/][ox-hugo]]。这个项目可以把 Org Mode 的某个 sub tree 输出为单篇文章，一个文件就可以是一整个 section，而且 org mode 自己的 tag/todo state 等等的标记也会变成 Hugo 兼容的 front matter 里的信息，非常的酷。
+
+其实写这篇文章也只是想标记一下我从 zola 把博客搬到 ox-hugo 这个事情，不知不觉就写成了和编辑器圣战相关的一篇杂谈。
+** DONE Move to Firefox 57 or going back to ESR? :@software:Firefox:
+CLOSED: [2017-09-21 Thu]
+:PROPERTIES:
+:EXPORT_FILE_NAME: move-to-fx57.en.md
+:END:
+As the so-called next generation of Firefox, 57, has become available as the nightly version, the death of XUL is no longer far away. As the [[https://wiki.mozilla.org/RapidRelease/Calendar][Calendar]] suggests, as soon as 2017-11-14 Firefox 57 will become the stable released version, and ESR will become the only version that supports the dying XUL addons. While [[https://github.com/qutebrowser/qutebrowser][qutebrowser]] could be a solution to save my way of exploring, it is still in alpha development and lacks some of my must-have features. So the problem is clear: whether to embrace the brand new Firefox 57 or stay back with Firefox ESR (52).
+
+*** Add-ons Immigration
+The biggest reason stops me from happily switch to Firefox 57 of course is the dying XUL add-ons. As a matter of fact, the new WebExtensions API lacks some crucial features, which as a result makes the port of some great add-ons of all time, among which we have Vimperator and Pentadactyl, totally impossible. However, there is also new hope: people are spontaneously doing work to extend WebExtensions API to make everything [[https://bugzil.la/1215061][possible]].
+
+But, before that, life has to go on. I just tested some of the new add-ons recommended on [[https://docs.google.com/spreadsheets/d/1TFcEXMcKrwoIAECIVyBU0GPoSmRqZ7A0VBvqeKYVSww/htmlview][firefox-webext-list]],
+and here are my result:
+- [[https://github.com/5digits/dactyl][Pentadactyl]] -> [[https://addons.mozilla.org/en-US/firefox/addon/saka-key/][Saka Key]] :: I have to say this is not the perfect solution but it is almost the only way works in the current Firefox. While it supports browsing web with =hjkl= and =gg=, =G=, etc, and supports hint mode and set hotkeys for switching tabs, it stops working on any "special pages", for example =about:blank= or [[https://addons.mozilla.org/en-US/firefox/][Mozilla Add-ons Marketplace]], which is not very nice (actually, bad) when you type several =gt= or your favorite keybinding but to find youself is trapped in such a special page and have to use mouse to move on. Also, there is no command bar so you cannot type =o= or =t= to open a url, not to mention the highly embeded ways of interactions between the commands you typed and Firefox. Anyway, I hope in the future we could have real vim-like add-ons in this fast new Firefox.
+- [[https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/][uBlock Origin]] :: The port has been completed. It just works as it always be.
+- [[https://addons.mozilla.org/en-US/firefox/addon/noscript/][NoScript]] :: It is said that the port is on the way. There is one workaround called [[https://addons.mozilla.org/en-US/firefox/addon/umatrix/][uMatrix]] but I haven't try it out.
+- [[https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/][Greasemonkey]] -> [[https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/][Violentmonkey]] or [[https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/][Tempermonkey]] :: It is said that the port is on the way, but there are two peer add-ons developed in WebExtensions already. Neither of them is totally compatible with Greasemonkey, but I'd choose Violentmonkey for now since it's new and open source.
+- [[https://addons.mozilla.org/en-us/firefox/addon/stylish/][Stylish]] -> [[https://addons.mozilla.org/en-US/firefox/addon/styl-us/][Stylus]] or [[https://addons.mozilla.org/en-GB/firefox/addon/xStyle/][xStyle]] :: Similar to Greasemonkey, Stylish also has two successors, both of which are actually Chrome's Stylish forks. It is possible that the real Chrome's Stylish will be ported to Firefox, since Firefox supports WebExtensions now.
+- [[https://addons.mozilla.org/en-US/firefox/addon/firebug/][Firebug]] :: Firebug will die with the old XULs, but most of its functions has already been ported into the native Firefox's Web Developer Tools.
+- [[https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/][FoxyProxy]] -> [[https://addons.mozilla.org/en-US/firefox/addon/switchyomega/][SwitchyOmega]] :: The famous SwitchyOmega has already been ported into Firefox, however it is still in alpha development. Plenty of bugs exist.
+
+*** Thoughts
+While Firefox 57 is newer and extremely faster, I would choose to stay with Firefox ESR just for now. A world without my favorite Pentadactyl or any similar tools is too hard to live in, IMHO.
+** DONE Hello, world! :@meta:
+CLOSED: [2016-10-28 Fri]
+:PROPERTIES:
+:EXPORT_FILE_NAME: hello-world.en.md
+:END:
+So start from today, here would be my temporary blog where I'll write some notes about the things I learned.

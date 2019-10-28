@@ -1,0 +1,13 @@
+baseURL = "https://quinoa42.github.io/"
+DefaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+title = "Emain Ablach"
+pygmentsCodeFences = true
+
+[languages]
+
+[languages.en]
+weight = 1
+[languages.zh]
+weight = 2
+hasCJKLanguage = true

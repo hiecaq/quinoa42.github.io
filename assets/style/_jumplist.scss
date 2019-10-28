@@ -1,0 +1,18 @@
+.jumplist {
+    display: inline-block;
+    ul {
+        display: inline-block;
+        margin: 0px;
+
+        li {
+            display: inline-block;
+        }
+    }
+}
+
+.tags {
+    ul {
+        padding-left: 0px;
+    }
+    font-family: monospace;
+}

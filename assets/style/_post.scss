@@ -1,0 +1,23 @@
+.post-item {
+    header {
+        .tt {
+            display: flex;
+            justify-content: space-between;
+            h1 {
+                display: inline-block;
+            }
+            time {
+                display: inline-block;
+                margin-top: auto;
+                margin-bottom: auto;
+                margin-left: auto;
+                @include foreground('faint');
+            }
+        }
+        .meta {
+            .tags {
+                display: inline-block;
+            }
+        }
+    }
+}

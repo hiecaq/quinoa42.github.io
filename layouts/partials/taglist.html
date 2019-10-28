@@ -1,0 +1,9 @@
+ <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          {{ partial "taxo.html" (dict "content" . "taxo" "categories") }}
+          {{ partial "taxo.html" (dict "content" . "taxo" "tags") }}
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    {{ $style := resources.Get "style/site.scss" | resources.ToCSS | resources.Minify }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    <title>{{ block "title" . }}
+      {{ .Site.Title }}
+      {{ end }}</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></div>
+      <nav class="jumplist">
+        <ul>
+          {{ range .Site.Sections }}
+          <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+          {{ end }}
+        </ul>
+      </nav>
+    </header>
+    <main>
+    {{ block "main" . }}
+    {{ end }}
+    </main>
+    <footer id="footer">
+    {{ block "footer" . }}
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    {{ end }}
+    </footer>
+  </body>
+</html>

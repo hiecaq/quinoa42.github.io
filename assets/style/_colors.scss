@@ -1,0 +1,19 @@
+@mixin foreground($type: 'primary') {
+    color: pickcolor($type);
+}
+
+@mixin background($type: 'background') {
+    background: pickcolor($type);
+}
+
+$colors: (
+    'primary': rgb(0,0,0),
+    'faint': rgba(0,0,0, 0.6),
+    'secondary': #750000,
+    'secondary-faint': #613232,
+    'background': #fdf9f9
+);
+
+@function pickcolor($type) {
+    @return map-get($colors, $type);
+}

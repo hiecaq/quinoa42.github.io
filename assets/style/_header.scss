@@ -1,0 +1,12 @@
+#header {
+    display: flex;
+    align-items: center;
+
+    .jumplist {
+        ul {
+            li {
+                margin-left: 6px;
+            }
+        }
+    }
+}

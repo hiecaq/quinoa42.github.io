@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/tags/</link>
+    <description>Recent content in Tags on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ArchLinux</title>
+      <link>https://quinoa42.github.io/en/tags/archlinux/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/archlinux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Haskell</title>
+      <link>https://quinoa42.github.io/en/tags/haskell/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/haskell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vim</title>
+      <link>https://quinoa42.github.io/en/tags/vim/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xmonad</title>
+      <link>https://quinoa42.github.io/en/tags/xmonad/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/xmonad/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>latex</title>
+      <link>https://quinoa42.github.io/en/tags/latex/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/latex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>alacritty</title>
+      <link>https://quinoa42.github.io/en/tags/alacritty/</link>
+      <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/alacritty/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>compton</title>
+      <link>https://quinoa42.github.io/en/tags/compton/</link>
+      <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/compton/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fzf</title>
+      <link>https://quinoa42.github.io/en/tags/fzf/</link>
+      <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/fzf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>i3wm</title>
+      <link>https://quinoa42.github.io/en/tags/i3wm/</link>
+      <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/i3wm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Firefox</title>
+      <link>https://quinoa42.github.io/en/tags/firefox/</link>
+      <pubDate>Sun, 20 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/firefox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tmux</title>
+      <link>https://quinoa42.github.io/en/tags/tmux/</link>
+      <pubDate>Sun, 20 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/tmux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OSX</title>
+      <link>https://quinoa42.github.io/en/tags/osx/</link>
+      <pubDate>Wed, 22 Nov 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/osx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ruby</title>
+      <link>https://quinoa42.github.io/en/tags/ruby/</link>
+      <pubDate>Wed, 22 Nov 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>eclim</title>
+      <link>https://quinoa42.github.io/en/tags/eclim/</link>
+      <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/eclim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://quinoa42.github.io/en/tags/python/</link>
+      <pubDate>Fri, 30 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bash</title>
+      <link>https://quinoa42.github.io/en/tags/bash/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>https://quinoa42.github.io/en/tags/shell/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zsh</title>
+      <link>https://quinoa42.github.io/en/tags/zsh/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/zsh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ssh</title>
+      <link>https://quinoa42.github.io/en/tags/ssh/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>terminal</title>
+      <link>https://quinoa42.github.io/en/tags/terminal/</link>
+      <pubDate>Wed, 23 Nov 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/terminal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wine</title>
+      <link>https://quinoa42.github.io/en/tags/wine/</link>
+      <pubDate>Sun, 06 Nov 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/tags/wine/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

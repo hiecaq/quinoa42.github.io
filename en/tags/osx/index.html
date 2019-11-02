@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  OSX &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
+      <nav class="jumplist">
+        <ul>
+          
+          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
+          
+          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <main>
+    
+  
+      <article class="post-item">
+        <header>
+          <div class="tt">
+            <h1><a href="/en/oceanus/ruby-tcl-tk/">Compile ruby with rbenv and brew-installed tcl-tk</a></h1>
+            <time>11-22-2017</time>
+          </div>
+          <div class="reading-info">
+            <div class="left">
+             <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/ruby/">Ruby</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/osx/">OSX</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+            </div>
+            <div class="right">
+              <span>175 words</span>
+              <span>
+                &bull;
+              </span>
+              <span>1 min read</span>
+            </div>
+          </div>
+        </header>
+        
+
+<p>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using <code>rbenv</code> and <code>ruby-build</code> with a brew-installed <code>tcl-tk</code> library.</p>
+
+<h2 id="install-tcl-tk">install tcl-tk</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ brew install tcl-tk</code></pre></div>
+<p>Then add <code>/usr/local/opt/tcl-tk/bin</code> to your path.</p>
+
+<p>Now if you type <code>wish</code>, a tiny GUI should appear, and also a REPL waiting for your input.</p>
+
+<p>Type</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">% info patchlevel</code></pre></div>
+<p>into the REPL, and a version such as <code>8.6.7</code> should appear reflecting the version installed by brew.</p>
+
+<h2 id="compile-ruby">compile ruby</h2>
+
+<p>It turns out that <code>rbenv install</code> (or <code>ruby-build</code>) <a href="https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838">accept</a> <code>CONFIGURE_OPTS</code> env variable. So we can use this one-line code to compile the ruby:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ CONFIGURE_OPTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--with-tcltkversion=8.6 --with-tcl-lib=/usr/local/opt/tcl-tk/lib --with-tk-lib=/usr/local/opt/tcl-tk/lib --with-tcl-include=/usr/local/opt/tcl-tk/include --with-tk-include=/usr/local/opt/tcl-tk/include&#34;</span> rbenv install <span style="color:#ae81ff">2</span>.2.8</code></pre></div>
+<p>in <code>irb</code> with this ruby activated, (e.g. =rbenv local 2.2.8=), you should be able to see output like these with the commands:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">irb(main):<span style="color:#ae81ff">001</span>:<span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;</span> require <span style="color:#e6db74">&#39;tk&#39;</span>
+<span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>
+irb(main):<span style="color:#ae81ff">002</span>:<span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">Tk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">TK_PATCHLEVEL</span>
+<span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;8.6.7&#34;</span></code></pre></div>
+<p>where the version output should match the <code>tcl-tk</code> version installed via <code>brew</code>.</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="http://www.tkdocs.com/tutorial/install.html">Installing Tk</a></li>
+<li><a href="https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838">rbenv/ruby-build #77</a></li>
+<li><a href="https://qiita.com/ftakao2007/items/230050be7351db49383d">いまさらはじめる Ruby/Tk</a></li>
+</ul>
+
+      </article>
+  
+      <article class="post-item">
+        <header>
+          <div class="tt">
+            <h1><a href="/en/oceanus/neovim-python/">Python environment configuration for Neovim</a></h1>
+            <time>06-30-2017</time>
+          </div>
+          <div class="reading-info">
+            <div class="left">
+             <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/vim/">Vim</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/python/">Python</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/osx/">OSX</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+            </div>
+            <div class="right">
+              <span>569 words</span>
+              <span>
+                &bull;
+              </span>
+              <span>3 min read</span>
+            </div>
+          </div>
+        </header>
+        
+
+<p>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.</p>
+
+<h2 id="install-pyenv">install pyenv</h2>
+
+<p>The installing process is similar to <a href="/en/oceanus/ruby-setup/">Ruby Setup</a> here, just install <a href="https://github.com/pyenv/pyenv">pyenv</a> instead. Don&rsquo;t forget to also install <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a>, which is a handy tool in addition to <code>pyenv</code> that is capable of conveniently managing <code>virtualenv</code>.</p>
+
+<h2 id="set-up-virtualenv">set up virtualenv</h2>
+
+<p>See <a href="https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim">here</a> for more details.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv install --list <span style="color:#75715e"># list all the available versions</span>
+pyenv install <span style="color:#ae81ff">2</span>.7.13 <span style="color:#75715e"># latest python2</span>
+pyenv install <span style="color:#ae81ff">3</span>.6.1 <span style="color:#75715e"># latest python3</span>
+
+pyenv virtualenv <span style="color:#ae81ff">2</span>.7.13 neovim2 <span style="color:#75715e"># virtualenv for python2</span>
+pyenv activate neovim2
+pip install neovim
+pyenv deactive
+
+pyenv virtualenv <span style="color:#ae81ff">3</span>.6.1 neovim3 <span style="color:#75715e"># virtualenv for python3</span>
+pyenv activate neovim3
+pip install neovim
+pyenv deactivate</code></pre></div>
+<p>Then, we need to set the path for python provider in your Neovim config file (e.g. =init.nvim=):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#75715e">&#34; Python provider</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#34;nvim&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">python_host_prog</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim2/bin/python&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">python3_host_prog</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/python&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
+<p>Restart Neovim and then check if the providers work successfully:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">:CheckHealth</code></pre></div>
+<p>It is supposed to print out <code>SUCCESS</code> in both <code>python2</code> and <code>python3</code> parts.</p>
+
+<h2 id="things-you-probably-need">Things you probably need</h2>
+
+<p>I personally use <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to manage my plugins, <a href="https://github.com/Shougo/deoplete.nvim">deoplete</a> to implement autocompletion, and <a href="https://github.com/w0rp/ale">ale</a> to lint/fix my code. And for Python I use <a href="https://github.com/davidhalter/jedi">jedi</a> to analysis my code and support autocompletion, <a href="https://pypi.python.org/pypi/flake8">flake8</a> as the linter, <a href="https://github.com/google/yapf">YAPF</a> and <a href="https://github.com/timothycrosley/isort">isort</a> as the &ldquo;fixers&rdquo;.</p>
+
+<p>First, install all these python tools (I personally install them for Python3):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv activate neovim3
+python3 -m pip install flake8
+pip install jedi
+pip install yapf
+pip install isort
+pyenv deactivate</code></pre></div>
+<p>Install the plugins via <code>vim-plug</code> for Neovim if you haven&rsquo;t (you can use something else if you want):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#34;nvim&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;w0rp/ale&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Shougo/deoplete.nvim&#39;</span>, { <span style="color:#e6db74">&#39;do&#39;</span> : <span style="color:#e6db74">&#39;:UpdateRemotePlugins&#39;</span> }<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Shougo/echodoc.vim&#39;</span> <span style="color:#75715e">&#34; it can show function def at the command line</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;zchee/deoplete-jedi&#39;</span>, { <span style="color:#e6db74">&#39;for&#39;</span> : <span style="color:#e6db74">&#39;python&#39;</span> } <span style="color:#75715e">&#34; deoplete source for python</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
+<p>Next, if you want, manually set the linter/fixer for <code>ale</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_linters</span> = {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            \   <span style="color:#e6db74">&#39;python&#39;</span> : [<span style="color:#e6db74">&#39;flake8&#39;</span>],<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            \}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_fixers</span> = {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            \   <span style="color:#e6db74">&#39;python&#39;</span>: [<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            \       <span style="color:#e6db74">&#39;yapf&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            \       <span style="color:#e6db74">&#39;isort&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            \   ],<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            \}</code></pre></div>
+<p>Here is the tricky part. Since our special virtualenv(s) for Neovim is not activated usually, <code>pyenv</code> will prevent Neovim to call the executables. So we have to set the executable paths manually:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#75715e">&#34; use flake8 installed at the virtualenv for neovim</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_flake8_executable</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/flake8&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_flake8_use_global</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; use yapf installed at the virtualenv for neovim</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_yapf_executable</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/yapf&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_yapf_use_global</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; use isort installed at the virtualenv for neovim</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_isort_executable</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/isort&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_isort_use_global</span> = <span style="color:#ae81ff">1</span></code></pre></div>
+<p>As a problem I encountered, the intended global config file for <code>YAPF</code>, located at <code>~/.config/yapf/style</code>, is not used when called from <code>ale</code>. Put the file at <code>~/.style.yapf</code> would fix this problem.</p>
+
+<p>One last thing about fixers and linters is that the preceding result will be overwrited by the following ones. For example, when calling <code>ALEFix</code>, my configuration will cause <code>isort</code> to run after <code>YAPF</code>, which will potentially generate some blank lines. I don&rsquo;t have perfect solution for this yet, but run <code>ALEFix</code> again could fix these empty lines.</p>
+
+<p>There are many other settings for the plugins. You can check out my <a href="https://github.com/quinoa42/dotfiles/blob/master/applications/nvim/init.vim#L288">dotfiles repo</a> if you are interested.</p>
+
+<p>Note that there are some useful plugins for Python that worth having a look:</p>
+
+<ul>
+<li><a href="https://github.com/python-mode/python-mode">python-mode</a></li>
+<li><a href="https://github.com/vim-python/python-syntax">python-syntax</a></li>
+</ul>
+
+<h2 id="reference">reference</h2>
+
+<ul>
+<li><a href="https://github.com/pyenv/pyenv">pyenv github repo</a></li>
+<li><a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv github repo</a></li>
+<li><a href="https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim">Setting up Python for Neovim</a></li>
+</ul>
+
+      </article>
+  
+      <article class="post-item">
+        <header>
+          <div class="tt">
+            <h1><a href="/en/oceanus/mac-foobar2000/">Run Foobar2000 in Mac</a></h1>
+            <time>11-06-2016</time>
+          </div>
+          <div class="reading-info">
+            <div class="left">
+             <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/osx/">OSX</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/wine/">wine</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+            </div>
+            <div class="right">
+              <span>350 words</span>
+              <span>
+                &bull;
+              </span>
+              <span>2 min read</span>
+            </div>
+          </div>
+        </header>
+        
+
+<p>Today I realized that iTunes does not support <code>*.flac</code> files at all. Stubborn user as I am, <strong>NO ONE</strong> can force me to get used to their way of doing things. It&rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.</p>
+
+<p>So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:</p>
+
+<h2 id="wineskin">wineskin</h2>
+
+<p>Wineskin is a third-party tool to easily make wine wrapper. A wrapper works as a native osx app, and inside the wrapper runs your favorite windows program.</p>
+
+<p>To use it, simply download its official app <a href="http://wineskin.urgesoftware.com/tiki-index.php?page=Downloads">Wineskin Winery</a>.</p>
+
+<p>Unzip the file and throw it somewhere or into <code>Applications</code> if you like, then update the Wrapper Version and install some versions of Engines (usually newest works just fine). Things like <code>WS*Wine****</code> is the normal Wrapper which compiled from the official wine source code, while <code>WS*WineCX****</code> compiled from the <a href="https://www.codeweavers.com/">Crossover</a> wine source code.</p>
+
+<h2 id="wrapper-for-foobar2000">wrapper for Foobar2000</h2>
+
+<p>Here I chose <code>Wineskin-2.6.2</code> for wrapper and <code>WS9Wine1.9.2.1</code> for Engine.</p>
+
+<p>Since I use a Chinese lazy pack of Foobar2000, I add the following command to <code>Configuration - Custom Commands</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export LANG<span style="color:#f92672">=</span>zh_CN.UTF-8</code></pre></div>
+<p>Also, install Chinese font support via <code>winetricks</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">winetricks wenquanyi
+winetricks fakechinese</code></pre></div>
+<p>I found a handy ready-to-use environment setup progress via <code>winetricks</code> <a href="https://hydrogenaud.io/index.php/topic,110516.msg923588.html#msg923588">here</a>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">gdiplus_winxp
+wsh57
+fontsmooth=rgb
+msscript
+ie8
+msls31
+w_workaround_wine_bug-25648
+msxml3
+wmp10
+vb6run
+vcrun2010</code></pre></div>
+<h2 id="problems">problems</h2>
+
+<p>Now most parts of my Foobar2000 work well. The only problem I encounter is that one of my WSH Panel is broken:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Parsing file&#34;C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js&#34;
+Error: WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Microsoft JScript runtime error:
+Automation server can&#39;t create object
+File: C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js
+Ln: 3207, Col: 1
+&lt;source text only available at compile time&gt;</code></pre></div>
+<p>There are mainly two solution for this:</p>
+
+<ol>
+<li><a href="http://www.cnblogs.com/sirrah/articles/2349099.html">JS中automation服务器不能创建对象</a></li>
+<li><a href="https://leftosa.wordpress.com/2013/05/08/fix-for-automation-server-cant-create-object/">Fix for &ldquo;Automation Server Can&rsquo;t Create Object&rdquo;</a></li>
+</ol>
+
+<p>Neither of them work for me. So I delete the line of the source code that imports <code>Browser.js</code>. Although I cannot use this function anymore, no more error found.</p>
+
+      </article>
+  
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

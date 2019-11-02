@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  A workaround that handles after directory scripts for optional packages of Vim8 &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
+      <nav class="jumplist">
+        <ul>
+          
+          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
+          
+          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <main>
+    
+<article>
+  <header>
+    <h1>A workaround that handles after directory scripts for optional packages of Vim8</h1>
+    <div class="reading-info">
+      <div class="left">
+        <span>318 words</span>
+        <span>
+          &bull;
+        </span>
+        <span>2 min read</span>
+      </div>
+      <div class="right">
+        <span><time>published at 01-22-2019</time></span>
+        <span>
+          &bull;
+        </span>
+        <span><time>last modified at 11-02-2019</time></span>
+      </div>
+    </div>
+  </header>
+  
+
+<p>Since I started to use Arch Linux, I&rsquo;ve also switched from using plugins such as <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to using the native Vim8 packages utility. However, I encountered the problem where if we do <code>packadd SOMEPACKAGE</code> after (Neo)vim has initialized, and unfortunately if this plugin comes with an <code>after</code> directory, for example in an <code>autocmd</code> such as <code>autocmd FileType python vim-textobj-python</code>, the plugin will not work correctly due to the way Vim8 packages utility handles <code>after</code> directories.</p>
+
+<h2 id="what-s-done-by-vim-when-calling-packadd">What&rsquo;s done by Vim when calling packadd?</h2>
+
+<p>This is well explained in the <a href="https://neovim.io/doc/user/repeat.html#:packadd">official documentation</a>. In short, when <code>packadd</code> is called explicitly, Vim will source <code>plugin/*.vim</code> under the package directory, and simply add <code>after</code> directory to the <code>runtimepath</code>. This causes the problem because scripts in the <code>after</code> directory are never sourced if the <code>packadd</code> happens after Vim has totally initialized, which it will be the case for a <code>packadd</code> invoked in <code>autocmd</code>.</p>
+
+<h2 id="how-to-fix-it">How to fix it?</h2>
+
+<p>Well, since it&rsquo;s not sourced, let&rsquo;s just source it! The way I used is calling <code>runtime</code>, and here is a simple example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">java</span> :<span style="color:#a6e22e">packadd</span> <span style="color:#a6e22e">vim</span>-<span style="color:#a6e22e">textobj</span>-<span style="color:#66d9ef">function</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ | <span style="color:#a6e22e">runtime</span>! <span style="color:#a6e22e">OPT</span> <span style="color:#a6e22e">after</span><span style="color:#e6db74">/ftplugin/</span><span style="color:#a6e22e">java</span>/<span style="color:#a6e22e">textobj</span>-<span style="color:#66d9ef">function</span>.<span style="color:#a6e22e">vim</span></code></pre></div>
+<p>When given <code>OPT</code>, <code>:runtime</code> will search the following files in the optional packages in <code>packpath</code>, which is the case we want. <code>!</code> simply means to source every matched files. The given match format should mimic the file structure under a particular package or plugin, as the example shows.</p>
+
+<h2 id="extra">Extra</h2>
+
+<p>If we add <code>LanguageClient-neovim</code> also as an optional package, it will
+not autostart the servers correctly since the related code is in
+<code>autoload</code>. If we want to lazily set up the LSP related stuff when we
+open files of the supported types, an easy solution will be:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">LC_starts</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has_key</span>(<span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">LanguageClient_serverCommands</span>, &amp;<span style="color:#a6e22e">filetype</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">quinoa42_loaded_lsp</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">        &#34; fancy stuff here ...</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#a6e22e">LanguageClientStart</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">Lazy_Loaded_LSP</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">au</span>!<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">rust</span>,<span style="color:#a6e22e">java</span>,<span style="color:#a6e22e">python</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">exists</span>(<span style="color:#e6db74">&#39;g:quinoa42_loaded_lsp&#39;</span>) |<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">LC_starts</span>() |<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">END</span></code></pre></div>
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="https://neovim.io/doc/user/repeat.html#:packadd">Documentation about packages and packadd from Neovim</a></li>
+</ul>
+
+  <footer class="reading-info">
+    <div class="left">
+       <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/vim/">Vim</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+    </div>
+    <div class="right">
+      <a href="https://quinoa42.github.io/en/oceanus/vim8-package-opt-after/">permallink to this post</a>
+    </div>
+  </footer>
+</article>
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

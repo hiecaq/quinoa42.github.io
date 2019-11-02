@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Haskell on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/tags/haskell/</link>
+    <description>Recent content in Haskell on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Set up haskell-ide-engine and xmonad</title>
+      <link>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</guid>
+      <description>Now that I have tons of time during this break, I decided to learn myself a haskell and as a way to apply what I&amp;rsquo;ve learned, I&amp;rsquo;ve planed to switch from awesomeWM to xmonad. Besides, I&amp;rsquo;ve being troubled with my awesome config&amp;rsquo;s memory leak, which I haven&amp;rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</description>
+    </item>
+    
+  </channel>
+</rss>

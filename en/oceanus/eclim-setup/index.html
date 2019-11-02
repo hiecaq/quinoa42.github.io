@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  Eclim Setup &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
+      <nav class="jumplist">
+        <ul>
+          
+          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
+          
+          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <main>
+    
+<article>
+  <header>
+    <h1>Eclim Setup</h1>
+    <div class="reading-info">
+      <div class="left">
+        <span>447 words</span>
+        <span>
+          &bull;
+        </span>
+        <span>3 min read</span>
+      </div>
+      <div class="right">
+        <span><time>published at 10-12-2017</time></span>
+        <span>
+          &bull;
+        </span>
+        <span><time>last modified at 11-02-2019</time></span>
+      </div>
+    </div>
+  </header>
+  
+
+<p>Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: <a href="http://eclim.org/index.html">Eclim</a>, which I have been wondering about since the time when I was still using Windows XP back in my high school.</p>
+
+<h2 id="get-the-necessary-stuffs">Get the necessary stuffs</h2>
+
+<p>Firstly, download <a href="http://www.eclipse.org/downloads/eclipse-packages/">Eclipse</a>, in my case Eclipse for Java Developers, which I download &amp; install via
+<code>brew cask</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew cask install eclipse-java</code></pre></div>
+<p>Then, download the <code>eclim.jar</code> from the github repo <a href="https://github.com/ervandew/eclim/releases/">releases page</a>.</p>
+
+<p>At this step, assume Eclipse and (neo)vim should all be installed on your computer; it&rsquo;s the time to install eclim. This could be done by just typing <code>java -jar eclim_2.7.0.jar</code> and use the GUI tool to finish the installing process. But for me I&rsquo;d written a tiny lovely piece of code to help me do it automatically by using the provided <a href="http://eclim.org/install.html#unattended-automated-install">Automated install</a> feature (this is also useful when you want to uninstall it):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
+</span><span style="color:#75715e"></span>
+VIMPLUGIN_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.config/eclim&#34;</span>
+
+ECLIPSE_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Applications/Eclipse Java.app/Contents/Eclipse&#34;</span>
+
+<span style="color:#66d9ef">if</span>  <span style="color:#f92672">[[</span> $1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;install&#34;</span> <span style="color:#f92672">]]</span> <span style="color:#f92672">||</span> <span style="color:#f92672">[[</span> $1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;uninstall&#34;</span> <span style="color:#f92672">]]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[[</span> -f $2 <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+    java <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -Dvim.files<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$VIMPLUGIN_PATH<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -Declipse.home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$ECLIPSE_PATH<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -jar <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> $1
+<span style="color:#66d9ef">else</span>
+    echo <span style="color:#e6db74">&#34;Usage: </span>$0<span style="color:#e6db74"> [install|uninstall] [eclim.jar]&#34;</span>
+    exit <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span></code></pre></div>
+<h2 id="set-it-up-with--neo--vim">Set it up with (neo)vim</h2>
+
+<p>Note that with the default setting in my script, I actually installed Eclim to a directory <code>~/.config/eclim</code> instead of <code>.vim</code>. This is because I want to use <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to constrain it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">executable</span>(<span style="color:#e6db74">&#39;eclimd&#39;</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;~/.config/eclim&#39;</span>, { <span style="color:#e6db74">&#39;for&#39;</span> : <span style="color:#e6db74">&#39;java&#39;</span> }<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
+<p>Also remember to add <code>/Applications/Eclipse Java.app/Contents/Eclipse/eclimd</code> to your path. One last thing is that to use its completion with deoplete, just add this to your <code>vimrc</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">executable</span>(<span style="color:#e6db74">&#39;eclimd&#39;</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">EclimCompletionMethod</span> = <span style="color:#e6db74">&#39;omnifunc&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
+<h2 id="compatible-with-javacomplete2">compatible with javacomplete2</h2>
+
+<p>It&rsquo;s not a good idea to have both Eclim and <code>javacomplete2</code> filling up the candidates for deoplete.</p>
+
+<p>So there is a workaround on <a href="http://blog.csdn.net/Listener%5Fri/article/details/50452572">CSDN</a>, which basically tests the return value of <code>eclim#project#util#GetCurrentProjectName()</code> to determine if the java file is in a project (and thus should use the completion provided by Eclim). Here is my version of code for my personal use:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">Java_autocomplete</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">eclim</span>#<span style="color:#a6e22e">project</span>#<span style="color:#a6e22e">util</span>#<span style="color:#a6e22e">GetCurrentProjectName</span>() == <span style="color:#e6db74">&#39;&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span>:<span style="color:#a6e22e">deoplete_omni_functions</span> = [<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#e6db74">&#39;javacomplete#Complete&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>                    \]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">else</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span>:<span style="color:#a6e22e">deoplete_omni_functions</span> = [<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#e6db74">&#39;eclim#java#complete#CodeComplete&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>                    \]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">Java_deoplete</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">au</span>!<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">java</span> <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">Java_autocomplete</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">END</span></code></pre></div>
+<p>Note that still <code>javacomplete2</code> will be load on background when a java file is opened, so it might slow down opening (neo)vim a lot. Since there seems to be no better solution, I comment out <code>Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }</code> by default.</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="http://blog.csdn.net/Listener%5Fri/article/details/50452572">Solution on CSDN by ListenerRi</a></li>
+</ul>
+
+  <footer class="reading-info">
+    <div class="left">
+       <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/eclim/">eclim</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/vim/">Vim</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+    </div>
+    <div class="right">
+      <a href="https://quinoa42.github.io/en/oceanus/eclim-setup/">permallink to this post</a>
+    </div>
+  </footer>
+</article>
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

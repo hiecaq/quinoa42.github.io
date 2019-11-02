@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/whimsia/switch-to-ox-hugo/</loc>
+    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/categories/</loc>
+    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/</loc>
+    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/categories/meta/</loc>
+    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/categories/meta/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/categories/meta/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/whimsia/</loc>
+    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/whimsia/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/whimsia/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/tags/"
+                />
+  </url>
+  
+</urlset>

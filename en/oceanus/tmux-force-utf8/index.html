@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  Fix display of special characters of tmux under ssh with t flag &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
+      <nav class="jumplist">
+        <ul>
+          
+          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
+          
+          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <main>
+    
+<article>
+  <header>
+    <h1>Fix display of special characters of tmux under ssh with t flag</h1>
+    <div class="reading-info">
+      <div class="left">
+        <span>182 words</span>
+        <span>
+          &bull;
+        </span>
+        <span>1 min read</span>
+      </div>
+      <div class="right">
+        <span><time>published at 04-09-2017</time></span>
+        <span>
+          &bull;
+        </span>
+        <span><time>last modified at 11-02-2019</time></span>
+      </div>
+    </div>
+  </header>
+  <p>I am used to use tmux on our server via ssh with the simple but elegant command <code>ssh blabla@hostname -t tmux</code>, but today I suddenly realized that under my tmux all the Unicode special characters doesn&rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.</p>
+
+<p>Firstly I checked that if I simply <code>ssh blabla@hostname</code> and then <code>tmux</code> to generate or attach to a session, the session does show those characters correctly. Also, if I run <code>ssh blabla@hostname -t nvim</code>, Unicode special characters I set in my <code>Neovim</code> status line also display correctly. So I confirm that the problem is probably caused by <code>-t</code> flag, which is said to <code>force pseudo-terminal allocation</code>, by <code>man</code> page.</p>
+
+<p>So I guess <code>tmux</code> called under <code>ssh -t</code> thinks that <code>UTF-8</code> is not supported. The solution is quite simple, because tmux supports <code>-u</code> flag:</p>
+
+<blockquote>
+<p>the -u flag explicitly informs tmux that UTF-8 is supported.</p>
+</blockquote>
+
+<p>So, just start tmux with <code>-u</code> flag:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh blabla@hostname -t tmux -u</code></pre></div>
+  <footer class="reading-info">
+    <div class="left">
+       <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/ssh/">ssh</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/tmux/">tmux</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+    </div>
+    <div class="right">
+      <a href="https://quinoa42.github.io/en/oceanus/tmux-force-utf8/">permallink to this post</a>
+    </div>
+  </footer>
+</article>
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

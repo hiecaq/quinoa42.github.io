@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/tags/python/</link>
+    <description>Recent content in Python on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 30 Jun 2017 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python environment configuration for Neovim</title>
+      <link>https://quinoa42.github.io/en/oceanus/neovim-python/</link>
+      <pubDate>Fri, 30 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/neovim-python/</guid>
+      <description>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
+install pyenv The installing process is similar to Ruby Setup here, just install pyenv instead. Don&amp;rsquo;t forget to also install pyenv-virtualenv, which is a handy tool in addition to pyenv that is capable of conveniently managing virtualenv.</description>
+    </item>
+    
+  </channel>
+</rss>

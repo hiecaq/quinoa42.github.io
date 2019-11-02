@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oceanus on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/oceanus/</link>
+    <description>Recent content in Oceanus on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/oceanus/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Set up haskell-ide-engine and xmonad</title>
+      <link>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</guid>
+      <description>Now that I have tons of time during this break, I decided to learn myself a haskell and as a way to apply what I&amp;rsquo;ve learned, I&amp;rsquo;ve planed to switch from awesomeWM to xmonad. Besides, I&amp;rsquo;ve being troubled with my awesome config&amp;rsquo;s memory leak, which I haven&amp;rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</description>
+    </item>
+    
+    <item>
+      <title>Auto-complete user-defined LaTeX packages and classes with Vimtex</title>
+      <link>https://quinoa42.github.io/en/oceanus/vimtex-user-defined-completion/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/vimtex-user-defined-completion/</guid>
+      <description>vimtex is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is quite easy, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</description>
+    </item>
+    
+    <item>
+      <title>Implement a simple fuzzy app launcher with fzf</title>
+      <link>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</link>
+      <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</guid>
+      <description>One thing that I do really miss after switching from Mac OS to Arch Linux is Alfred. I heard there is an alternative for Linux called Albert but I haven&amp;rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&amp;rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly.</description>
+    </item>
+    
+    <item>
+      <title>A workaround that handles after directory scripts for optional packages of Vim8</title>
+      <link>https://quinoa42.github.io/en/oceanus/vim8-package-opt-after/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/vim8-package-opt-after/</guid>
+      <description>Since I started to use Arch Linux, I&amp;rsquo;ve also switched from using plugins such as vim-plug to using the native Vim8 packages utility. However, I encountered the problem where if we do packadd SOMEPACKAGE after (Neo)vim has initialized, and unfortunately if this plugin comes with an after directory, for example in an autocmd such as autocmd FileType python vim-textobj-python, the plugin will not work correctly due to the way Vim8 packages utility handles after directories.</description>
+    </item>
+    
+    <item>
+      <title>Open tridactyl&#39;s external editor in a new tmux window</title>
+      <link>https://quinoa42.github.io/en/oceanus/tridactyl-editorcmd-with-tmux/</link>
+      <pubDate>Sun, 20 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/tridactyl-editorcmd-with-tmux/</guid>
+      <description>Tridactyl has been a decent replacement for Vimperator or Pentadactyl for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&amp;rsquo;m using tmux for most of the time, I start to wondering if I could do some tweak with the editorcmd so that instead of a new terminal emulator window, a termporary tmux window will be opened.</description>
+    </item>
+    
+    <item>
+      <title>Compile ruby with rbenv and brew-installed tcl-tk</title>
+      <link>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</link>
+      <pubDate>Wed, 22 Nov 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</guid>
+      <description>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using rbenv and ruby-build with a brew-installed tcl-tk library.
+install tcl-tk $ brew install tcl-tk Then add /usr/local/opt/tcl-tk/bin to your path.
+Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your input.</description>
+    </item>
+    
+    <item>
+      <title>Eclim Setup</title>
+      <link>https://quinoa42.github.io/en/oceanus/eclim-setup/</link>
+      <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/eclim-setup/</guid>
+      <description>Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: Eclim, which I have been wondering about since the time when I was still using Windows XP back in my high school.</description>
+    </item>
+    
+    <item>
+      <title>Python environment configuration for Neovim</title>
+      <link>https://quinoa42.github.io/en/oceanus/neovim-python/</link>
+      <pubDate>Fri, 30 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/neovim-python/</guid>
+      <description>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
+install pyenv The installing process is similar to Ruby Setup here, just install pyenv instead. Don&amp;rsquo;t forget to also install pyenv-virtualenv, which is a handy tool in addition to pyenv that is capable of conveniently managing virtualenv.</description>
+    </item>
+    
+    <item>
+      <title>Process Substitution and redirection without command</title>
+      <link>https://quinoa42.github.io/en/oceanus/process-substitution-and-redirection-without-command/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/process-substitution-and-redirection-without-command/</guid>
+      <description>Today I found an interesting discussion about some interesting statements:
+$ echo &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) /dev/fd/11 $ cat &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) I am a cool here-string To understand how this works, we need to split the statements into pieces.
+here-string There isn&amp;rsquo;t much to say about &amp;lt;&amp;lt;&amp;lt;, named here-string, which can be understood as a brief form of heredoc. It simply redirects the string after it to stdin.</description>
+    </item>
+    
+    <item>
+      <title>Fix display of special characters of tmux under ssh with t flag</title>
+      <link>https://quinoa42.github.io/en/oceanus/tmux-force-utf8/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/tmux-force-utf8/</guid>
+      <description>I am used to use tmux on our server via ssh with the simple but elegant command ssh blabla@hostname -t tmux, but today I suddenly realized that under my tmux all the Unicode special characters doesn&amp;rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.
+Firstly I checked that if I simply ssh blabla@hostname and then tmux to generate or attach to a session, the session does show those characters correctly.</description>
+    </item>
+    
+    <item>
+      <title>Terminfo for iterm2 and tmux that support italics, truecolor and fixed ctrl-h</title>
+      <link>https://quinoa42.github.io/en/oceanus/terminfo-truecolor/</link>
+      <pubDate>Wed, 23 Nov 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/terminfo-truecolor/</guid>
+      <description>Everyone likes true color. But the true color support doesn&amp;rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.
+iterm2 Make a new file called term-256color-italic.terminfo, and add these:
+# A xterm-256color based TERMINFO that adds the escape sequences for italic. xterm-256color-italic|xterm with 256 colors and italic, sitm=\E[3m, ritm=\E[23m, kbs=\177, use=xterm-256color, then,</description>
+    </item>
+    
+    <item>
+      <title>Run Foobar2000 in Mac</title>
+      <link>https://quinoa42.github.io/en/oceanus/mac-foobar2000/</link>
+      <pubDate>Sun, 06 Nov 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/mac-foobar2000/</guid>
+      <description>Today I realized that iTunes does not support *.flac files at all. Stubborn user as I am, NO ONE can force me to get used to their way of doing things. It&amp;rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.
+So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:</description>
+    </item>
+    
+    <item>
+      <title>Ruby Setup</title>
+      <link>https://quinoa42.github.io/en/oceanus/ruby-setup/</link>
+      <pubDate>Fri, 28 Oct 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/ruby-setup/</guid>
+      <description>Here I record what I did to install ruby on my macbook.
+rbenv rbenv works as a ruby environment manager.
+brew update brew install rbenv and setup rbenv based on the instruction in:
+rbenv init ruby-build ruby-build is a plugin that provides rbenv with function rbenv install, which just works as installing differnt version of ruby into rbenv.
+if you install rbenv with HomeBrew, it should be already installed, but if not,</description>
+    </item>
+    
+  </channel>
+</rss>

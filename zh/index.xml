@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emain Ablach</title>
+    <link>https://quinoa42.github.io/zh/</link>
+    <description>Recent content on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 28 Oct 2019 00:18:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>(restart)</title>
+      <link>https://quinoa42.github.io/zh/whimsia/switch-to-ox-hugo/</link>
+      <pubDate>Mon, 28 Oct 2019 00:18:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/zh/whimsia/switch-to-ox-hugo/</guid>
+      <description>过去的2个月时间里，我的周遭发生了很大的变化。一方面，我来到了大城市独立生活；另一方面，因为工作环境的原因（指不能用 Linux 办公），我不得不尝试在</description>
+    </item>
+    
+  </channel>
+</rss>

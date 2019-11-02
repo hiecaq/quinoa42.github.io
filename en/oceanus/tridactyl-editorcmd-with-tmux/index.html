@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  Open tridactyl&#39;s external editor in a new tmux window &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
+      <nav class="jumplist">
+        <ul>
+          
+          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
+          
+          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <main>
+    
+<article>
+  <header>
+    <h1>Open tridactyl&#39;s external editor in a new tmux window</h1>
+    <div class="reading-info">
+      <div class="left">
+        <span>415 words</span>
+        <span>
+          &bull;
+        </span>
+        <span>2 min read</span>
+      </div>
+      <div class="right">
+        <span><time>published at 01-20-2019</time></span>
+        <span>
+          &bull;
+        </span>
+        <span><time>last modified at 11-02-2019</time></span>
+      </div>
+    </div>
+  </header>
+  
+
+<p><a href="https://github.com/tridactyl/tridactyl">Tridactyl</a> has been a decent replacement for <a href="https://github.com/vimperator/vimperator-labs">Vimperator</a> or <a href="https://github.com/5digits/dactyl">Pentadactyl</a> for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&rsquo;m using <code>tmux</code> for most of the time, I start to wondering if I could do some tweak with the <code>editorcmd</code> so that instead of a new terminal emulator window, a termporary tmux window will be opened.</p>
+
+<h2 id="first-attempt">First attempt</h2>
+
+<p>How <code>editorcmd</code> works is pretty simple: once the user invokes <code>editor()</code>, tridactyl will expand the first occurrence of <code>%f</code> into the filepath for the tempfile, or just append the filepath at the end if <code>%f</code> is not found (see <a href="https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255">this</a> for details). So we could easily come up with the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f&#39;</code></pre></div>
+<p>However, this actually doesn&rsquo;t work the way we want. What happens is that <code>tmux new-window</code> doesn&rsquo;t block until the window is closed. As a result, once the given command has returned, tridactyl will go straight to read from the provided tempfile, which will turn out to be empty since it&rsquo;s just opened by the Neovim in the new tmux window. We need to find a way to block the command until the window is closed.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>A <a href="https://unix.stackexchange.com/a/137547">StackExchange answer</a> points out the solution: to use <code>tmux wait-for</code>. <code>tmux wait-for &lt;CHANNEL&gt;</code> will block until receiving the signal on the given <code>CHANNEL</code>, while <code>tmux wait-for -S &lt;CHANNEL&gt;</code> will send such a signal to the <code>CHANNEL</code>. Thus, the solution will be:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f; tmux wait-for -S firefox-neww-done&#39; \; wait-for firefox-neww-done</code></pre></div>
+<p>This binding divides into two sequential command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">new-window -n firefox <span style="color:#e6db74">&#39;nvim -f %f; tmux wait-for -S firefox-neww-done&#39;</span>
+wait-for firefox-neww-done</code></pre></div>
+<p><code>\;</code> is to make sure the shell will not interpret this <code>;</code> so that it can be passed to <code>tmux</code>, where it also serves the purpose of dividing the commands (see the <a href="http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS">manpage</a> for details).</p>
+
+<p>So in this new version, the second line will block until the first line returned, where in the first line the signal will not be sent until Neovim is closed. Once the signal is sent, the new <code>tmux</code> window will also be closed too. Everything works as expected!</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="https://unix.stackexchange.com/a/137547">answer to the question &lsquo;Make tmux block until program completes&rsquo; by Chris Johnsen</a></li>
+<li><a href="http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS">Manpage of tmux on OpenBSD</a></li>
+<li><a href="https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255">tridactyl source code on editorcmd</a></li>
+</ul>
+
+  <footer class="reading-info">
+    <div class="left">
+       <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/tmux/">tmux</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/firefox/">Firefox</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+    </div>
+    <div class="right">
+      <a href="https://quinoa42.github.io/en/oceanus/tridactyl-editorcmd-with-tmux/">permallink to this post</a>
+    </div>
+  </footer>
+</article>
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

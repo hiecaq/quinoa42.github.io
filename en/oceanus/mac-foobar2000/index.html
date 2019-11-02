@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  Run Foobar2000 in Mac &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
+      <nav class="jumplist">
+        <ul>
+          
+          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
+          
+          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <main>
+    
+<article>
+  <header>
+    <h1>Run Foobar2000 in Mac</h1>
+    <div class="reading-info">
+      <div class="left">
+        <span>350 words</span>
+        <span>
+          &bull;
+        </span>
+        <span>2 min read</span>
+      </div>
+      <div class="right">
+        <span><time>published at 11-06-2016</time></span>
+        <span>
+          &bull;
+        </span>
+        <span><time>last modified at 11-02-2019</time></span>
+      </div>
+    </div>
+  </header>
+  
+
+<p>Today I realized that iTunes does not support <code>*.flac</code> files at all. Stubborn user as I am, <strong>NO ONE</strong> can force me to get used to their way of doing things. It&rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.</p>
+
+<p>So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:</p>
+
+<h2 id="wineskin">wineskin</h2>
+
+<p>Wineskin is a third-party tool to easily make wine wrapper. A wrapper works as a native osx app, and inside the wrapper runs your favorite windows program.</p>
+
+<p>To use it, simply download its official app <a href="http://wineskin.urgesoftware.com/tiki-index.php?page=Downloads">Wineskin Winery</a>.</p>
+
+<p>Unzip the file and throw it somewhere or into <code>Applications</code> if you like, then update the Wrapper Version and install some versions of Engines (usually newest works just fine). Things like <code>WS*Wine****</code> is the normal Wrapper which compiled from the official wine source code, while <code>WS*WineCX****</code> compiled from the <a href="https://www.codeweavers.com/">Crossover</a> wine source code.</p>
+
+<h2 id="wrapper-for-foobar2000">wrapper for Foobar2000</h2>
+
+<p>Here I chose <code>Wineskin-2.6.2</code> for wrapper and <code>WS9Wine1.9.2.1</code> for Engine.</p>
+
+<p>Since I use a Chinese lazy pack of Foobar2000, I add the following command to <code>Configuration - Custom Commands</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export LANG<span style="color:#f92672">=</span>zh_CN.UTF-8</code></pre></div>
+<p>Also, install Chinese font support via <code>winetricks</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">winetricks wenquanyi
+winetricks fakechinese</code></pre></div>
+<p>I found a handy ready-to-use environment setup progress via <code>winetricks</code> <a href="https://hydrogenaud.io/index.php/topic,110516.msg923588.html#msg923588">here</a>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">gdiplus_winxp
+wsh57
+fontsmooth=rgb
+msscript
+ie8
+msls31
+w_workaround_wine_bug-25648
+msxml3
+wmp10
+vb6run
+vcrun2010</code></pre></div>
+<h2 id="problems">problems</h2>
+
+<p>Now most parts of my Foobar2000 work well. The only problem I encounter is that one of my WSH Panel is broken:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Parsing file&#34;C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js&#34;
+Error: WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Microsoft JScript runtime error:
+Automation server can&#39;t create object
+File: C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js
+Ln: 3207, Col: 1
+&lt;source text only available at compile time&gt;</code></pre></div>
+<p>There are mainly two solution for this:</p>
+
+<ol>
+<li><a href="http://www.cnblogs.com/sirrah/articles/2349099.html">JS中automation服务器不能创建对象</a></li>
+<li><a href="https://leftosa.wordpress.com/2013/05/08/fix-for-automation-server-cant-create-object/">Fix for &ldquo;Automation Server Can&rsquo;t Create Object&rdquo;</a></li>
+</ol>
+
+<p>Neither of them work for me. So I delete the line of the source code that imports <code>Browser.js</code>. Although I cannot use this function anymore, no more error found.</p>
+
+  <footer class="reading-info">
+    <div class="left">
+       <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/osx/">OSX</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/wine/">wine</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+    </div>
+    <div class="right">
+      <a href="https://quinoa42.github.io/en/oceanus/mac-foobar2000/">permallink to this post</a>
+    </div>
+  </footer>
+</article>
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

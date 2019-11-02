@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fzf on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/tags/fzf/</link>
+    <description>Recent content in fzf on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 27 Jan 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/tags/fzf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Implement a simple fuzzy app launcher with fzf</title>
+      <link>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</link>
+      <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</guid>
+      <description>One thing that I do really miss after switching from Mac OS to Arch Linux is Alfred. I heard there is an alternative for Linux called Albert but I haven&amp;rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&amp;rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly.</description>
+    </item>
+    
+  </channel>
+</rss>

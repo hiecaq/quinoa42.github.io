@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bash on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/tags/bash/</link>
+    <description>Recent content in bash on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 22 Jun 2017 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Process Substitution and redirection without command</title>
+      <link>https://quinoa42.github.io/en/oceanus/process-substitution-and-redirection-without-command/</link>
+      <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/process-substitution-and-redirection-without-command/</guid>
+      <description>Today I found an interesting discussion about some interesting statements:
+$ echo &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) /dev/fd/11 $ cat &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) I am a cool here-string To understand how this works, we need to split the statements into pieces.
+here-string There isn&amp;rsquo;t much to say about &amp;lt;&amp;lt;&amp;lt;, named here-string, which can be understood as a brief form of heredoc. It simply redirects the string after it to stdin.</description>
+    </item>
+    
+  </channel>
+</rss>

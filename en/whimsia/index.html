@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  Whimsia &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
+      <nav class="jumplist">
+        <ul>
+          
+          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
+          
+          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <main>
+    
+  
+      <article class="post-item">
+        <header>
+          <div class="tt">
+            <h1><a href="/en/whimsia/move-to-fx57/">Move to Firefox 57 or going back to ESR?</a></h1>
+            <time>09-21-2017</time>
+          </div>
+          <div class="reading-info">
+            <div class="left">
+             <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/software/">software</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/tags/firefox/">Firefox</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+            </div>
+            <div class="right">
+              <span>548 words</span>
+              <span>
+                &bull;
+              </span>
+              <span>3 min read</span>
+            </div>
+          </div>
+        </header>
+        
+
+<p>As the so-called next generation of Firefox, 57, has become available as the nightly version, the death of XUL is no longer far away. As the <a href="https://wiki.mozilla.org/RapidRelease/Calendar">Calendar</a> suggests, as soon as 2017-11-14 Firefox 57 will become the stable released version, and ESR will become the only version that supports the dying XUL addons. While <a href="https://github.com/qutebrowser/qutebrowser">qutebrowser</a> could be a solution to save my way of exploring, it is still in alpha development and lacks some of my must-have features. So the problem is clear: whether to embrace the brand new Firefox 57 or stay back with Firefox ESR (52).</p>
+
+<h2 id="add-ons-immigration">Add-ons Immigration</h2>
+
+<p>The biggest reason stops me from happily switch to Firefox 57 of course is the dying XUL add-ons. As a matter of fact, the new WebExtensions API lacks some crucial features, which as a result makes the port of some great add-ons of all time, among which we have Vimperator and Pentadactyl, totally impossible. However, there is also new hope: people are spontaneously doing work to extend WebExtensions API to make everything <a href="https://bugzil.la/1215061">possible</a>.</p>
+
+<p>But, before that, life has to go on. I just tested some of the new add-ons recommended on <a href="https://docs.google.com/spreadsheets/d/1TFcEXMcKrwoIAECIVyBU0GPoSmRqZ7A0VBvqeKYVSww/htmlview">firefox-webext-list</a>,
+and here are my result:</p>
+
+<dl>
+<dt><a href="https://github.com/5digits/dactyl">Pentadactyl</a> -&gt; <a href="https://addons.mozilla.org/en-US/firefox/addon/saka-key/">Saka Key</a></dt>
+<dd>I have to say this is not the perfect solution but it is almost the only way works in the current Firefox. While it supports browsing web with <code>hjkl</code> and <code>gg</code>, <code>G</code>, etc, and supports hint mode and set hotkeys for switching tabs, it stops working on any &ldquo;special pages&rdquo;, for example <code>about:blank</code> or <a href="https://addons.mozilla.org/en-US/firefox/">Mozilla Add-ons Marketplace</a>, which is not very nice (actually, bad) when you type several <code>gt</code> or your favorite keybinding but to find youself is trapped in such a special page and have to use mouse to move on. Also, there is no command bar so you cannot type <code>o</code> or <code>t</code> to open a url, not to mention the highly embeded ways of interactions between the commands you typed and Firefox. Anyway, I hope in the future we could have real vim-like add-ons in this fast new Firefox.</dd>
+<dt><a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">uBlock Origin</a></dt>
+<dd>The port has been completed. It just works as it always be.</dd>
+<dt><a href="https://addons.mozilla.org/en-US/firefox/addon/noscript/">NoScript</a></dt>
+<dd>It is said that the port is on the way. There is one workaround called <a href="https://addons.mozilla.org/en-US/firefox/addon/umatrix/">uMatrix</a> but I haven&rsquo;t try it out.</dd>
+<dt><a href="https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/">Greasemonkey</a> -&gt; <a href="https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/">Violentmonkey</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/">Tempermonkey</a></dt>
+<dd>It is said that the port is on the way, but there are two peer add-ons developed in WebExtensions already. Neither of them is totally compatible with Greasemonkey, but I&rsquo;d choose Violentmonkey for now since it&rsquo;s new and open source.</dd>
+<dt><a href="https://addons.mozilla.org/en-us/firefox/addon/stylish/">Stylish</a> -&gt; <a href="https://addons.mozilla.org/en-US/firefox/addon/styl-us/">Stylus</a> or <a href="https://addons.mozilla.org/en-GB/firefox/addon/xStyle/">xStyle</a></dt>
+<dd>Similar to Greasemonkey, Stylish also has two successors, both of which are actually Chrome&rsquo;s Stylish forks. It is possible that the real Chrome&rsquo;s Stylish will be ported to Firefox, since Firefox supports WebExtensions now.</dd>
+<dt><a href="https://addons.mozilla.org/en-US/firefox/addon/firebug/">Firebug</a></dt>
+<dd>Firebug will die with the old XULs, but most of its functions has already been ported into the native Firefox&rsquo;s Web Developer Tools.</dd>
+<dt><a href="https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/">FoxyProxy</a> -&gt; <a href="https://addons.mozilla.org/en-US/firefox/addon/switchyomega/">SwitchyOmega</a></dt>
+<dd>The famous SwitchyOmega has already been ported into Firefox, however it is still in alpha development. Plenty of bugs exist.</dd>
+</dl>
+
+<h2 id="thoughts">Thoughts</h2>
+
+<p>While Firefox 57 is newer and extremely faster, I would choose to stay with Firefox ESR just for now. A world without my favorite Pentadactyl or any similar tools is too hard to live in, IMHO.</p>
+
+      </article>
+  
+      <article class="post-item">
+        <header>
+          <div class="tt">
+            <h1><a href="/en/whimsia/hello-world/">Hello, world!</a></h1>
+            <time>10-28-2016</time>
+          </div>
+          <div class="reading-info">
+            <div class="left">
+             <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/en/categories/meta/">meta</a></li>
+    
+
+
+          
+
+        </ul>
+    </nav>
+</div>
+
+            </div>
+            <div class="right">
+              <span>20 words</span>
+              <span>
+                &bull;
+              </span>
+              <span>1 min read</span>
+            </div>
+          </div>
+        </header>
+        <p>So start from today, here would be my temporary blog where I&rsquo;ll write some notes about the things I learned.</p>
+
+      </article>
+  
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ruby on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/tags/ruby/</link>
+    <description>Recent content in Ruby on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Nov 2017 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Compile ruby with rbenv and brew-installed tcl-tk</title>
+      <link>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</link>
+      <pubDate>Wed, 22 Nov 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</guid>
+      <description>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using rbenv and ruby-build with a brew-installed tcl-tk library.
+install tcl-tk $ brew install tcl-tk Then add /usr/local/opt/tcl-tk/bin to your path.
+Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your input.</description>
+    </item>
+    
+    <item>
+      <title>Ruby Setup</title>
+      <link>https://quinoa42.github.io/en/oceanus/ruby-setup/</link>
+      <pubDate>Fri, 28 Oct 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/ruby-setup/</guid>
+      <description>Here I record what I did to install ruby on my macbook.
+rbenv rbenv works as a ruby environment manager.
+brew update brew install rbenv and setup rbenv based on the instruction in:
+rbenv init ruby-build ruby-build is a plugin that provides rbenv with function rbenv install, which just works as installing differnt version of ruby into rbenv.
+if you install rbenv with HomeBrew, it should be already installed, but if not,</description>
+    </item>
+    
+  </channel>
+</rss>

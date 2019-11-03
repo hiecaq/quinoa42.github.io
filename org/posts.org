@@ -1,3 +1,4 @@
+#+title: Blog posts
 #+hugo_base_dir: ../
 #+hugo_auto_set_lastmod: t
 
@@ -11,6 +12,7 @@ CLOSED: [2019-07-09 Tue]
 :EXPORT_FILE_NAME: hie-and-xmonad.en.md
 :END:
 Now that I have tons of time during this break, I decided to [[http://learnyouahaskell.com/][learn myself a haskell]] and as a way to apply what I've learned, I've planed to switch from [[https://awesomewm.org][awesomeWM]] to [[https://xmonad.org][xmonad]]. Besides, I've being troubled with my awesome config's memory leak, which I haven't got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.
+#+hugo: more
 
 *** Tool used
 Short version: do not use Arch's =ghc= and xmonad installed via pacman.
@@ -120,6 +122,7 @@ CLOSED: [2019-05-17 Fri]
 :EXPORT_FILE_NAME: vimtex-user-defined-completion.en.md
 :END:
 [[https://github.com/lervag/vimtex][vimtex]] is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is [[https://en.wikibooks.org/wiki/LaTeX/Creating_Packages][quite easy]], but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!
+#+hugo: more
 
 *** Auto-Complete =\usepackage= and =\documentclass=
 This is fairly easy: put them into =$TEXMFHOME= with a directory structure like this:
@@ -152,6 +155,7 @@ CLOSED: [2019-01-27 Sun]
 :EXPORT_FILE_NAME: replace-dmenu-with-fzf.en.md
 :END:
 One thing that I do really miss after switching from Mac OS to Arch Linux is [[https://www.alfredapp.com/][Alfred]]. I heard there is an alternative for Linux called [[https://github.com/albertlauncher/albert][Albert]] but I haven't tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don't feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn't fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.
+#+hugo: more
 
 *** Tools used
 1. [[https://i3wm.org/][i3]]: I set the keyboard shortcuts and default window layout for the simple launcher in my i3 config. Any other window manager or desktop environment should work too.
@@ -240,6 +244,7 @@ CLOSED: [2019-01-22 Tue]
 :EXPORT_FILE_NAME: vim8-package-opt-after.en.md
 :END:
 Since I started to use Arch Linux, I've also switched from using plugins such as [[https://github.com/junegunn/vim-plug][vim-plug]] to using the native Vim8 packages utility. However, I encountered the problem where if we do =packadd SOMEPACKAGE= after (Neo)vim has initialized, and unfortunately if this plugin comes with an =after= directory, for example in an =autocmd= such as =autocmd FileType python vim-textobj-python=, the plugin will not work correctly due to the way Vim8 packages utility handles =after= directories.
+#+hugo: more
 
 *** What's done by Vim when calling packadd?
 This is well explained in the [[https://neovim.io/doc/user/repeat.html#:packadd][official documentation]]. In short, when =packadd= is called explicitly, Vim will source =plugin/*.vim= under the package directory, and simply add =after= directory to the =runtimepath=. This causes the problem because scripts in the =after= directory are never sourced if the =packadd= happens after Vim has totally initialized, which it will be the case for a =packadd= invoked in =autocmd=.
@@ -284,6 +289,7 @@ CLOSED: [2019-01-20 Sun]
 :EXPORT_FILE_NAME: tridactyl-editorcmd-with-tmux.en.md
 :END:
 [[https://github.com/tridactyl/tridactyl][Tridactyl]] has been a decent replacement for [[https://github.com/vimperator/vimperator-labs][Vimperator]] or [[https://github.com/5digits/dactyl][Pentadactyl]] for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I'm using =tmux= for most of the time, I start to wondering if I could do some tweak with the =editorcmd= so that instead of a new terminal emulator window, a termporary tmux window will be opened.
+#+hugo: more
 
 *** First attempt
 How =editorcmd= works is pretty simple: once the user invokes =editor()=, tridactyl will expand the first occurrence of =%f= into the filepath for the tempfile, or just append the filepath at the end if =%f= is not found (see [[https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255][this]] for details). So we could easily come up with the following code:
@@ -319,6 +325,7 @@ CLOSED: [2017-11-22 Wed]
 :EXPORT_FILE_NAME: ruby-tcl-tk.en.md
 :END:
 It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using =rbenv= and =ruby-build= with a brew-installed =tcl-tk= library.
+#+hugo: more
 
 *** install tcl-tk
 #+begin_src sh
@@ -360,6 +367,7 @@ CLOSED: [2017-10-12 Thu]
 :EXPORT_FILE_NAME: eclim-setup.en.md
 :END:
 Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: [[http://eclim.org/index.html][Eclim]], which I have been wondering about since the time when I was still using Windows XP back in my high school.
+#+hugo: more
 
 *** Get the necessary stuffs
 Firstly, download [[http://www.eclipse.org/downloads/eclipse-packages/][Eclipse]], in my case Eclipse for Java Developers, which I download & install via
@@ -438,6 +446,7 @@ CLOSED: [2017-06-30 Fri]
 :EXPORT_FILE_NAME: neovim-python.en.md
 :END:
 Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
+#+hugo: more
 
 *** install pyenv
 The installing process is similar to [[id:cd8ac952-6060-4230-b07c-4eb6157a8d61][Ruby Setup]] here, just install [[https://github.com/pyenv/pyenv][pyenv]] instead. Don't forget to also install [[https://github.com/pyenv/pyenv-virtualenv][pyenv-virtualenv]], which is a handy tool in addition to =pyenv= that is capable of conveniently managing =virtualenv=.
@@ -555,6 +564,7 @@ Today I found an interesting [[https://www.v2ex.com/t/370077][discussion]] about
 #+END_SRC
 
 To understand how this works, we need to split the statements into pieces.
+#+hugo: more
 
 *** here-string
 There isn't much to say about =<<<=, named /here-string/, which can be understood as a brief form of [[https://www.gnu.org/software/bash/manual/html_node/Redirections.html][heredoc]]. It simply redirects the string after it to =stdin=.
@@ -606,6 +616,7 @@ CLOSED: [2017-04-09 Sun]
 :EXPORT_FILE_NAME: tmux-force-utf8.en.md
 :END:
 I am used to use tmux on our server via ssh with the simple but elegant command =ssh blabla@hostname -t tmux=, but today I suddenly realized that under my tmux all the Unicode special characters doesn't display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.
+#+hugo: more
 
 Firstly I checked that if I simply =ssh blabla@hostname= and then =tmux= to generate or attach to a session, the session does show those characters correctly. Also, if I run =ssh blabla@hostname -t nvim=, Unicode special characters I set in my =Neovim= status line also display correctly. So I confirm that the problem is probably caused by =-t= flag, which is said to =force pseudo-terminal allocation=, by =man= page.
 
@@ -625,6 +636,7 @@ CLOSED: [2016-11-23 Wed]
 :EXPORT_FILE_NAME: terminfo-truecolor.en.md
 :END:
 Everyone likes true color. But the true color support doesn't come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.
+#+hugo: more
 
 *** iterm2
 Make a new file called =term-256color-italic.terminfo=, and add these:
@@ -707,6 +719,7 @@ CLOSED: [2016-11-06 Sun]
 Today I realized that iTunes does not support =*.flac= files at all. Stubborn user as I am, *NO ONE* can force me to get used to their way of doing things. It's okay for iTunes to only support its own format of lossless music, but I just choose to not use it.
 
 So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:
+#+hugo: more
 
 *** wineskin
 Wineskin is a third-party tool to easily make wine wrapper. A wrapper works as a native osx app, and inside the wrapper runs your favorite windows program.
@@ -767,6 +780,7 @@ CLOSED: [2016-10-28 Fri]
 :ID:       cd8ac952-6060-4230-b07c-4eb6157a8d61
 :END:
 Here I record what I did to install ruby on my macbook.
+#+hugo: more
 
 *** rbenv
 [[https://github.com/rbenv/rbenv#readme][rbenv]] works as a ruby environment manager.
@@ -828,6 +842,7 @@ CLOSED: [2019-10-28 Mon 00:18]
 - State "TODO"       from              [2019-10-27 Sun 22:51]
 :END:
 过去的2个月时间里，我的周遭发生了很大的变化。一方面，我来到了大城市独立生活；另一方面，因为工作环境的原因（指不能用 Linux 办公），我不得不尝试在 Windows 下搭建一个舒适的环境。尝试过的读者们肯定知道， Windows 下使用 Vim/Neovim 简直是一场灾难。因此，我把目光投向了另一个编辑器界的顶点： Emacs。
+#+hugo: more
 
 其实我接触 Emacs 比 Vim 还早。当时 NOIP 集训的时候，来带队的学长用的就是 Emacs，顺带着把我带入坑了。当时我也没时间去学习 Elisp，更加没时间去维护我的配置，更重要的是我没法把我的配置带进考场，最后也就不了了之。
 
@@ -854,6 +869,7 @@ CLOSED: [2017-09-21 Thu]
 :EXPORT_FILE_NAME: move-to-fx57.en.md
 :END:
 As the so-called next generation of Firefox, 57, has become available as the nightly version, the death of XUL is no longer far away. As the [[https://wiki.mozilla.org/RapidRelease/Calendar][Calendar]] suggests, as soon as 2017-11-14 Firefox 57 will become the stable released version, and ESR will become the only version that supports the dying XUL addons. While [[https://github.com/qutebrowser/qutebrowser][qutebrowser]] could be a solution to save my way of exploring, it is still in alpha development and lacks some of my must-have features. So the problem is clear: whether to embrace the brand new Firefox 57 or stay back with Firefox ESR (52).
+#+hugo: more
 
 *** Add-ons Immigration
 The biggest reason stops me from happily switch to Firefox 57 of course is the dying XUL add-ons. As a matter of fact, the new WebExtensions API lacks some crucial features, which as a result makes the port of some great add-ons of all time, among which we have Vimperator and Pentadactyl, totally impossible. However, there is also new hope: people are spontaneously doing work to extend WebExtensions API to make everything [[https://bugzil.la/1215061][possible]].

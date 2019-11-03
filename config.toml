@@ -3,6 +3,7 @@ DefaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 title = "Emain Ablach"
 pygmentsCodeFences = true
+pygmentsStyle = "autumn"
 [languages]
 
 [languages.en]
@@ -23,6 +24,10 @@ identifier = "oceanus"
 name = "Oceanus"
 url = "/en/oceanus/"
 
+[[languages.en.menu.others]]
+url = "/en/about"
+name = "About"
+
 [[languages.en.menu.ops]]
 url = "/en/"
 name = "en"
@@ -30,6 +35,10 @@ name = "en"
 [[languages.en.menu.ops]]
 url = "/zh/"
 name = "zh"
+
+[[languages.en.menu.ops]]
+url = "/jp/"
+name = "jp"
 
 [[languages.en.menu.others]]
 url = "/en/dot-emacs"
@@ -58,6 +67,10 @@ url = "/zh/oceanus/"
 url = "/en/dot-emacs"
 name = "init.el"
 
+[[languages.zh.menu.others]]
+url = "/zh/about"
+name = "About"
+
 [[languages.zh.menu.ops]]
 url = "/en/"
 name = "en"
@@ -65,3 +78,46 @@ name = "en"
 [[languages.zh.menu.ops]]
 url = "/zh/"
 name = "zh"
+
+[[languages.zh.menu.ops]]
+url = "/jp/"
+name = "jp"
+
+[languages.jp]
+weight = 3
+hasCJKLanguage = true
+
+[[languages.jp.menu.head]]
+url    = "/jp/"
+name   = "Emain Ablach"
+weight = 0
+
+[[languages.jp.menu.main]]
+identifier = "whimsia"
+name = "Whimsia"
+url = "/jp/whimsia/"
+
+[[languages.jp.menu.main]]
+identifier = "oceanus"
+name = "Oceanus"
+url = "/jp/oceanus/"
+
+[[languages.jp.menu.others]]
+url = "/en/dot-emacs"
+name = "init.el"
+
+[[languages.jp.menu.others]]
+url = "/jp/about"
+name = "About"
+
+[[languages.jp.menu.ops]]
+url = "/en/"
+name = "en"
+
+[[languages.jp.menu.ops]]
+url = "/zh/"
+name = "zh"
+
+[[languages.jp.menu.ops]]
+url = "/jp/"
+name = "jp"

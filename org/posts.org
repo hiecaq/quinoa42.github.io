@@ -860,7 +860,7 @@ CLOSED: [2019-10-28 Mon 00:18]
 + 丰富的原生功能 :: Emacs 自带的 built-in 涵盖了非常广的功能，而且这个规模还在扩大。统一的可堪一用的原生环境提供了更加统一的接口。
 + Org mode :: 如果说 Emacs 有什么杀手锏是 Vim 永远也无法实现的，那恐怕就是 Org mode 了。GUI 的 Emacs 支持类富文本显示，可以给不同级别的 heading 设置不同的字体，包括颜色和大小。它还可以用非等宽字体显示文本片段，也可以行内显示插入的图片和公式。更强的是 Org Babel 提供的 literate programming 支持（我的 [[https://quinoa42.github.io/en/dot-emacs][Emacs 配置]]就是使用 literate programming style 编写的），这让写解题报告和写代码同步成为了可能。更不要说 Org Mode 自带的 Task management 支持了，与此相关的著作互联网上到处都是，我就不再复述了。值得一提的是 Org mode 支持内部的全局（指全盘）GUID reference，这就让到处移动文件和目录树但不破坏 relative link 成为了可能。
 
-我也进入了不少 Emacs User 都会进入的奇妙状态：想用 Org mode 把那些看起来非常有关联却又得分开使用不同软件来实现的需求用 Org mode 来统一。这其中包括了收集文档/网页剪裁/个人 WIKI /任务管理/个人 blog 等等等等。就我最近的体验来看，Emacs 和 Org mode 已经非常接近我想要的效果了。这个话展开讲可能又是几千个字，所以留待以后再谈。但作为这个大工程的一部分，从今日起，我的博客也搬迁到了 [[https://ox-hugo.scripter.co/][ox-hugo]]。这个项目可以把 Org Mode 的某个 sub tree 输出为单篇文章，一个文件就可以是一整个 section，而且 org mode 自己的 tag/todo state 等等的标记也会变成 Hugo 兼容的 front matter 里的信息，非常的酷。
+我也进入了不少 Emacs User 都会进入的奇妙状态：想用 Org mode 把那些看起来非常有关联却又得分开使用不同软件来实现的需求用 Org mode 来统一。这其中包括了收集文档/网页剪裁/个人 WIKI /任务管理/个人 blog 等等等等。就我最近的体验来看，Emacs 和 Org mode 已经非常接近我想要的效果了。这个话题展开讲可能又是几千个字，所以留待以后再谈。但作为这个大工程的一部分，从今日起，我的博客也搬迁到了 [[https://ox-hugo.scripter.co/][ox-hugo]]。这个项目可以把 Org Mode 的某个 sub tree 输出为单篇文章，一个文件就可以是一整个 section，而且 org mode 自己的 tag/todo state 等等的标记也会变成 Hugo 兼容的 front matter 里的信息，非常的酷。
 
 其实写这篇文章也只是想标记一下我从 zola 把博客搬到 ox-hugo 这个事情，不知不觉就写成了和编辑器圣战相关的一篇杂谈。
 ** DONE Move to Firefox 57 or going back to ESR? :@software:Firefox:
@@ -892,3 +892,106 @@ CLOSED: [2016-10-28 Fri]
 :EXPORT_FILE_NAME: hello-world.en.md
 :END:
 So start from today, here would be my temporary blog where I'll write some notes about the things I learned.
+* Miscs
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: ./
+:END:
+** DONE About :@meta:
+CLOSED: [2019-11-03 Sun 15:43]
+:PROPERTIES:
+:EXPORT_FILE_NAME: about.en.md
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-11-03 Sun 15:43]
+:END:
+*** About me
+Learning all the time, starving all the time.
+
+PGP key fingerprint:
+#+begin_example
+0607 17ED 4DB8 1B0C 546B  3E8D 4A57 935B D3A7 3093
+#+end_example
+
+I am:
+- a novice Emacs user and an ex-Vim user
+- an Arch Linux user
+- an amateur Programming Language linguist
+- a Rustacean (hopefully)
+- a gamer who mainly focuses on Nintendo platforms
+- an Anime lover
+
+You can find me at:
+- GitHub :: [[https://github.com/quinoa42/dotfiles/tree/master/applications/emacs][https://github.com/quinoa42]]
+- Bangumi :: [[https://bgm.tv/][https://bgm.tv/]]
+- MyAnimeList :: [[https://myanimelist.net/profile/quinoa42][https://myanimelist.net/profile/quinoa42]]
+
+*** About this site
+This site is powered by [[https://gohugo.io/][Hugo]], a static website generator. Posts are written in Org Mode, exported to Markdown files with the help of [[https://ox-hugo.scripter.co/][ox-hugo]]. Also, posts are in a mixture of English, Chinese and Japanese in a random manner.
+
+This site is meant to be a personal blog, including IT-related posts and all other random stuffs.
+
+** DONE 关于 :@meta:
+CLOSED: [2019-11-03 Sun 15:43]
+:PROPERTIES:
+:EXPORT_FILE_NAME: about.zh.md
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-11-03 Sun 15:43]
+:END:
+*** 关于我
+啥都想学，啥都不会。
+
+PGP key 指纹:
+#+begin_example
+0607 17ED 4DB8 1B0C 546B  3E8D 4A57 935B D3A7 3093
+#+end_example
+
+我是一个...
+- Emacs 用户和前 Vim 用户
+- Arch Linux 用户
+- 业余计算机语言爱好者
+- Rustacean （自称）
+- 任饭
+- 动画片儿爱好者
+
+出没于：
+- GitHub :: [[https://github.com/quinoa42/dotfiles/tree/master/applications/emacs][https://github.com/quinoa42]]
+- Bangumi :: [[https://bgm.tv/][https://bgm.tv/]]
+- MyAnimeList :: [[https://myanimelist.net/profile/quinoa42][https://myanimelist.net/profile/quinoa42]]
+
+*** 关于本站
+本站由 [[https://gohugo.io/][Hugo]] 生成，使用 Org Mode 编写， 并由 [[https://ox-hugo.scripter.co/][ox-hugo]] 转换为 Markdown 格式。文章可能随机地使用中文、英语和日语中的任何一种。
+
+本站作为一个个人博客站点，主要内容是围绕 IT 相关的一些杂谈和其他的一些琐事。
+** DONE 自分紹介 :@meta:
+CLOSED: [2019-11-03 Sun 16:18]
+:PROPERTIES:
+:EXPORT_FILE_NAME: about.jp.md
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-11-03 Sun 16:18]
+:END:
+*** 私について
+学びたいことがいっぱいけれども、わからないこともたくさん。
+
+PGP key fingerprint:
+#+begin_example
+0607 17ED 4DB8 1B0C 546B  3E8D 4A57 935B D3A7 3093
+#+end_example
+
+だいたいこんな感じのことをやっています：
+- Emacs 使いと元 Vim 使い
+- Arch Linux 使い
+- プログラミング言語アマチュア
+- Rustacean （自称）
+- ゲームとかやってるアニメとか観てるやつ
+
+多分いるところ：
+- GitHub :: [[https://github.com/quinoa42/dotfiles/tree/master/applications/emacs][https://github.com/quinoa42]]
+- Bangumi :: [[https://bgm.tv/][https://bgm.tv/]]
+- MyAnimeList :: [[https://myanimelist.net/profile/quinoa42][https://myanimelist.net/profile/quinoa42]]
+
+*** このサイトについて
+[[https://gohugo.io/][Hugo]] で生成されたウェブサイト。文章は Org Mode で書いて、 [[https://ox-hugo.scripter.co/][ox-hugo]] で Markdown に転換されたのです。 Postは日本語も中国語も英語もいろいろな言語で書いた可能性があります。
+
+一応ブログなので、ITとかのこっとについて書くつもりです。

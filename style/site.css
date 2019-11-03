@@ -1,0 +1,106 @@
+body {
+  background: #fdf9f9; }
+
+main {
+  max-width: 60%;
+  margin: auto; }
+
+a:link {
+  text-decoration: none;
+  color: #750000; }
+
+a:visited {
+  text-decoration: none;
+  color: #613232; }
+
+a:hover {
+  text-decoration: underline;
+  color: #750000; }
+
+.reading-info {
+  display: flex;
+  justify-content: space-between; }
+  .reading-info span {
+    color: rgba(0, 0, 0, 0.6); }
+  .reading-info .left, .reading-info .right {
+    display: inline-block; }
+
+h1 {
+  font-size: 1.8em; }
+
+.main-item {
+  margin: auto;
+  width: 90%;
+  text-align: center; }
+
+.jumplist {
+  display: inline-block; }
+  .jumplist ul {
+    display: inline-block;
+    margin: 0px; }
+    .jumplist ul li {
+      display: inline-block; }
+
+.tags {
+  font-family: monospace; }
+  .tags ul {
+    padding-left: 0px; }
+
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  #header .logo {
+    font-size: 1.5em; }
+  #header .heading {
+    margin-right: 4px; }
+  #header ul {
+    padding-left: 0px; }
+  #header .left, #header .right {
+    display: inline-block; }
+  #header .active a {
+    text-decoration: underline; }
+
+#footer {
+  align-items: center;
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%; }
+  #footer div {
+    text-align: center;
+    display: inline-block;
+    margin: auto;
+    margin-top: 0;
+    margin-down: 0;
+    width: 30%; }
+  #footer hr {
+    color: rgba(0, 0, 0, 0.6); }
+
+pre, code {
+  overflow: auto; }
+
+img[alt=screenshot] {
+  max-width: 80%;
+  height: auto; }
+
+.post-item {
+  margin-bottom: 20px; }
+  .post-item header .tt {
+    display: flex;
+    justify-content: space-between; }
+    .post-item header .tt h1 {
+      display: inline-block; }
+    .post-item header .tt time {
+      display: inline-block;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: auto;
+      color: rgba(0, 0, 0, 0.6); }
+  .post-item header .meta .tags {
+    display: inline-block; }
+  .post-item .read-more {
+    text-align: right; }
+    .post-item .read-more a {
+      display: inline-block; }

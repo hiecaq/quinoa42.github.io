@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://quinoa42.github.io/zh/categories/</loc>
-    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -24,7 +24,7 @@
   
   <url>
     <loc>https://quinoa42.github.io/zh/</loc>
-    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,7 +44,7 @@
   
   <url>
     <loc>https://quinoa42.github.io/zh/categories/meta/</loc>
-    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -84,26 +84,27 @@
   
   <url>
     <loc>https://quinoa42.github.io/zh/whimsia/switch-to-ox-hugo/</loc>
-    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quinoa42.github.io/zh/whimsia/</loc>
-    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
+    <loc>https://quinoa42.github.io/zh/tags/emacs/</loc>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://quinoa42.github.io/en/whimsia/"
+                href="https://quinoa42.github.io/en/tags/emacs/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://quinoa42.github.io/zh/whimsia/"
+                href="https://quinoa42.github.io/zh/tags/emacs/"
                 />
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/zh/tags/</loc>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -118,6 +119,36 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://quinoa42.github.io/zh/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/tags/vim/</loc>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/tags/vim/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/tags/vim/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/whimsia/</loc>
+    <lastmod>2019-11-03T17:06:54+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/whimsia/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/whimsia/"
                 />
   </url>
   

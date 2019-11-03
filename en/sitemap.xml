@@ -44,7 +44,7 @@
   
   <url>
     <loc>https://quinoa42.github.io/en/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <lastmod>2019-11-03T17:01:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -83,8 +83,43 @@
   </url>
   
   <url>
+    <loc>https://quinoa42.github.io/en/tags/emacs/</loc>
+    <lastmod>2019-11-03T17:01:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/tags/emacs/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/tags/emacs/"
+                />
+  </url>
+  
+  <url>
     <loc>https://quinoa42.github.io/en/dot-emacs/</loc>
-    <lastmod>2019-11-03T14:17:57+08:00</lastmod>
+    <lastmod>2019-11-03T17:01:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/en/tags/</loc>
+    <lastmod>2019-11-03T17:01:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/tags/"
+                />
   </url>
   
   <url>
@@ -113,28 +148,18 @@
   </url>
   
   <url>
-    <loc>https://quinoa42.github.io/en/tags/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <loc>https://quinoa42.github.io/en/tags/vim/</loc>
+    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://quinoa42.github.io/zh/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp"
-                href="https://quinoa42.github.io/jp/tags/"
+                href="https://quinoa42.github.io/zh/tags/vim/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://quinoa42.github.io/en/tags/"
+                href="https://quinoa42.github.io/en/tags/vim/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://quinoa42.github.io/en/tags/vim/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
   </url>
   
   <url>

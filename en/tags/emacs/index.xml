@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emacs on Emain Ablach</title>
+    <link>https://quinoa42.github.io/en/tags/emacs/</link>
+    <description>Recent content in Emacs on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/en/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>quinoa42&#39;s dotEmacs</title>
+      <link>https://quinoa42.github.io/en/dot-emacs/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/dot-emacs/</guid>
+      <description>Here is a list of blogs / configurations that I&amp;rsquo;ve grabbed code from or absorbed ideas from. All of them worth reading.
+ zzamboni&amp;rsquo;s Emacs config file Rafa’s Emacs settings file Ladicle&amp;rsquo;s Emacs Configuration Jamie Collinson&amp;rsquo;s Emacs Config munen&amp;rsquo;s Emacs configuration Karl Voit&amp;rsquo;s Emacs Configuration In Org-mode and the repo  This file might be out of sync. The newest version is available here.
+ Table of Contents  General Settings  Coding and Languages Tangle init.</description>
+    </item>
+    
+  </channel>
+</rss>

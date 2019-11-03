@@ -11,16 +11,48 @@
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
-      <nav class="jumplist">
-        <ul>
-          
-          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
-          
-          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
-          
-        </ul>
-      </nav>
+      <div class="heading left">
+        
+        <a class="logo" href="/en/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/en/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     
@@ -40,24 +72,22 @@
         <span>
           &bull;
         </span>
-        <span><time>last modified at 11-02-2019</time></span>
+        <span><time>last modified at 11-03-2019</time></span>
       </div>
     </div>
   </header>
-  
-
-<p>Everyone likes true color. But the true color support doesn&rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.</p>
+  <p>Everyone likes true color. But the true color support doesn&rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.</p>
 
 <h2 id="iterm2">iterm2</h2>
 
 <p>Make a new file called <code>term-256color-italic.terminfo</code>, and add these:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A xterm-256color based TERMINFO that adds the escape sequences for italic.
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A xterm-256color based TERMINFO that adds the escape sequences for italic.
 xterm-256color-italic|xterm with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
   kbs=\177,
   use=xterm-256color,</code></pre></div>
 <p>then,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic xterm-256color-italic.terminfo</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic xterm-256color-italic.terminfo</code></pre></div>
 <p>Open iterm&rsquo;s <code>Preferences/profiles/Terminal</code> page, and edit <code>Report Terminal Type</code> into <code>xterm-256color-italic</code>.</p>
 
 <p>iTerm natively support true color.</p>
@@ -65,7 +95,7 @@ xterm-256color-italic|xterm with 256 colors and italic,
 <h2 id="tmux">tmux</h2>
 
 <p>Make a new file called <code>tmux.terminfo</code>, and add these:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A screen-256color based TERMINFO that adds the escape sequences for italic.
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A screen-256color based TERMINFO that adds the escape sequences for italic.
 # run to add to term db: tic -x tmux.terminfo
 tmux|tmux terminal multiplexer,
   ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
@@ -76,9 +106,9 @@ tmux-256color|tmux with 256 colors,
   use=xterm-256color, use=tmux,
   kbs=\177,</code></pre></div>
 <p>then,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic -x tmux.terminfo</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic -x tmux.terminfo</code></pre></div>
 <p>Also add these to your <code>.tmux.conf</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tmux" data-lang="tmux"># use italic
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tmux" data-lang="tmux"># use italic
 set -g default-terminal &#34;tmux-256color&#34;
 # true color!!!
 set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pre></div>
@@ -86,18 +116,18 @@ set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pr
 
 <p>Now , time to set up neovim (using
 <a href="https://github.com/icymind/NeoSolarized">NeoSolarized</a>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#75715e">&#34; enable 256 colors</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">t_Co</span>=<span style="color:#ae81ff">256</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#39;nvim&#39;</span>) <span style="color:#75715e">&#34; enable true color</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">termguicolors</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">t_8f</span>=^[[<span style="color:#ae81ff">38</span>;<span style="color:#ae81ff">2</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lum</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">t_8b</span>=^[[<span style="color:#ae81ff">48</span>;<span style="color:#ae81ff">2</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lum</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
-</span><span style="color:#75715e">&#34; color theme</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">colorscheme</span> <span style="color:#a6e22e">NeoSolarized</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set background type</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">background</span>=dark</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#aaa;font-style:italic">&#34; enable 256 colors</span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span>set t_Co=<span style="color:#099">256</span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">if</span> has(<span style="color:#a50">&#39;nvim&#39;</span>) <span style="color:#aaa;font-style:italic">&#34; enable true color</span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span>    set termguicolors<span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span>    set t_8f=^[[<span style="color:#099">38</span>;<span style="color:#099">2</span>;%lu;%lu;%lum<span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span>    set t_8b=^[[<span style="color:#099">48</span>;<span style="color:#099">2</span>;%lu;%lu;%lum<span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">endif</span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#aaa;font-style:italic">
+</span><span style="color:#aaa;font-style:italic">&#34; color theme</span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span>colorscheme NeoSolarized<span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#aaa;font-style:italic">&#34; set background type</span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span>set background=<span style="color:#0aa">dark</span></code></pre></div>
 <p>Note that <code>^[</code> is the special character <code>\e</code>.</p>
 
 <h2 id="reference">Reference</h2>
@@ -108,7 +138,6 @@ set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pr
 <li><a href="http://apple.stackexchange.com/a/249385">Answer by Bret Fisher in a question on AskDifferent</a></li>
 <li><a href="https://github.com/neovim/neovim/wiki/FAQ#my-ctrl-h-mapping-doesnt-work">Solution to fix ctrl-h for neovim</a></li>
 </ul>
-
   <footer class="reading-info">
     <div class="left">
        <div class="tags">
@@ -140,7 +169,7 @@ set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pr
 
     </div>
     <div class="right">
-      <a href="https://quinoa42.github.io/en/oceanus/terminfo-truecolor/">permallink to this post</a>
+      <a href="https://quinoa42.github.io/en/oceanus/terminfo-truecolor/">permalink to this post</a>
     </div>
   </footer>
 </article>

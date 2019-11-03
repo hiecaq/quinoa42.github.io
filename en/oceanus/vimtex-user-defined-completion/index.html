@@ -11,16 +11,48 @@
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
-      <nav class="jumplist">
-        <ul>
-          
-          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
-          
-          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
-          
-        </ul>
-      </nav>
+      <div class="heading left">
+        
+        <a class="logo" href="/en/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/en/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     
@@ -40,18 +72,16 @@
         <span>
           &bull;
         </span>
-        <span><time>last modified at 11-02-2019</time></span>
+        <span><time>last modified at 11-03-2019</time></span>
       </div>
     </div>
   </header>
-  
-
-<p><a href="https://github.com/lervag/vimtex">vimtex</a> is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is <a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">quite easy</a>, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</p>
+  <p><a href="https://github.com/lervag/vimtex">vimtex</a> is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is <a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">quite easy</a>, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</p>
 
 <h2 id="auto-complete-usepackage-and-documentclass">Auto-Complete <code>\usepackage</code> and <code>\documentclass</code></h2>
 
 <p>This is fairly easy: put them into <code>$TEXMFHOME</code> with a directory structure like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">texmf
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">texmf
 └── tex
    └── latex
       ├── mlaarticle
@@ -76,7 +106,6 @@
 <li><a href="https://liam.page/2019/03/18/separation-of-content-and-presentation/">到底什么是「内容与样式分离」</a> by Liam Huang</li>
 <li><a href="https://junyixu.github.io/2019/03/08/Happy-LaTeXing/">在 ArchLinux 上愉快地 LaTeXing</a> by Junix</li>
 </ul>
-
   <footer class="reading-info">
     <div class="left">
        <div class="tags">
@@ -108,7 +137,7 @@
 
     </div>
     <div class="right">
-      <a href="https://quinoa42.github.io/en/oceanus/vimtex-user-defined-completion/">permallink to this post</a>
+      <a href="https://quinoa42.github.io/en/oceanus/vimtex-user-defined-completion/">permalink to this post</a>
     </div>
   </footer>
 </article>

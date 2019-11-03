@@ -5,10 +5,23 @@
     <link>https://quinoa42.github.io/en/categories/meta/</link>
     <description>Recent content in meta on Emain Ablach</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 28 Oct 2016 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 15:43:00 +0800</lastBuildDate>
     
 	<atom:link href="https://quinoa42.github.io/en/categories/meta/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://quinoa42.github.io/en/about/</link>
+      <pubDate>Sun, 03 Nov 2019 15:43:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/about/</guid>
+      <description>About me Learning all the time, starving all the time.
+PGP key fingerprint:
+0607 17ED 4DB8 1B0C 546B 3E8D 4A57 935B D3A7 3093 I am:
+ a novice Emacs user and an ex-Vim user an Arch Linux user an amateur Programming Language linguist a Rustacean (hopefully) a gamer who mainly focuses on Nintendo platforms an Anime lover  You can find me at:
+ GitHub https://github.com/quinoa42 Bangumi https://bgm.tv/ MyAnimeList https://myanimelist.</description>
+    </item>
     
     <item>
       <title>Hello, world!</title>

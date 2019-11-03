@@ -11,16 +11,48 @@
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
-      <nav class="jumplist">
-        <ul>
-          
-          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
-          
-          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
-          
-        </ul>
-      </nav>
+      <div class="heading left">
+        
+        <a class="logo" href="/en/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/en/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     
@@ -29,7 +61,7 @@
     <h1>Set up haskell-ide-engine and xmonad</h1>
     <div class="reading-info">
       <div class="left">
-        <span>552 words</span>
+        <span>551 words</span>
         <span>
           &bull;
         </span>
@@ -40,13 +72,11 @@
         <span>
           &bull;
         </span>
-        <span><time>last modified at 11-02-2019</time></span>
+        <span><time>last modified at 11-03-2019</time></span>
       </div>
     </div>
   </header>
-  
-
-<p>Now that I have tons of time during this break, I decided to <a href="http://learnyouahaskell.com/">learn myself a haskell</a> and as a way to apply what I&rsquo;ve learned, I&rsquo;ve planed to switch from <a href="https://awesomewm.org">awesomeWM</a> to <a href="https://xmonad.org">xmonad</a>. Besides, I&rsquo;ve being troubled with my awesome config&rsquo;s memory leak, which I haven&rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</p>
+  <p>Now that I have tons of time during this break, I decided to <a href="http://learnyouahaskell.com/">learn myself a haskell</a> and as a way to apply what I&rsquo;ve learned, I&rsquo;ve planed to switch from <a href="https://awesomewm.org">awesomeWM</a> to <a href="https://xmonad.org">xmonad</a>. Besides, I&rsquo;ve being troubled with my awesome config&rsquo;s memory leak, which I haven&rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</p>
 
 <h2 id="tool-used">Tool used</h2>
 
@@ -57,11 +87,11 @@
 <p>At this point after having a static-linked stack, <code>stack setup</code> will give you the static-linked ghc and ghci as <a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">Brian Buccola suggested</a>.</p>
 
 <p>Make sure stack&rsquo;s bin path is in your $PATH, which can be set in <code>~/.stack/config.yaml</code>, like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">local-bin-path: /home/quinoa42/bin</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">local-bin-path:<span style="color:#bbb"> </span>/home/quinoa42/bin</code></pre></div>
 <p>Then you&rsquo;d want the <a href="https://github.com/haskell/haskell-ide-engine">haskell-ide-engine</a>, which is a lsp-compatible language server for Haskell, like <code>rls</code> for Rust. To install it simply do:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">stack install cabal-install <span style="color:#75715e"># static-linked cabal-install, seems required</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">stack install cabal-install <span style="color:#aaa;font-style:italic"># static-linked cabal-install, seems required</span>
 git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
-cd haskell-ide-engine
+<span style="color:#0aa">cd</span> haskell-ide-engine
 stack ./install.hs hie-8.6.5</code></pre></div>
 <p>You might also want <a href="https://hoogle.haskell.org">hoogle</a> for documentation lookup, which can be installed directly via pacman because it read from <code>Hackage</code> directly (if my understanding is correct).</p>
 
@@ -72,12 +102,12 @@ stack ./install.hs hie-8.6.5</code></pre></div>
 <p>This part is based on a combination of blog posts from <a href="https://qiita.com/aiya000/items/be55d899e9c92dd57c35">aiya000</a>, <a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">Brian Buccola</a> and <a href="https://www.ncaq.net/2019/02/05/15/42/31/">ncaq</a>.</p>
 
 <p>To begin with, inside your <code>~/.xmonad</code>, create a new <code>stack.yaml</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">resolver: lts-13.27
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">resolver: lts-13.27
 
 packages:
   - .</code></pre></div>
 <p>Then add a new <code>package.yaml</code> as <a href="https://www.ncaq.net/2019/02/05/15/42/31/">ncaq</a> suggest:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: xmonad-&lt;yourname&gt;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: xmonad-&lt;yourname&gt;
 version: 0.1.0
 synopsis: xmonad setting
 github: &lt;yourname&gt;/.xmonad
@@ -102,28 +132,28 @@ executables:
 <p>And <code>stack install</code> should compile your favorite <code>xmonad</code> executable into the bin path.</p>
 
 <p>To make xmonad&rsquo;s own compile system (<code>xmonad --recompile</code>) work, create an executable script <code>build</code> at the same dir level as <a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">Brian Buccola</a> suggests:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># ~/.xmonad/build</span>
-<span style="color:#75715e">#!/bin/sh</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#aaa;font-style:italic"># ~/.xmonad/build</span>
+<span style="color:#aaa;font-style:italic">#!/bin/sh</span>
 
-stack ghc -- <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --make xmonad.hs <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -i <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -ilib <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -fforce-recomp <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -main-is main <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -v0 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -Wall <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -fwarn-tabs <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -threaded <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -O2 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -with-rtsopts<span style="color:#f92672">=</span>-N4 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -o <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+stack ghc -- <span style="color:#a50">\
+</span><span style="color:#a50"></span>  --make xmonad.hs <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -i <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -ilib <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -fforce-recomp <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -main-is main <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -v0 <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -Wall <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -fwarn-tabs <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -threaded <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -O2 <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -with-rtsopts=-N4 <span style="color:#a50">\
+</span><span style="color:#a50"></span>  -o <span style="color:#a50">&#34;</span><span style="color:#a00">$1</span><span style="color:#a50">&#34;</span>
 
-exec install xmonad-x86_64-linux ~/bin/xmonad</code></pre></div>
+<span style="color:#0aa">exec</span> install xmonad-x86_64-linux ~/bin/xmonad</code></pre></div>
 <p>Now you have a full dev environment around xmonad!</p>
 
 <p><code>~/.xmonad</code> now looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">.
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">.
 ├── build
 ├── package.yaml
 ├── stack.yaml
@@ -139,7 +169,6 @@ exec install xmonad-x86_64-linux ~/bin/xmonad</code></pre></div>
 <li><a href="https://www.ncaq.net/2019/02/05/15/42/31/">EmacsのHaskellの開発環境をinteroからHaskell IDE Engineに移行しました</a> by ncaq (in Japanese)</li>
 <li><a href="https://qiita.com/aiya000/items/be55d899e9c92dd57c35">xmonad.hsでモジュール分割をする</a> by aiya000 (in Japanese)</li>
 </ul>
-
   <footer class="reading-info">
     <div class="left">
        <div class="tags">
@@ -181,7 +210,7 @@ exec install xmonad-x86_64-linux ~/bin/xmonad</code></pre></div>
 
     </div>
     <div class="right">
-      <a href="https://quinoa42.github.io/en/oceanus/hie-and-xmonad/">permallink to this post</a>
+      <a href="https://quinoa42.github.io/en/oceanus/hie-and-xmonad/">permalink to this post</a>
     </div>
   </footer>
 </article>

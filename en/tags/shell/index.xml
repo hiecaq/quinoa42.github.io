@@ -16,9 +16,12 @@
       <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/process-substitution-and-redirection-without-command/</guid>
-      <description>Today I found an interesting discussion about some interesting statements:
-$ echo &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) /dev/fd/11 $ cat &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) I am a cool here-string To understand how this works, we need to split the statements into pieces.
-here-string There isn&amp;rsquo;t much to say about &amp;lt;&amp;lt;&amp;lt;, named here-string, which can be understood as a brief form of heredoc. It simply redirects the string after it to stdin.</description>
+      <description>&lt;p&gt;Today I found an interesting &lt;a href=&#34;https://www.v2ex.com/t/370077&#34;&gt;discussion&lt;/a&gt; about some interesting statements:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;$ &lt;span style=&#34;color:#0aa&#34;&gt;echo&lt;/span&gt; &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;I am a cool here-string&amp;#34;&lt;/span&gt;)
+/dev/fd/11
+$ cat &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;I am a cool here-string&amp;#34;&lt;/span&gt;)
+I am a cool here-string&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To understand how this works, we need to split the statements into pieces.&lt;/p&gt;</description>
     </item>
     
   </channel>

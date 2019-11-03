@@ -16,9 +16,7 @@
       <pubDate>Wed, 22 Nov 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</guid>
-      <description>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using rbenv and ruby-build with a brew-installed tcl-tk library.
-install tcl-tk $ brew install tcl-tk Then add /usr/local/opt/tcl-tk/bin to your path.
-Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your input.</description>
+      <description>&lt;p&gt;It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using &lt;code&gt;rbenv&lt;/code&gt; and &lt;code&gt;ruby-build&lt;/code&gt; with a brew-installed &lt;code&gt;tcl-tk&lt;/code&gt; library.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -27,8 +25,7 @@ Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your
       <pubDate>Fri, 30 Jun 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/neovim-python/</guid>
-      <description>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
-install pyenv The installing process is similar to Ruby Setup here, just install pyenv instead. Don&amp;rsquo;t forget to also install pyenv-virtualenv, which is a handy tool in addition to pyenv that is capable of conveniently managing virtualenv.</description>
+      <description>&lt;p&gt;Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -37,8 +34,9 @@ install pyenv The installing process is similar to Ruby Setup here, just install
       <pubDate>Sun, 06 Nov 2016 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/mac-foobar2000/</guid>
-      <description>Today I realized that iTunes does not support *.flac files at all. Stubborn user as I am, NO ONE can force me to get used to their way of doing things. It&amp;rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.
-So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:</description>
+      <description>&lt;p&gt;Today I realized that iTunes does not support &lt;code&gt;*.flac&lt;/code&gt; files at all. Stubborn user as I am, &lt;strong&gt;NO ONE&lt;/strong&gt; can force me to get used to their way of doing things. It&amp;rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.&lt;/p&gt;
+
+&lt;p&gt;So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:&lt;/p&gt;</description>
     </item>
     
   </channel>

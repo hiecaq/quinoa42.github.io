@@ -3,17 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://quinoa42.github.io/zh/whimsia/switch-to-ox-hugo/</loc>
-    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://quinoa42.github.io/zh/categories/</loc>
-    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
                 href="https://quinoa42.github.io/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/categories/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -24,11 +24,16 @@
   
   <url>
     <loc>https://quinoa42.github.io/zh/</loc>
-    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
                 href="https://quinoa42.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -39,11 +44,16 @@
   
   <url>
     <loc>https://quinoa42.github.io/zh/categories/meta/</loc>
-    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
                 href="https://quinoa42.github.io/en/categories/meta/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/categories/meta/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -53,8 +63,33 @@
   </url>
   
   <url>
+    <loc>https://quinoa42.github.io/zh/about/</loc>
+    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/zh/whimsia/switch-to-ox-hugo/</loc>
+    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://quinoa42.github.io/zh/whimsia/</loc>
-    <lastmod>2019-11-02T20:56:14+08:00</lastmod>
+    <lastmod>2019-11-03T16:29:12+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -73,6 +108,11 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://quinoa42.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/tags/"
                 />
     <xhtml:link
                 rel="alternate"

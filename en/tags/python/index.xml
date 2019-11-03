@@ -16,8 +16,7 @@
       <pubDate>Fri, 30 Jun 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/neovim-python/</guid>
-      <description>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
-install pyenv The installing process is similar to Ruby Setup here, just install pyenv instead. Don&amp;rsquo;t forget to also install pyenv-virtualenv, which is a handy tool in addition to pyenv that is capable of conveniently managing virtualenv.</description>
+      <description>&lt;p&gt;Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.&lt;/p&gt;</description>
     </item>
     
   </channel>

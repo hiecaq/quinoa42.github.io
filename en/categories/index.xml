@@ -5,10 +5,19 @@
     <link>https://quinoa42.github.io/en/categories/</link>
     <description>Recent content in Categories on Emain Ablach</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 15:43:00 +0800</lastBuildDate>
     
 	<atom:link href="https://quinoa42.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>meta</title>
+      <link>https://quinoa42.github.io/en/categories/meta/</link>
+      <pubDate>Sun, 03 Nov 2019 15:43:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/categories/meta/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>software</title>
@@ -16,15 +25,6 @@
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/categories/software/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>meta</title>
-      <link>https://quinoa42.github.io/en/categories/meta/</link>
-      <pubDate>Fri, 28 Oct 2016 00:00:00 +0800</pubDate>
-      
-      <guid>https://quinoa42.github.io/en/categories/meta/</guid>
       <description></description>
     </item>
     

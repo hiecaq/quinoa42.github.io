@@ -11,16 +11,48 @@
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
-      <nav class="jumplist">
-        <ul>
-          
-          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
-          
-          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
-          
-        </ul>
-      </nav>
+      <div class="heading left">
+        
+        <a class="logo" href="/en/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/en/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     
@@ -72,7 +104,7 @@
 
             </div>
             <div class="right">
-              <span>552 words</span>
+              <span>551 words</span>
               <span>
                 &bull;
               </span>
@@ -80,102 +112,12 @@
             </div>
           </div>
         </header>
+        <p>Now that I have tons of time during this break, I decided to <a href="http://learnyouahaskell.com/">learn myself a haskell</a> and as a way to apply what I&rsquo;ve learned, I&rsquo;ve planed to switch from <a href="https://awesomewm.org">awesomeWM</a> to <a href="https://xmonad.org">xmonad</a>. Besides, I&rsquo;ve being troubled with my awesome config&rsquo;s memory leak, which I haven&rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</p>
         
-
-<p>Now that I have tons of time during this break, I decided to <a href="http://learnyouahaskell.com/">learn myself a haskell</a> and as a way to apply what I&rsquo;ve learned, I&rsquo;ve planed to switch from <a href="https://awesomewm.org">awesomeWM</a> to <a href="https://xmonad.org">xmonad</a>. Besides, I&rsquo;ve being troubled with my awesome config&rsquo;s memory leak, which I haven&rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</p>
-
-<h2 id="tool-used">Tool used</h2>
-
-<p>Short version: do not use Arch&rsquo;s <code>ghc</code> and xmonad installed via pacman.</p>
-
-<p>Conceptually I end up with a separation of things I deal with that need a dev environment (<a href="https://github.com/commercialhaskell/stack">stack</a>, xmonad, and scripting) and things that I just &ldquo;use&rdquo; (<a href="https://pandoc.org/#">pandoc</a> and <a href="https://github.com/jaor/xmobar">xmobar</a>). The former is around <code>stack</code> and the static-linked environment it comes with, which I got by installing <a href="https://aur.archlinux.org/packages/stack-static/">stack-static</a> on AUR, and the latter is simply pacman-installed. This mimics the way I deal with Rust on Arch: my personal projects and other stuff are built around pacman-installed <code>rustup</code>, while <code>exa</code>, <code>ripgrep</code> and other tools are simply pacman managed.</p>
-
-<p>At this point after having a static-linked stack, <code>stack setup</code> will give you the static-linked ghc and ghci as <a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">Brian Buccola suggested</a>.</p>
-
-<p>Make sure stack&rsquo;s bin path is in your $PATH, which can be set in <code>~/.stack/config.yaml</code>, like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">local-bin-path: /home/quinoa42/bin</code></pre></div>
-<p>Then you&rsquo;d want the <a href="https://github.com/haskell/haskell-ide-engine">haskell-ide-engine</a>, which is a lsp-compatible language server for Haskell, like <code>rls</code> for Rust. To install it simply do:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">stack install cabal-install <span style="color:#75715e"># static-linked cabal-install, seems required</span>
-git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
-cd haskell-ide-engine
-stack ./install.hs hie-8.6.5</code></pre></div>
-<p>You might also want <a href="https://hoogle.haskell.org">hoogle</a> for documentation lookup, which can be installed directly via pacman because it read from <code>Hackage</code> directly (if my understanding is correct).</p>
-
-<p>Now that we have all the tools we need, we can set up our editor&rsquo;s LSP client (for which I use neovim and <code>LSPClient-neovim</code> btw) to use <code>hie-wrapper</code> when editing a haskell file.</p>
-
-<h2 id="stack-driven-xmonad-config">Stack-driven Xmonad config</h2>
-
-<p>This part is based on a combination of blog posts from <a href="https://qiita.com/aiya000/items/be55d899e9c92dd57c35">aiya000</a>, <a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">Brian Buccola</a> and <a href="https://www.ncaq.net/2019/02/05/15/42/31/">ncaq</a>.</p>
-
-<p>To begin with, inside your <code>~/.xmonad</code>, create a new <code>stack.yaml</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">resolver: lts-13.27
-
-packages:
-  - .</code></pre></div>
-<p>Then add a new <code>package.yaml</code> as <a href="https://www.ncaq.net/2019/02/05/15/42/31/">ncaq</a> suggest:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: xmonad-&lt;yourname&gt;
-version: 0.1.0
-synopsis: xmonad setting
-github: &lt;yourname&gt;/.xmonad
-author: &lt;yourname&gt;
-maintainer: &lt;youremail&gt;@example.com
-copyright: © &lt;yourname&gt;
-license: MIT
-dependencies:
-  - X11
-  - base
-  - xmonad
-  - xmonad-contrib
-executables:
-  xmonad:
-    main: xmonad.hs
-    ghc-options:
-      - -Wall
-      - -fwarn-tabs
-      - -threaded
-      - -O2
-      - -with-rtsopts=-N4</code></pre></div>
-<p>And <code>stack install</code> should compile your favorite <code>xmonad</code> executable into the bin path.</p>
-
-<p>To make xmonad&rsquo;s own compile system (<code>xmonad --recompile</code>) work, create an executable script <code>build</code> at the same dir level as <a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">Brian Buccola</a> suggests:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># ~/.xmonad/build</span>
-<span style="color:#75715e">#!/bin/sh</span>
-
-stack ghc -- <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --make xmonad.hs <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -i <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -ilib <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -fforce-recomp <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -main-is main <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -v0 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -Wall <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -fwarn-tabs <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -threaded <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -O2 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -with-rtsopts<span style="color:#f92672">=</span>-N4 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -o <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
-
-exec install xmonad-x86_64-linux ~/bin/xmonad</code></pre></div>
-<p>Now you have a full dev environment around xmonad!</p>
-
-<p><code>~/.xmonad</code> now looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">.
-├── build
-├── package.yaml
-├── stack.yaml
-├── stack.yaml.lock
-├── xmonad-xxx.cabal
-└── xmonad.hs</code></pre></div>
-<h2 id="inspiration-and-reference">Inspiration and Reference</h2>
-
-<ul>
-<li><a href="https://www.reddit.com/r/haskell/comments/7a1ty3/whats%5Fthe%5Fcorrect%5Fway%5Fto%5Finstall%5Fghc%5Fand%5Fcabal%5Fon/">Whats the &lsquo;correct&rsquo; way to install ghc and cabal on arch linux?</a> on <a href="https://www.reddit.com/r/xmonad/">r/haskell</a></li>
-<li><a href="https://www.reddit.com/r/xmonad/comments/73z1ew/could%5Fnot%5Ffind%5Fmodule/">Could not find module</a> on <a href="https://www.reddit.com/r/xmonad/">r/xmonad</a></li>
-<li><a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">How to install xmonad and xmobar via stack</a> by Brian Buccola</li>
-<li><a href="https://www.ncaq.net/2019/02/05/15/42/31/">EmacsのHaskellの開発環境をinteroからHaskell IDE Engineに移行しました</a> by ncaq (in Japanese)</li>
-<li><a href="https://qiita.com/aiya000/items/be55d899e9c92dd57c35">xmonad.hsでモジュール分割をする</a> by aiya000 (in Japanese)</li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/hie-and-xmonad/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -223,39 +165,12 @@ exec install xmonad-x86_64-linux ~/bin/xmonad</code></pre></div>
             </div>
           </div>
         </header>
+        <p><a href="https://github.com/lervag/vimtex">vimtex</a> is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is <a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">quite easy</a>, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</p>
         
-
-<p><a href="https://github.com/lervag/vimtex">vimtex</a> is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is <a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">quite easy</a>, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</p>
-
-<h2 id="auto-complete-usepackage-and-documentclass">Auto-Complete <code>\usepackage</code> and <code>\documentclass</code></h2>
-
-<p>This is fairly easy: put them into <code>$TEXMFHOME</code> with a directory structure like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">texmf
-└── tex
-   └── latex
-      ├── mlaarticle
-      │  └── mlaarticle.cls
-      └── proofh
-         └── proofh.sty</code></pre></div>
-<p>Then it should work out of the box, otherwise try <code>sudo hashtex</code>.</p>
-
-<h2 id="auto-complete-new-commands-and-environments">Auto-complete new commands and environments</h2>
-
-<p>The problem is that commands and environments defined in these new packages are not in the candidate lists at all! It is easy to see from <a href="https://github.com/lervag/vimtex/tree/master/autoload/vimtex/complete">vimtex source code</a> that these completion candidates are mostly hard-coded. Thus, the only things we need to do is to create files corresponding to our packages in this given format, and put them inside <code>vimtex/autoload/vimtex/complete</code>.</p>
-
-<p>The candidate file format is very straightforward: file is named <code>SOMEPACKAGE</code> if it is for a package of the same name, and <code>class-SOMECLASS</code> if it is for a class of the same name. In each file, candidates are separated by new lines, and to declare a command it will simply be its name, and to declare an environment it will be something like <code>\begin{ENV}</code>. After making this kind of files, the auto-completion works for our own packages!</p>
-
-<h2 id="further-readings">Further Readings</h2>
-
-<p>LaTeX is not only great at scientific and technical writing, but also a great way to do most things you do with Docs and PowerPoints, because it is easy to set up your own content-and-format-independent templates, which enable better concentration on the content itself. Here are many resources that worth reading:</p>
-
-<ul>
-<li><a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">LaTeX/Creating Packages</a> on Wikibooks</li>
-<li><a href="https://castel.dev/post/lecture-notes-1/">How I&rsquo;m able to take notes in mathematics lectures using LaTeX and Vim</a> by Gilles Castel</li>
-<li><a href="https://liam.page/2019/03/18/separation-of-content-and-presentation/">到底什么是「内容与样式分离」</a> by Liam Huang</li>
-<li><a href="https://junyixu.github.io/2019/03/08/Happy-LaTeXing/">在 ArchLinux 上愉快地 LaTeXing</a> by Junix</li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/vimtex-user-defined-completion/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -313,89 +228,12 @@ exec install xmonad-x86_64-linux ~/bin/xmonad</code></pre></div>
             </div>
           </div>
         </header>
+        <p>One thing that I do really miss after switching from Mac OS to Arch Linux is <a href="https://www.alfredapp.com/">Alfred</a>. I heard there is an alternative for Linux called <a href="https://github.com/albertlauncher/albert">Albert</a> but I haven&rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn&rsquo;t fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.</p>
         
-
-<p>One thing that I do really miss after switching from Mac OS to Arch Linux is <a href="https://www.alfredapp.com/">Alfred</a>. I heard there is an alternative for Linux called <a href="https://github.com/albertlauncher/albert">Albert</a> but I haven&rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn&rsquo;t fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.</p>
-
-<h2 id="tools-used">Tools used</h2>
-
-<ol>
-<li><a href="https://i3wm.org/">i3</a>: I set the keyboard shortcuts and default window layout for the simple launcher in my i3 config. Any other window manager or desktop environment should work too.</li>
-<li><a href="https://github.com/yshui/compton">compton</a>: used to beautify the launcher: being transparent is always the easiest solution to make something pretty.</li>
-<li><a href="https://github.com/jwilm/alacritty">alacritty</a>: Fzf will be run in a terminal emulator. Any emulator that supports setting window class and running a command from CLI args should work too.</li>
-<li><a href="https://github.com/junegunn/fzf">fzf</a></li>
-</ol>
-
-<h2 id="notable-details">Notable details</h2>
-
-<p>First, to make the launcher looks nicer, we need to specify window layout and opacity of the launcher window. We can do this by using alacritty&rsquo;s <code>--class</code> flag to set the window class, and run the command we want (i.e. fzf), for example,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">alacritty --class <span style="color:#e6db74">&#34;fzfmenu&#34;</span> -e fzf</code></pre></div>
-<p>With this flag, alacritty will set the first value in <code>WM_CLASS</code> to the given name. We can check this by using <code>xprop</code> (thanks for the explanation on this from <a href="https://i3wm.org/docs/userguide.html">i3 User Guide</a>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ xprop WM_CLASS
-WM_CLASS<span style="color:#f92672">(</span>STRING<span style="color:#f92672">)=</span><span style="color:#e6db74">&#34;fzfmenu&#34;</span>, <span style="color:#e6db74">&#34;Alacritty&#34;</span></code></pre></div>
-<p>In <a href="https://i3wm.org/docs/userguide.html">i3</a>, the first argument will be referenced by <code>instance</code> while the second one by <code>class</code>. Similarly, in <code>compton</code>, the first argument matches to <code>class_i</code> while the second to <code>class_g</code>.</p>
-
-<p>Another problem is that, if not running the following command after fzf in background, the window of alacritty will just block there waiting for the command to finish; If we only use <code>&amp;</code> when calling the command, it will get killed when alacritty quit after that immediately because alacritty owns it. The solution is to do this with <code>nohup COMMAND &amp;</code>. We probably will never going to need the stdout from our command, so we can simply redirect stdout and stderr to <code>/dev/null</code> to prevent <code>nohup</code> to create <code>nohup.out</code> (see its <a href="https://linux.die.net/man/1/nohup">manpage</a> for details).</p>
-
-<h2 id="scripts">Scripts</h2>
-
-<h3 id="launch-apps">launch apps</h3>
-
-<p><code>fzf_run</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#75715e">#!/usr/bin/env zsh
-</span><span style="color:#75715e"></span>print -rl -- <span style="color:#e6db74">${</span>(ko)commands<span style="color:#e6db74">}</span> | fzf | <span style="color:#f92672">(</span>nohup <span style="color:#e6db74">${</span>SHELL<span style="color:#66d9ef">:-</span><span style="color:#e6db74">&#34;/bin/sh&#34;</span><span style="color:#e6db74">}</span> &amp;<span style="color:#f92672">)</span> &gt;/dev/null <span style="color:#ae81ff">2</span>&gt;&amp;<span style="color:#ae81ff">1</span></code></pre></div>
-<p>Notice that to list all commands easily I used zsh as the shell for this script explicitly. <code>${commands}</code> will expand to the <a href="http://zsh.sourceforge.net/Doc/Release/Zsh-Modules.html#index-commands">command hash table</a> and <code>k</code> flag will substitute keys instead of values, which are command names instead of full paths (found on an <a href="https://unix.stackexchange.com/a/120818">excellent Unix &amp; Linux Stack Exchange answer</a>).</p>
-
-<h3 id="open-a-specific-pdf-with-zathura">open a specific pdf with zathura</h3>
-
-<p>I realize I need to do this quite often, so I wrote the following script (<code>fzf_zathura</code>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#75715e">#!/usr/bin/env sh
-</span><span style="color:#75715e"></span>fd -a -e <span style="color:#e6db74">&#34;pdf&#34;</span> . ~/documents | fzf | <span style="color:#f92672">(</span>nohup xargs -I<span style="color:#f92672">{}</span> zathura <span style="color:#e6db74">&#34;{}&#34;</span> &gt;/dev/null <span style="color:#ae81ff">2</span>&gt;&amp;<span style="color:#ae81ff">1</span> &amp;<span style="color:#f92672">)</span></code></pre></div>
-<h3 id="open-a-new-tmux-window-to-edit-a-file-in-dotfiles-dir-with-neovim">open a new tmux window to edit a file in dotfiles dir with neovim</h3>
-
-<p>This is also a thing I do quite often. I named it <code>fzf_dotfiles</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#75715e">#!/usr/bin/env zsh
-</span><span style="color:#75715e"></span>fd --max-depth<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> -t f . ~/.dotfiles | fzf | xargs -I<span style="color:#f92672">{}</span> tmux new-window -n launcher nvim -f <span style="color:#e6db74">&#34;{}&#34;</span></code></pre></div>
-<p>Note that for this one we don&rsquo;t have to use <code>nohup &amp;</code> because <code>tmux new-window</code> is non-blocking.</p>
-
-<h2 id="setting-launching-shortcuts">Setting launching shortcuts</h2>
-
-<p>Now we handle launching alacritty that runs the scripts in i3&rsquo;s config file:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">bindsym $mod+space exec alacritty --class &#34;fzfmenu&#34; -e fzf_run
-bindsym $mod+z exec alacritty --class &#34;fzfmenu&#34; -e fzf_zathura
-bindsym $mod+v exec alacritty -d 120 24 --class &#34;fzfmenu&#34; -e fzf_dotfiles</code></pre></div>
-<h2 id="setting-default-window-layout">Setting default window layout</h2>
-
-<p>Also in i3&rsquo;s config file, add</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">for_window [instance=&#34;fzfmenu&#34;] floating enable</code></pre></div>
-<h2 id="make-it-transparent">Make it transparent</h2>
-
-<p>Add this to compton&rsquo;s config file:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">opacity-rule = [
-    &#34;90:class_i = &#39;fzfmenu&#39;&#34;
-]</code></pre></div>
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Now we are done!</p>
-
-<figure><a href="https://i.imgur.com/6rDB3HC.png">
-    <img src="https://i.imgur.com/6rDB3HC.png"
-         alt="screenshot"/> </a>
-</figure>
-
-
-<p>This launcher is super easy to tweak, and we can add any other functions we want. Goodbye dmenu!</p>
-
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="https://i3wm.org/docs/userguide.html">i3guide</a></li>
-<li><a href="https://linux.die.net/man/1/nohup">nohup(1) Linux man page</a></li>
-<li><a href="http://zsh.sourceforge.net/Doc/Release/Zsh-Modules.html#index-commands">Details about commands in the zsh/parameter Module</a></li>
-<li><a href="http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags">Zsh parameter Expansion Flags</a></li>
-<li><a href="https://unix.stackexchange.com/a/120818">Stéphane Chazelas&rsquo; answer on how to print a list of all bins in PATH</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/replace-dmenu-with-fzf/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -438,48 +276,12 @@ bindsym $mod+v exec alacritty -d 120 24 --class &#34;fzfmenu&#34; -e fzf_dotfile
             </div>
           </div>
         </header>
+        <p>Since I started to use Arch Linux, I&rsquo;ve also switched from using plugins such as <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to using the native Vim8 packages utility. However, I encountered the problem where if we do <code>packadd SOMEPACKAGE</code> after (Neo)vim has initialized, and unfortunately if this plugin comes with an <code>after</code> directory, for example in an <code>autocmd</code> such as <code>autocmd FileType python vim-textobj-python</code>, the plugin will not work correctly due to the way Vim8 packages utility handles <code>after</code> directories.</p>
         
-
-<p>Since I started to use Arch Linux, I&rsquo;ve also switched from using plugins such as <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to using the native Vim8 packages utility. However, I encountered the problem where if we do <code>packadd SOMEPACKAGE</code> after (Neo)vim has initialized, and unfortunately if this plugin comes with an <code>after</code> directory, for example in an <code>autocmd</code> such as <code>autocmd FileType python vim-textobj-python</code>, the plugin will not work correctly due to the way Vim8 packages utility handles <code>after</code> directories.</p>
-
-<h2 id="what-s-done-by-vim-when-calling-packadd">What&rsquo;s done by Vim when calling packadd?</h2>
-
-<p>This is well explained in the <a href="https://neovim.io/doc/user/repeat.html#:packadd">official documentation</a>. In short, when <code>packadd</code> is called explicitly, Vim will source <code>plugin/*.vim</code> under the package directory, and simply add <code>after</code> directory to the <code>runtimepath</code>. This causes the problem because scripts in the <code>after</code> directory are never sourced if the <code>packadd</code> happens after Vim has totally initialized, which it will be the case for a <code>packadd</code> invoked in <code>autocmd</code>.</p>
-
-<h2 id="how-to-fix-it">How to fix it?</h2>
-
-<p>Well, since it&rsquo;s not sourced, let&rsquo;s just source it! The way I used is calling <code>runtime</code>, and here is a simple example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">java</span> :<span style="color:#a6e22e">packadd</span> <span style="color:#a6e22e">vim</span>-<span style="color:#a6e22e">textobj</span>-<span style="color:#66d9ef">function</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    \ | <span style="color:#a6e22e">runtime</span>! <span style="color:#a6e22e">OPT</span> <span style="color:#a6e22e">after</span><span style="color:#e6db74">/ftplugin/</span><span style="color:#a6e22e">java</span>/<span style="color:#a6e22e">textobj</span>-<span style="color:#66d9ef">function</span>.<span style="color:#a6e22e">vim</span></code></pre></div>
-<p>When given <code>OPT</code>, <code>:runtime</code> will search the following files in the optional packages in <code>packpath</code>, which is the case we want. <code>!</code> simply means to source every matched files. The given match format should mimic the file structure under a particular package or plugin, as the example shows.</p>
-
-<h2 id="extra">Extra</h2>
-
-<p>If we add <code>LanguageClient-neovim</code> also as an optional package, it will
-not autostart the servers correctly since the related code is in
-<code>autoload</code>. If we want to lazily set up the LSP related stuff when we
-open files of the supported types, an easy solution will be:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">LC_starts</span>()<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has_key</span>(<span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">LanguageClient_serverCommands</span>, &amp;<span style="color:#a6e22e">filetype</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">quinoa42_loaded_lsp</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">        &#34; fancy stuff here ...</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#a6e22e">LanguageClientStart</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">Lazy_Loaded_LSP</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">au</span>!<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">rust</span>,<span style="color:#a6e22e">java</span>,<span style="color:#a6e22e">python</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">exists</span>(<span style="color:#e6db74">&#39;g:quinoa42_loaded_lsp&#39;</span>) |<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">LC_starts</span>() |<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">END</span></code></pre></div>
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="https://neovim.io/doc/user/repeat.html#:packadd">Documentation about packages and packadd from Neovim</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/vim8-package-opt-after/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -527,35 +329,12 @@ open files of the supported types, an easy solution will be:</p>
             </div>
           </div>
         </header>
+        <p><a href="https://github.com/tridactyl/tridactyl">Tridactyl</a> has been a decent replacement for <a href="https://github.com/vimperator/vimperator-labs">Vimperator</a> or <a href="https://github.com/5digits/dactyl">Pentadactyl</a> for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&rsquo;m using <code>tmux</code> for most of the time, I start to wondering if I could do some tweak with the <code>editorcmd</code> so that instead of a new terminal emulator window, a termporary tmux window will be opened.</p>
         
-
-<p><a href="https://github.com/tridactyl/tridactyl">Tridactyl</a> has been a decent replacement for <a href="https://github.com/vimperator/vimperator-labs">Vimperator</a> or <a href="https://github.com/5digits/dactyl">Pentadactyl</a> for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&rsquo;m using <code>tmux</code> for most of the time, I start to wondering if I could do some tweak with the <code>editorcmd</code> so that instead of a new terminal emulator window, a termporary tmux window will be opened.</p>
-
-<h2 id="first-attempt">First attempt</h2>
-
-<p>How <code>editorcmd</code> works is pretty simple: once the user invokes <code>editor()</code>, tridactyl will expand the first occurrence of <code>%f</code> into the filepath for the tempfile, or just append the filepath at the end if <code>%f</code> is not found (see <a href="https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255">this</a> for details). So we could easily come up with the following code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f&#39;</code></pre></div>
-<p>However, this actually doesn&rsquo;t work the way we want. What happens is that <code>tmux new-window</code> doesn&rsquo;t block until the window is closed. As a result, once the given command has returned, tridactyl will go straight to read from the provided tempfile, which will turn out to be empty since it&rsquo;s just opened by the Neovim in the new tmux window. We need to find a way to block the command until the window is closed.</p>
-
-<h2 id="solution">Solution</h2>
-
-<p>A <a href="https://unix.stackexchange.com/a/137547">StackExchange answer</a> points out the solution: to use <code>tmux wait-for</code>. <code>tmux wait-for &lt;CHANNEL&gt;</code> will block until receiving the signal on the given <code>CHANNEL</code>, while <code>tmux wait-for -S &lt;CHANNEL&gt;</code> will send such a signal to the <code>CHANNEL</code>. Thus, the solution will be:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f; tmux wait-for -S firefox-neww-done&#39; \; wait-for firefox-neww-done</code></pre></div>
-<p>This binding divides into two sequential command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">new-window -n firefox <span style="color:#e6db74">&#39;nvim -f %f; tmux wait-for -S firefox-neww-done&#39;</span>
-wait-for firefox-neww-done</code></pre></div>
-<p><code>\;</code> is to make sure the shell will not interpret this <code>;</code> so that it can be passed to <code>tmux</code>, where it also serves the purpose of dividing the commands (see the <a href="http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS">manpage</a> for details).</p>
-
-<p>So in this new version, the second line will block until the first line returned, where in the first line the signal will not be sent until Neovim is closed. Once the signal is sent, the new <code>tmux</code> window will also be closed too. Everything works as expected!</p>
-
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="https://unix.stackexchange.com/a/137547">answer to the question &lsquo;Make tmux block until program completes&rsquo; by Chris Johnsen</a></li>
-<li><a href="http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS">Manpage of tmux on OpenBSD</a></li>
-<li><a href="https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255">tridactyl source code on editorcmd</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/tridactyl-editorcmd-with-tmux/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -603,39 +382,12 @@ wait-for firefox-neww-done</code></pre></div>
             </div>
           </div>
         </header>
+        <p>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using <code>rbenv</code> and <code>ruby-build</code> with a brew-installed <code>tcl-tk</code> library.</p>
         
-
-<p>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using <code>rbenv</code> and <code>ruby-build</code> with a brew-installed <code>tcl-tk</code> library.</p>
-
-<h2 id="install-tcl-tk">install tcl-tk</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ brew install tcl-tk</code></pre></div>
-<p>Then add <code>/usr/local/opt/tcl-tk/bin</code> to your path.</p>
-
-<p>Now if you type <code>wish</code>, a tiny GUI should appear, and also a REPL waiting for your input.</p>
-
-<p>Type</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">% info patchlevel</code></pre></div>
-<p>into the REPL, and a version such as <code>8.6.7</code> should appear reflecting the version installed by brew.</p>
-
-<h2 id="compile-ruby">compile ruby</h2>
-
-<p>It turns out that <code>rbenv install</code> (or <code>ruby-build</code>) <a href="https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838">accept</a> <code>CONFIGURE_OPTS</code> env variable. So we can use this one-line code to compile the ruby:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ CONFIGURE_OPTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--with-tcltkversion=8.6 --with-tcl-lib=/usr/local/opt/tcl-tk/lib --with-tk-lib=/usr/local/opt/tcl-tk/lib --with-tcl-include=/usr/local/opt/tcl-tk/include --with-tk-include=/usr/local/opt/tcl-tk/include&#34;</span> rbenv install <span style="color:#ae81ff">2</span>.2.8</code></pre></div>
-<p>in <code>irb</code> with this ruby activated, (e.g. =rbenv local 2.2.8=), you should be able to see output like these with the commands:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">irb(main):<span style="color:#ae81ff">001</span>:<span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;</span> require <span style="color:#e6db74">&#39;tk&#39;</span>
-<span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>
-irb(main):<span style="color:#ae81ff">002</span>:<span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">Tk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">TK_PATCHLEVEL</span>
-<span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;8.6.7&#34;</span></code></pre></div>
-<p>where the version output should match the <code>tcl-tk</code> version installed via <code>brew</code>.</p>
-
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="http://www.tkdocs.com/tutorial/install.html">Installing Tk</a></li>
-<li><a href="https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838">rbenv/ruby-build #77</a></li>
-<li><a href="https://qiita.com/ftakao2007/items/230050be7351db49383d">いまさらはじめる Ruby/Tk</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/ruby-tcl-tk/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -683,72 +435,12 @@ irb(main):<span style="color:#ae81ff">002</span>:<span style="color:#ae81ff">0</
             </div>
           </div>
         </header>
+        <p>Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: <a href="http://eclim.org/index.html">Eclim</a>, which I have been wondering about since the time when I was still using Windows XP back in my high school.</p>
         
-
-<p>Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: <a href="http://eclim.org/index.html">Eclim</a>, which I have been wondering about since the time when I was still using Windows XP back in my high school.</p>
-
-<h2 id="get-the-necessary-stuffs">Get the necessary stuffs</h2>
-
-<p>Firstly, download <a href="http://www.eclipse.org/downloads/eclipse-packages/">Eclipse</a>, in my case Eclipse for Java Developers, which I download &amp; install via
-<code>brew cask</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew cask install eclipse-java</code></pre></div>
-<p>Then, download the <code>eclim.jar</code> from the github repo <a href="https://github.com/ervandew/eclim/releases/">releases page</a>.</p>
-
-<p>At this step, assume Eclipse and (neo)vim should all be installed on your computer; it&rsquo;s the time to install eclim. This could be done by just typing <code>java -jar eclim_2.7.0.jar</code> and use the GUI tool to finish the installing process. But for me I&rsquo;d written a tiny lovely piece of code to help me do it automatically by using the provided <a href="http://eclim.org/install.html#unattended-automated-install">Automated install</a> feature (this is also useful when you want to uninstall it):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
-</span><span style="color:#75715e"></span>
-VIMPLUGIN_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.config/eclim&#34;</span>
-
-ECLIPSE_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Applications/Eclipse Java.app/Contents/Eclipse&#34;</span>
-
-<span style="color:#66d9ef">if</span>  <span style="color:#f92672">[[</span> $1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;install&#34;</span> <span style="color:#f92672">]]</span> <span style="color:#f92672">||</span> <span style="color:#f92672">[[</span> $1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;uninstall&#34;</span> <span style="color:#f92672">]]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[[</span> -f $2 <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
-    java <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>        -Dvim.files<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$VIMPLUGIN_PATH<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>        -Declipse.home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$ECLIPSE_PATH<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>        -jar <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> $1
-<span style="color:#66d9ef">else</span>
-    echo <span style="color:#e6db74">&#34;Usage: </span>$0<span style="color:#e6db74"> [install|uninstall] [eclim.jar]&#34;</span>
-    exit <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">fi</span></code></pre></div>
-<h2 id="set-it-up-with--neo--vim">Set it up with (neo)vim</h2>
-
-<p>Note that with the default setting in my script, I actually installed Eclim to a directory <code>~/.config/eclim</code> instead of <code>.vim</code>. This is because I want to use <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to constrain it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">executable</span>(<span style="color:#e6db74">&#39;eclimd&#39;</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;~/.config/eclim&#39;</span>, { <span style="color:#e6db74">&#39;for&#39;</span> : <span style="color:#e6db74">&#39;java&#39;</span> }<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
-<p>Also remember to add <code>/Applications/Eclipse Java.app/Contents/Eclipse/eclimd</code> to your path. One last thing is that to use its completion with deoplete, just add this to your <code>vimrc</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">executable</span>(<span style="color:#e6db74">&#39;eclimd&#39;</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">EclimCompletionMethod</span> = <span style="color:#e6db74">&#39;omnifunc&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
-<h2 id="compatible-with-javacomplete2">compatible with javacomplete2</h2>
-
-<p>It&rsquo;s not a good idea to have both Eclim and <code>javacomplete2</code> filling up the candidates for deoplete.</p>
-
-<p>So there is a workaround on <a href="http://blog.csdn.net/Listener%5Fri/article/details/50452572">CSDN</a>, which basically tests the return value of <code>eclim#project#util#GetCurrentProjectName()</code> to determine if the java file is in a project (and thus should use the completion provided by Eclim). Here is my version of code for my personal use:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">Java_autocomplete</span>()<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">eclim</span>#<span style="color:#a6e22e">project</span>#<span style="color:#a6e22e">util</span>#<span style="color:#a6e22e">GetCurrentProjectName</span>() == <span style="color:#e6db74">&#39;&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span>:<span style="color:#a6e22e">deoplete_omni_functions</span> = [<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#e6db74">&#39;javacomplete#Complete&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>                    \]<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">else</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span>:<span style="color:#a6e22e">deoplete_omni_functions</span> = [<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>                    \ <span style="color:#e6db74">&#39;eclim#java#complete#CodeComplete&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>                    \]<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">Java_deoplete</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">au</span>!<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">java</span> <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">Java_autocomplete</span>()<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">augroup</span> <span style="color:#a6e22e">END</span></code></pre></div>
-<p>Note that still <code>javacomplete2</code> will be load on background when a java file is opened, so it might slow down opening (neo)vim a lot. Since there seems to be no better solution, I comment out <code>Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }</code> by default.</p>
-
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="http://blog.csdn.net/Listener%5Fri/article/details/50452572">Solution on CSDN by ListenerRi</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/eclim-setup/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -801,100 +493,12 @@ ECLIPSE_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34
             </div>
           </div>
         </header>
+        <p>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.</p>
         
-
-<p>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.</p>
-
-<h2 id="install-pyenv">install pyenv</h2>
-
-<p>The installing process is similar to <a href="/en/oceanus/ruby-setup/">Ruby Setup</a> here, just install <a href="https://github.com/pyenv/pyenv">pyenv</a> instead. Don&rsquo;t forget to also install <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a>, which is a handy tool in addition to <code>pyenv</code> that is capable of conveniently managing <code>virtualenv</code>.</p>
-
-<h2 id="set-up-virtualenv">set up virtualenv</h2>
-
-<p>See <a href="https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim">here</a> for more details.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv install --list <span style="color:#75715e"># list all the available versions</span>
-pyenv install <span style="color:#ae81ff">2</span>.7.13 <span style="color:#75715e"># latest python2</span>
-pyenv install <span style="color:#ae81ff">3</span>.6.1 <span style="color:#75715e"># latest python3</span>
-
-pyenv virtualenv <span style="color:#ae81ff">2</span>.7.13 neovim2 <span style="color:#75715e"># virtualenv for python2</span>
-pyenv activate neovim2
-pip install neovim
-pyenv deactive
-
-pyenv virtualenv <span style="color:#ae81ff">3</span>.6.1 neovim3 <span style="color:#75715e"># virtualenv for python3</span>
-pyenv activate neovim3
-pip install neovim
-pyenv deactivate</code></pre></div>
-<p>Then, we need to set the path for python provider in your Neovim config file (e.g. =init.nvim=):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#75715e">&#34; Python provider</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#34;nvim&#34;</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">python_host_prog</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim2/bin/python&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">python3_host_prog</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/python&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
-<p>Restart Neovim and then check if the providers work successfully:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">:CheckHealth</code></pre></div>
-<p>It is supposed to print out <code>SUCCESS</code> in both <code>python2</code> and <code>python3</code> parts.</p>
-
-<h2 id="things-you-probably-need">Things you probably need</h2>
-
-<p>I personally use <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to manage my plugins, <a href="https://github.com/Shougo/deoplete.nvim">deoplete</a> to implement autocompletion, and <a href="https://github.com/w0rp/ale">ale</a> to lint/fix my code. And for Python I use <a href="https://github.com/davidhalter/jedi">jedi</a> to analysis my code and support autocompletion, <a href="https://pypi.python.org/pypi/flake8">flake8</a> as the linter, <a href="https://github.com/google/yapf">YAPF</a> and <a href="https://github.com/timothycrosley/isort">isort</a> as the &ldquo;fixers&rdquo;.</p>
-
-<p>First, install all these python tools (I personally install them for Python3):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv activate neovim3
-python3 -m pip install flake8
-pip install jedi
-pip install yapf
-pip install isort
-pyenv deactivate</code></pre></div>
-<p>Install the plugins via <code>vim-plug</code> for Neovim if you haven&rsquo;t (you can use something else if you want):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#34;nvim&#34;</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;w0rp/ale&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Shougo/deoplete.nvim&#39;</span>, { <span style="color:#e6db74">&#39;do&#39;</span> : <span style="color:#e6db74">&#39;:UpdateRemotePlugins&#39;</span> }<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Shougo/echodoc.vim&#39;</span> <span style="color:#75715e">&#34; it can show function def at the command line</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;zchee/deoplete-jedi&#39;</span>, { <span style="color:#e6db74">&#39;for&#39;</span> : <span style="color:#e6db74">&#39;python&#39;</span> } <span style="color:#75715e">&#34; deoplete source for python</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span></code></pre></div>
-<p>Next, if you want, manually set the linter/fixer for <code>ale</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_linters</span> = {<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            \   <span style="color:#e6db74">&#39;python&#39;</span> : [<span style="color:#e6db74">&#39;flake8&#39;</span>],<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            \}<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_fixers</span> = {<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            \   <span style="color:#e6db74">&#39;python&#39;</span>: [<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            \       <span style="color:#e6db74">&#39;yapf&#39;</span>,<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            \       <span style="color:#e6db74">&#39;isort&#39;</span>,<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            \   ],<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            \}</code></pre></div>
-<p>Here is the tricky part. Since our special virtualenv(s) for Neovim is not activated usually, <code>pyenv</code> will prevent Neovim to call the executables. So we have to set the executable paths manually:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#75715e">&#34; use flake8 installed at the virtualenv for neovim</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_flake8_executable</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/flake8&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_flake8_use_global</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; use yapf installed at the virtualenv for neovim</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_yapf_executable</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/yapf&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_yapf_use_global</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; use isort installed at the virtualenv for neovim</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_isort_executable</span> = $<span style="color:#a6e22e">HOME</span> . <span style="color:#e6db74">&#34;/.pyenv/versions/neovim3/bin/isort&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">ale_python_isort_use_global</span> = <span style="color:#ae81ff">1</span></code></pre></div>
-<p>As a problem I encountered, the intended global config file for <code>YAPF</code>, located at <code>~/.config/yapf/style</code>, is not used when called from <code>ale</code>. Put the file at <code>~/.style.yapf</code> would fix this problem.</p>
-
-<p>One last thing about fixers and linters is that the preceding result will be overwrited by the following ones. For example, when calling <code>ALEFix</code>, my configuration will cause <code>isort</code> to run after <code>YAPF</code>, which will potentially generate some blank lines. I don&rsquo;t have perfect solution for this yet, but run <code>ALEFix</code> again could fix these empty lines.</p>
-
-<p>There are many other settings for the plugins. You can check out my <a href="https://github.com/quinoa42/dotfiles/blob/master/applications/nvim/init.vim#L288">dotfiles repo</a> if you are interested.</p>
-
-<p>Note that there are some useful plugins for Python that worth having a look:</p>
-
-<ul>
-<li><a href="https://github.com/python-mode/python-mode">python-mode</a></li>
-<li><a href="https://github.com/vim-python/python-syntax">python-syntax</a></li>
-</ul>
-
-<h2 id="reference">reference</h2>
-
-<ul>
-<li><a href="https://github.com/pyenv/pyenv">pyenv github repo</a></li>
-<li><a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv github repo</a></li>
-<li><a href="https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim">Setting up Python for Neovim</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/neovim-python/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -947,55 +551,17 @@ pyenv deactivate</code></pre></div>
             </div>
           </div>
         </header>
-        
-
-<p>Today I found an interesting <a href="https://www.v2ex.com/t/370077">discussion</a> about some interesting statements:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ echo &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span>
+        <p>Today I found an interesting <a href="https://www.v2ex.com/t/370077">discussion</a> about some interesting statements:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#0aa">echo</span> &lt;(&lt;&lt;&lt;<span style="color:#a50">&#34;I am a cool here-string&#34;</span>)
 /dev/fd/11
-$ cat &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span>
+$ cat &lt;(&lt;&lt;&lt;<span style="color:#a50">&#34;I am a cool here-string&#34;</span>)
 I am a cool here-string</code></pre></div>
 <p>To understand how this works, we need to split the statements into pieces.</p>
-
-<h2 id="here-string">here-string</h2>
-
-<p>There isn&rsquo;t much to say about <code>&lt;&lt;&lt;</code>, named <em>here-string</em>, which can be understood as a brief form of <a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Redirections.html">heredoc</a>. It simply redirects the string after it to <code>stdin</code>.</p>
-
-<h2 id="redirection-with-no-command">Redirection with no command</h2>
-
-<p>Bash (as latest as 4.2.46) does not support this feature. This is <a href="http://zsh.sourceforge.net/Doc/Release/Redirection.html#Redirections-with-no-command">supported by zsh</a>: &gt; &hellip; if the parameter <code>NULLCMD</code> is set, its value will be used as a command with the given redirections. If both <code>NULLCMD</code> and <code>READNULLCMD</code> are set, then the value of the latter will be used instead of that of the former when the redirection is an input. The default for <code>NULLCMD</code> is <code>cat</code>&hellip;</p>
-
-<p>So, in our case, consider the following code as an example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#e6db74">&#34;I am a cool here string&#34;</span>
-I am a cool here string</code></pre></div>
-<p>This is reasonable because <code>&lt;&lt;&lt;&quot;hi&quot;</code> is interpreted as <code>cat &lt;&lt;&lt; &quot;hi&quot;</code>.</p>
-
-<h2 id="process-substitution">Process Substitution</h2>
-
-<p>What is Process Substitution then? the <a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Process-Substitution.html#Process-Substitution">document</a> says: &gt;Process substitution allows a process&rsquo;s input or output to be referred to using a filename. It takes the form of <code>&lt;(list)</code> or <code>&gt;(list)</code>. The process <em>list</em> is run asynchronously, and its input or output appears as a filename. This filename is passed as an argument to the current command as the result of the expansion. If the <code>&gt;(list)</code> form is used, writing to the file will provide input for <em>list</em>.</p>
-
-<p>It would be more clear if we take the statements as examples:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ echo &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span></code></pre></div>
-<p>The output of <code>&lt;&lt;&lt;&quot;I am a cool here-string</code> is <code>I am a cool here-string</code>, which is then referred as a file (in this case, <code>/dev/fd/11</code>). Next, this file&rsquo;s name is Substituted into the place where the <code>&lt;()</code> was, as the result of expansion. As a result, the final statement is <code>echo /ev/fd/11</code>, which simply prints out <code>/ev/fd/11</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ cat &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span></code></pre></div>
-<p>similarly, after expansion the statement will be <code>cat /dev/fd/11</code>, which prints the file <code>/dev/fd/11</code>. The output will be <code>I am a cool here-string</code>, which is the output of the process <code>&lt;&lt;&lt;&quot;I am a cool here-string&quot;</code>.</p>
-
-<h2 id="another-example">Another example</h2>
-
-<p>Hope this can help to show how these features work even further:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ cat temp
-hello
-$ cat temp &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;world&#34;</span><span style="color:#f92672">)</span> &gt; &gt;<span style="color:#f92672">(</span>sed -E <span style="color:#e6db74">&#34;s/hello/goodbye/&#34;</span><span style="color:#f92672">)</span>
-goodbye
-world</code></pre></div>
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="https://www.v2ex.com/t/370077">discussionabout this topic on v2ex</a></li>
-<li><a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Redirections.html">heredoc and here-string</a></li>
-<li><a href="http://zsh.sourceforge.net/Doc/Release/Redirection.html#Redirections-with-no-command">Redirections with no command</a></li>
-<li><a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Process-Substitution.html#Process-Substitution">Process Substitution</a></li>
-</ul>
-
+        
+          <div class="read-more">
+            <a href="/en/oceanus/process-substitution-and-redirection-without-command/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -1044,17 +610,11 @@ world</code></pre></div>
           </div>
         </header>
         <p>I am used to use tmux on our server via ssh with the simple but elegant command <code>ssh blabla@hostname -t tmux</code>, but today I suddenly realized that under my tmux all the Unicode special characters doesn&rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.</p>
-
-<p>Firstly I checked that if I simply <code>ssh blabla@hostname</code> and then <code>tmux</code> to generate or attach to a session, the session does show those characters correctly. Also, if I run <code>ssh blabla@hostname -t nvim</code>, Unicode special characters I set in my <code>Neovim</code> status line also display correctly. So I confirm that the problem is probably caused by <code>-t</code> flag, which is said to <code>force pseudo-terminal allocation</code>, by <code>man</code> page.</p>
-
-<p>So I guess <code>tmux</code> called under <code>ssh -t</code> thinks that <code>UTF-8</code> is not supported. The solution is quite simple, because tmux supports <code>-u</code> flag:</p>
-
-<blockquote>
-<p>the -u flag explicitly informs tmux that UTF-8 is supported.</p>
-</blockquote>
-
-<p>So, just start tmux with <code>-u</code> flag:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh blabla@hostname -t tmux -u</code></pre></div>
+        
+          <div class="read-more">
+            <a href="/en/oceanus/tmux-force-utf8/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -1102,71 +662,12 @@ world</code></pre></div>
             </div>
           </div>
         </header>
+        <p>Everyone likes true color. But the true color support doesn&rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.</p>
         
-
-<p>Everyone likes true color. But the true color support doesn&rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.</p>
-
-<h2 id="iterm2">iterm2</h2>
-
-<p>Make a new file called <code>term-256color-italic.terminfo</code>, and add these:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A xterm-256color based TERMINFO that adds the escape sequences for italic.
-xterm-256color-italic|xterm with 256 colors and italic,
-  sitm=\E[3m, ritm=\E[23m,
-  kbs=\177,
-  use=xterm-256color,</code></pre></div>
-<p>then,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic xterm-256color-italic.terminfo</code></pre></div>
-<p>Open iterm&rsquo;s <code>Preferences/profiles/Terminal</code> page, and edit <code>Report Terminal Type</code> into <code>xterm-256color-italic</code>.</p>
-
-<p>iTerm natively support true color.</p>
-
-<h2 id="tmux">tmux</h2>
-
-<p>Make a new file called <code>tmux.terminfo</code>, and add these:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A screen-256color based TERMINFO that adds the escape sequences for italic.
-# run to add to term db: tic -x tmux.terminfo
-tmux|tmux terminal multiplexer,
-  ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
-  use=xterm, use=screen,
-  kbs=\177,
-
-tmux-256color|tmux with 256 colors,
-  use=xterm-256color, use=tmux,
-  kbs=\177,</code></pre></div>
-<p>then,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic -x tmux.terminfo</code></pre></div>
-<p>Also add these to your <code>.tmux.conf</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tmux" data-lang="tmux"># use italic
-set -g default-terminal &#34;tmux-256color&#34;
-# true color!!!
-set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pre></div>
-<h2 id="neovim">neovim</h2>
-
-<p>Now , time to set up neovim (using
-<a href="https://github.com/icymind/NeoSolarized">NeoSolarized</a>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#75715e">&#34; enable 256 colors</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">t_Co</span>=<span style="color:#ae81ff">256</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#39;nvim&#39;</span>) <span style="color:#75715e">&#34; enable true color</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">termguicolors</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">t_8f</span>=^[[<span style="color:#ae81ff">38</span>;<span style="color:#ae81ff">2</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lum</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">t_8b</span>=^[[<span style="color:#ae81ff">48</span>;<span style="color:#ae81ff">2</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lu</span>;%<span style="color:#a6e22e">lum</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
-</span><span style="color:#75715e">&#34; color theme</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">colorscheme</span> <span style="color:#a6e22e">NeoSolarized</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set background type</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">background</span>=dark</code></pre></div>
-<p>Note that <code>^[</code> is the special character <code>\e</code>.</p>
-
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="https://github.com/icymind/NeoSolarized">NeoSolarized</a></li>
-<li><a href="https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/">Italic fonts in iTerm2, tmux, and vim</a></li>
-<li><a href="http://apple.stackexchange.com/a/249385">Answer by Bret Fisher in a question on AskDifferent</a></li>
-<li><a href="https://github.com/neovim/neovim/wiki/FAQ#my-ctrl-h-mapping-doesnt-work">Solution to fix ctrl-h for neovim</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/terminfo-truecolor/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -1214,59 +715,14 @@ set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pr
             </div>
           </div>
         </header>
-        
-
-<p>Today I realized that iTunes does not support <code>*.flac</code> files at all. Stubborn user as I am, <strong>NO ONE</strong> can force me to get used to their way of doing things. It&rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.</p>
+        <p>Today I realized that iTunes does not support <code>*.flac</code> files at all. Stubborn user as I am, <strong>NO ONE</strong> can force me to get used to their way of doing things. It&rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.</p>
 
 <p>So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:</p>
-
-<h2 id="wineskin">wineskin</h2>
-
-<p>Wineskin is a third-party tool to easily make wine wrapper. A wrapper works as a native osx app, and inside the wrapper runs your favorite windows program.</p>
-
-<p>To use it, simply download its official app <a href="http://wineskin.urgesoftware.com/tiki-index.php?page=Downloads">Wineskin Winery</a>.</p>
-
-<p>Unzip the file and throw it somewhere or into <code>Applications</code> if you like, then update the Wrapper Version and install some versions of Engines (usually newest works just fine). Things like <code>WS*Wine****</code> is the normal Wrapper which compiled from the official wine source code, while <code>WS*WineCX****</code> compiled from the <a href="https://www.codeweavers.com/">Crossover</a> wine source code.</p>
-
-<h2 id="wrapper-for-foobar2000">wrapper for Foobar2000</h2>
-
-<p>Here I chose <code>Wineskin-2.6.2</code> for wrapper and <code>WS9Wine1.9.2.1</code> for Engine.</p>
-
-<p>Since I use a Chinese lazy pack of Foobar2000, I add the following command to <code>Configuration - Custom Commands</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export LANG<span style="color:#f92672">=</span>zh_CN.UTF-8</code></pre></div>
-<p>Also, install Chinese font support via <code>winetricks</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">winetricks wenquanyi
-winetricks fakechinese</code></pre></div>
-<p>I found a handy ready-to-use environment setup progress via <code>winetricks</code> <a href="https://hydrogenaud.io/index.php/topic,110516.msg923588.html#msg923588">here</a>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">gdiplus_winxp
-wsh57
-fontsmooth=rgb
-msscript
-ie8
-msls31
-w_workaround_wine_bug-25648
-msxml3
-wmp10
-vb6run
-vcrun2010</code></pre></div>
-<h2 id="problems">problems</h2>
-
-<p>Now most parts of my Foobar2000 work well. The only problem I encounter is that one of my WSH Panel is broken:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Parsing file&#34;C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js&#34;
-Error: WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Microsoft JScript runtime error:
-Automation server can&#39;t create object
-File: C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js
-Ln: 3207, Col: 1
-&lt;source text only available at compile time&gt;</code></pre></div>
-<p>There are mainly two solution for this:</p>
-
-<ol>
-<li><a href="http://www.cnblogs.com/sirrah/articles/2349099.html">JS中automation服务器不能创建对象</a></li>
-<li><a href="https://leftosa.wordpress.com/2013/05/08/fix-for-automation-server-cant-create-object/">Fix for &ldquo;Automation Server Can&rsquo;t Create Object&rdquo;</a></li>
-</ol>
-
-<p>Neither of them work for me. So I delete the line of the source code that imports <code>Browser.js</code>. Although I cannot use this function anymore, no more error found.</p>
-
+        
+          <div class="read-more">
+            <a href="/en/oceanus/mac-foobar2000/">Read More…</a>
+          </div>
+          
       </article>
   
       <article class="post-item">
@@ -1309,37 +765,12 @@ Ln: 3207, Col: 1
             </div>
           </div>
         </header>
+        <p>Here I record what I did to install ruby on my macbook.</p>
         
-
-<p>Here I record what I did to install ruby on my macbook.</p>
-
-<h2 id="rbenv">rbenv</h2>
-
-<p><a href="https://github.com/rbenv/rbenv#readme">rbenv</a> works as a ruby environment manager.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew update
-brew install rbenv</code></pre></div>
-<p>and setup rbenv based on the instruction in:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv init</code></pre></div>
-<h2 id="ruby-build">ruby-build</h2>
-
-<p><a href="https://github.com/rbenv/ruby-build#readme">ruby-build</a> is a plugin that provides rbenv with function <code>rbenv install</code>, which just works as installing differnt version of ruby into rbenv.</p>
-
-<p>if you install rbenv with HomeBrew, it should be already installed, but if not,</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew install ruby-build</code></pre></div>
-<h2 id="install-ruby">install ruby</h2>
-
-<p>To see the list of ruby versions available:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv install -l</code></pre></div>
-<p>To install ruby (for example, 2.3.1):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv install <span style="color:#ae81ff">2</span>.3.1
-rbenv rehash</code></pre></div>
-<p>use a certain version of ruby to be used globally:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv global <span style="color:#ae81ff">2</span>.3.1</code></pre></div>
-<h2 id="bundler">bundler</h2>
-
-<p><a href="http://bundler.io/">bundler</a> is a standalone gem that is able to manage gems, and it has can be integrated easily with rbenv via <a href="https://github.com/rbenv/rbenv/wiki/Plugins#bundler-integration">binstubs</a>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv version <span style="color:#75715e">### check if the current ruby versio</span>
-gem install bundler <span style="color:#75715e">##</span></code></pre></div>
+          <div class="read-more">
+            <a href="/en/oceanus/ruby-setup/">Read More…</a>
+          </div>
+          
       </article>
   
 

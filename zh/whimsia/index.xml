@@ -16,7 +16,7 @@
       <pubDate>Mon, 28 Oct 2019 00:18:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/zh/whimsia/switch-to-ox-hugo/</guid>
-      <description>过去的2个月时间里，我的周遭发生了很大的变化。一方面，我来到了大城市独立生活；另一方面，因为工作环境的原因（指不能用 Linux 办公），我不得不尝试在</description>
+      <description>&lt;p&gt;过去的2个月时间里，我的周遭发生了很大的变化。一方面，我来到了大城市独立生活；另一方面，因为工作环境的原因（指不能用 Linux 办公），我不得不尝试在 Windows 下搭建一个舒适的环境。尝试过的读者们肯定知道， Windows 下使用 Vim/Neovim 简直是一场灾难。因此，我把目光投向了另一个编辑器界的顶点： Emacs。&lt;/p&gt;</description>
     </item>
     
   </channel>

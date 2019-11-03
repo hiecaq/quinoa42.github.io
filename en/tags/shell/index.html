@@ -11,16 +11,48 @@
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
-      <nav class="jumplist">
-        <ul>
-          
-          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
-          
-          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
-          
-        </ul>
-      </nav>
+      <div class="heading left">
+        
+        <a class="logo" href="/en/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/en/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     
@@ -75,55 +107,17 @@
             </div>
           </div>
         </header>
-        
-
-<p>Today I found an interesting <a href="https://www.v2ex.com/t/370077">discussion</a> about some interesting statements:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ echo &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span>
+        <p>Today I found an interesting <a href="https://www.v2ex.com/t/370077">discussion</a> about some interesting statements:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#0aa">echo</span> &lt;(&lt;&lt;&lt;<span style="color:#a50">&#34;I am a cool here-string&#34;</span>)
 /dev/fd/11
-$ cat &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span>
+$ cat &lt;(&lt;&lt;&lt;<span style="color:#a50">&#34;I am a cool here-string&#34;</span>)
 I am a cool here-string</code></pre></div>
 <p>To understand how this works, we need to split the statements into pieces.</p>
-
-<h2 id="here-string">here-string</h2>
-
-<p>There isn&rsquo;t much to say about <code>&lt;&lt;&lt;</code>, named <em>here-string</em>, which can be understood as a brief form of <a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Redirections.html">heredoc</a>. It simply redirects the string after it to <code>stdin</code>.</p>
-
-<h2 id="redirection-with-no-command">Redirection with no command</h2>
-
-<p>Bash (as latest as 4.2.46) does not support this feature. This is <a href="http://zsh.sourceforge.net/Doc/Release/Redirection.html#Redirections-with-no-command">supported by zsh</a>: &gt; &hellip; if the parameter <code>NULLCMD</code> is set, its value will be used as a command with the given redirections. If both <code>NULLCMD</code> and <code>READNULLCMD</code> are set, then the value of the latter will be used instead of that of the former when the redirection is an input. The default for <code>NULLCMD</code> is <code>cat</code>&hellip;</p>
-
-<p>So, in our case, consider the following code as an example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#e6db74">&#34;I am a cool here string&#34;</span>
-I am a cool here string</code></pre></div>
-<p>This is reasonable because <code>&lt;&lt;&lt;&quot;hi&quot;</code> is interpreted as <code>cat &lt;&lt;&lt; &quot;hi&quot;</code>.</p>
-
-<h2 id="process-substitution">Process Substitution</h2>
-
-<p>What is Process Substitution then? the <a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Process-Substitution.html#Process-Substitution">document</a> says: &gt;Process substitution allows a process&rsquo;s input or output to be referred to using a filename. It takes the form of <code>&lt;(list)</code> or <code>&gt;(list)</code>. The process <em>list</em> is run asynchronously, and its input or output appears as a filename. This filename is passed as an argument to the current command as the result of the expansion. If the <code>&gt;(list)</code> form is used, writing to the file will provide input for <em>list</em>.</p>
-
-<p>It would be more clear if we take the statements as examples:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ echo &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span></code></pre></div>
-<p>The output of <code>&lt;&lt;&lt;&quot;I am a cool here-string</code> is <code>I am a cool here-string</code>, which is then referred as a file (in this case, <code>/dev/fd/11</code>). Next, this file&rsquo;s name is Substituted into the place where the <code>&lt;()</code> was, as the result of expansion. As a result, the final statement is <code>echo /ev/fd/11</code>, which simply prints out <code>/ev/fd/11</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ cat &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;I am a cool here-string&#34;</span><span style="color:#f92672">)</span></code></pre></div>
-<p>similarly, after expansion the statement will be <code>cat /dev/fd/11</code>, which prints the file <code>/dev/fd/11</code>. The output will be <code>I am a cool here-string</code>, which is the output of the process <code>&lt;&lt;&lt;&quot;I am a cool here-string&quot;</code>.</p>
-
-<h2 id="another-example">Another example</h2>
-
-<p>Hope this can help to show how these features work even further:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">$ cat temp
-hello
-$ cat temp &lt;<span style="color:#f92672">(&lt;&lt;&lt;</span><span style="color:#e6db74">&#34;world&#34;</span><span style="color:#f92672">)</span> &gt; &gt;<span style="color:#f92672">(</span>sed -E <span style="color:#e6db74">&#34;s/hello/goodbye/&#34;</span><span style="color:#f92672">)</span>
-goodbye
-world</code></pre></div>
-<h2 id="reference">Reference</h2>
-
-<ul>
-<li><a href="https://www.v2ex.com/t/370077">discussionabout this topic on v2ex</a></li>
-<li><a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Redirections.html">heredoc and here-string</a></li>
-<li><a href="http://zsh.sourceforge.net/Doc/Release/Redirection.html#Redirections-with-no-command">Redirections with no command</a></li>
-<li><a href="https://www.gnu.org/software/bash/manual/html%5Fnode/Process-Substitution.html#Process-Substitution">Process Substitution</a></li>
-</ul>
-
+        
+          <div class="read-more">
+            <a href="/en/oceanus/process-substitution-and-redirection-without-command/">Read More…</a>
+          </div>
+          
       </article>
   
 

@@ -11,16 +11,48 @@
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
-      <nav class="jumplist">
-        <ul>
-          
-          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
-          
-          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
-          
-        </ul>
-      </nav>
+      <div class="heading left">
+        
+        <a class="logo" href="/en/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/en/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     
@@ -70,39 +102,12 @@
             </div>
           </div>
         </header>
+        <p><a href="https://github.com/lervag/vimtex">vimtex</a> is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is <a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">quite easy</a>, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</p>
         
-
-<p><a href="https://github.com/lervag/vimtex">vimtex</a> is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is <a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">quite easy</a>, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</p>
-
-<h2 id="auto-complete-usepackage-and-documentclass">Auto-Complete <code>\usepackage</code> and <code>\documentclass</code></h2>
-
-<p>This is fairly easy: put them into <code>$TEXMFHOME</code> with a directory structure like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">texmf
-└── tex
-   └── latex
-      ├── mlaarticle
-      │  └── mlaarticle.cls
-      └── proofh
-         └── proofh.sty</code></pre></div>
-<p>Then it should work out of the box, otherwise try <code>sudo hashtex</code>.</p>
-
-<h2 id="auto-complete-new-commands-and-environments">Auto-complete new commands and environments</h2>
-
-<p>The problem is that commands and environments defined in these new packages are not in the candidate lists at all! It is easy to see from <a href="https://github.com/lervag/vimtex/tree/master/autoload/vimtex/complete">vimtex source code</a> that these completion candidates are mostly hard-coded. Thus, the only things we need to do is to create files corresponding to our packages in this given format, and put them inside <code>vimtex/autoload/vimtex/complete</code>.</p>
-
-<p>The candidate file format is very straightforward: file is named <code>SOMEPACKAGE</code> if it is for a package of the same name, and <code>class-SOMECLASS</code> if it is for a class of the same name. In each file, candidates are separated by new lines, and to declare a command it will simply be its name, and to declare an environment it will be something like <code>\begin{ENV}</code>. After making this kind of files, the auto-completion works for our own packages!</p>
-
-<h2 id="further-readings">Further Readings</h2>
-
-<p>LaTeX is not only great at scientific and technical writing, but also a great way to do most things you do with Docs and PowerPoints, because it is easy to set up your own content-and-format-independent templates, which enable better concentration on the content itself. Here are many resources that worth reading:</p>
-
-<ul>
-<li><a href="https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages">LaTeX/Creating Packages</a> on Wikibooks</li>
-<li><a href="https://castel.dev/post/lecture-notes-1/">How I&rsquo;m able to take notes in mathematics lectures using LaTeX and Vim</a> by Gilles Castel</li>
-<li><a href="https://liam.page/2019/03/18/separation-of-content-and-presentation/">到底什么是「内容与样式分离」</a> by Liam Huang</li>
-<li><a href="https://junyixu.github.io/2019/03/08/Happy-LaTeXing/">在 ArchLinux 上愉快地 LaTeXing</a> by Junix</li>
-</ul>
-
+          <div class="read-more">
+            <a href="/en/oceanus/vimtex-user-defined-completion/">Read More…</a>
+          </div>
+          
       </article>
   
 

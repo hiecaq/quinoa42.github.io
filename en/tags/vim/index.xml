@@ -16,7 +16,7 @@
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</guid>
-      <description>Now that I have tons of time during this break, I decided to learn myself a haskell and as a way to apply what I&amp;rsquo;ve learned, I&amp;rsquo;ve planed to switch from awesomeWM to xmonad. Besides, I&amp;rsquo;ve being troubled with my awesome config&amp;rsquo;s memory leak, which I haven&amp;rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</description>
+      <description>&lt;p&gt;Now that I have tons of time during this break, I decided to &lt;a href=&#34;http://learnyouahaskell.com/&#34;&gt;learn myself a haskell&lt;/a&gt; and as a way to apply what I&amp;rsquo;ve learned, I&amp;rsquo;ve planed to switch from &lt;a href=&#34;https://awesomewm.org&#34;&gt;awesomeWM&lt;/a&gt; to &lt;a href=&#34;https://xmonad.org&#34;&gt;xmonad&lt;/a&gt;. Besides, I&amp;rsquo;ve being troubled with my awesome config&amp;rsquo;s memory leak, which I haven&amp;rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -25,7 +25,7 @@
       <pubDate>Fri, 17 May 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/vimtex-user-defined-completion/</guid>
-      <description>vimtex is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is quite easy, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/lervag/vimtex&#34;&gt;vimtex&lt;/a&gt; is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is &lt;a href=&#34;https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages&#34;&gt;quite easy&lt;/a&gt;, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@
       <pubDate>Tue, 22 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/vim8-package-opt-after/</guid>
-      <description>Since I started to use Arch Linux, I&amp;rsquo;ve also switched from using plugins such as vim-plug to using the native Vim8 packages utility. However, I encountered the problem where if we do packadd SOMEPACKAGE after (Neo)vim has initialized, and unfortunately if this plugin comes with an after directory, for example in an autocmd such as autocmd FileType python vim-textobj-python, the plugin will not work correctly due to the way Vim8 packages utility handles after directories.</description>
+      <description>&lt;p&gt;Since I started to use Arch Linux, I&amp;rsquo;ve also switched from using plugins such as &lt;a href=&#34;https://github.com/junegunn/vim-plug&#34;&gt;vim-plug&lt;/a&gt; to using the native Vim8 packages utility. However, I encountered the problem where if we do &lt;code&gt;packadd SOMEPACKAGE&lt;/code&gt; after (Neo)vim has initialized, and unfortunately if this plugin comes with an &lt;code&gt;after&lt;/code&gt; directory, for example in an &lt;code&gt;autocmd&lt;/code&gt; such as &lt;code&gt;autocmd FileType python vim-textobj-python&lt;/code&gt;, the plugin will not work correctly due to the way Vim8 packages utility handles &lt;code&gt;after&lt;/code&gt; directories.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -43,7 +43,7 @@
       <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/eclim-setup/</guid>
-      <description>Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: Eclim, which I have been wondering about since the time when I was still using Windows XP back in my high school.</description>
+      <description>&lt;p&gt;Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: &lt;a href=&#34;http://eclim.org/index.html&#34;&gt;Eclim&lt;/a&gt;, which I have been wondering about since the time when I was still using Windows XP back in my high school.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -52,8 +52,7 @@
       <pubDate>Fri, 30 Jun 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/neovim-python/</guid>
-      <description>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
-install pyenv The installing process is similar to Ruby Setup here, just install pyenv instead. Don&amp;rsquo;t forget to also install pyenv-virtualenv, which is a handy tool in addition to pyenv that is capable of conveniently managing virtualenv.</description>
+      <description>&lt;p&gt;Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emain Ablach</title>
+    <link>https://quinoa42.github.io/jp/</link>
+    <description>Recent content on Emain Ablach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 03 Nov 2019 16:18:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://quinoa42.github.io/jp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>自分紹介</title>
+      <link>https://quinoa42.github.io/jp/about/</link>
+      <pubDate>Sun, 03 Nov 2019 16:18:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/jp/about/</guid>
+      <description>私について 学びたいことがいっぱいけれども、わからないこともたくさん。 PGP key fingerprint: 0607 17ED 4DB8 1B0C 546B 3E8D 4A57 935B D3A7 3093 だいたいこんな感じのことをやっています： Emacs 使い</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -11,16 +11,48 @@
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="https://quinoa42.github.io/">Emain Ablach</a></div>
-      <nav class="jumplist">
-        <ul>
-          
-          <li><a href="https://quinoa42.github.io/en/oceanus/">Oceanus</a></li>
-          
-          <li><a href="https://quinoa42.github.io/en/whimsia/">Whimsia</a></li>
-          
-        </ul>
-      </nav>
+      <div class="heading left">
+        
+        <a class="logo" href="/en/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/en/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/en/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     
@@ -71,17 +103,11 @@
           </div>
         </header>
         <p>I am used to use tmux on our server via ssh with the simple but elegant command <code>ssh blabla@hostname -t tmux</code>, but today I suddenly realized that under my tmux all the Unicode special characters doesn&rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.</p>
-
-<p>Firstly I checked that if I simply <code>ssh blabla@hostname</code> and then <code>tmux</code> to generate or attach to a session, the session does show those characters correctly. Also, if I run <code>ssh blabla@hostname -t nvim</code>, Unicode special characters I set in my <code>Neovim</code> status line also display correctly. So I confirm that the problem is probably caused by <code>-t</code> flag, which is said to <code>force pseudo-terminal allocation</code>, by <code>man</code> page.</p>
-
-<p>So I guess <code>tmux</code> called under <code>ssh -t</code> thinks that <code>UTF-8</code> is not supported. The solution is quite simple, because tmux supports <code>-u</code> flag:</p>
-
-<blockquote>
-<p>the -u flag explicitly informs tmux that UTF-8 is supported.</p>
-</blockquote>
-
-<p>So, just start tmux with <code>-u</code> flag:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh blabla@hostname -t tmux -u</code></pre></div>
+        
+          <div class="read-more">
+            <a href="/en/oceanus/tmux-force-utf8/">Read More…</a>
+          </div>
+          
       </article>
   
 

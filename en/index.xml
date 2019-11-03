@@ -5,10 +5,34 @@
     <link>https://quinoa42.github.io/en/</link>
     <description>Recent content on Emain Ablach</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 15:43:00 +0800</lastBuildDate>
     
 	<atom:link href="https://quinoa42.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://quinoa42.github.io/en/about/</link>
+      <pubDate>Sun, 03 Nov 2019 15:43:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/about/</guid>
+      <description>About me Learning all the time, starving all the time.
+PGP key fingerprint:
+0607 17ED 4DB8 1B0C 546B 3E8D 4A57 935B D3A7 3093 I am:
+ a novice Emacs user and an ex-Vim user an Arch Linux user an amateur Programming Language linguist a Rustacean (hopefully) a gamer who mainly focuses on Nintendo platforms an Anime lover  You can find me at:
+ GitHub https://github.com/quinoa42 Bangumi https://bgm.tv/ MyAnimeList https://myanimelist.</description>
+    </item>
+    
+    <item>
+      <title>quinoa42&#39;s dotEmacs</title>
+      <link>https://quinoa42.github.io/en/dot-emacs/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/dot-emacs/</guid>
+      <description>Here is a list of blogs / configurations that I&amp;rsquo;ve grabbed code from or absorbed ideas from. All of them worth reading.
+ zzamboni&amp;rsquo;s Emacs config file Rafa’s Emacs settings file Ladicle&amp;rsquo;s Emacs Configuration Jamie Collinson&amp;rsquo;s Emacs Config munen&amp;rsquo;s Emacs configuration Karl Voit&amp;rsquo;s Emacs Configuration In Org-mode and the repo  This file might be out of sync. The newest version is available here.
+ Table of Contents  General Settings  Coding and Languages Tangle init.</description>
+    </item>
     
     <item>
       <title>Set up haskell-ide-engine and xmonad</title>
@@ -16,7 +40,7 @@
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</guid>
-      <description>Now that I have tons of time during this break, I decided to learn myself a haskell and as a way to apply what I&amp;rsquo;ve learned, I&amp;rsquo;ve planed to switch from awesomeWM to xmonad. Besides, I&amp;rsquo;ve being troubled with my awesome config&amp;rsquo;s memory leak, which I haven&amp;rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.</description>
+      <description>&lt;p&gt;Now that I have tons of time during this break, I decided to &lt;a href=&#34;http://learnyouahaskell.com/&#34;&gt;learn myself a haskell&lt;/a&gt; and as a way to apply what I&amp;rsquo;ve learned, I&amp;rsquo;ve planed to switch from &lt;a href=&#34;https://awesomewm.org&#34;&gt;awesomeWM&lt;/a&gt; to &lt;a href=&#34;https://xmonad.org&#34;&gt;xmonad&lt;/a&gt;. Besides, I&amp;rsquo;ve being troubled with my awesome config&amp;rsquo;s memory leak, which I haven&amp;rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -25,7 +49,7 @@
       <pubDate>Fri, 17 May 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/vimtex-user-defined-completion/</guid>
-      <description>vimtex is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is quite easy, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/lervag/vimtex&#34;&gt;vimtex&lt;/a&gt; is one of the most commonly used LaTeX plugin (which is also what I use) in the vim community that supports auto-completion, conceal, synctex pdf preview, and many other modern features. In the last few months after I switched to Linux, the macros I defined in my LaTeX template has grown to such an extent that I have to move them into separate packages and classes. Doing so is &lt;a href=&#34;https://en.wikibooks.org/wiki/LaTeX/Creating%5FPackages&#34;&gt;quite easy&lt;/a&gt;, but I got a problem: the commands in my own packages and classes are not in the candidate list of auto-completion!&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -34,7 +58,7 @@
       <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</guid>
-      <description>One thing that I do really miss after switching from Mac OS to Arch Linux is Alfred. I heard there is an alternative for Linux called Albert but I haven&amp;rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&amp;rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly.</description>
+      <description>&lt;p&gt;One thing that I do really miss after switching from Mac OS to Arch Linux is &lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt;. I heard there is an alternative for Linux called &lt;a href=&#34;https://github.com/albertlauncher/albert&#34;&gt;Albert&lt;/a&gt; but I haven&amp;rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&amp;rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn&amp;rsquo;t fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -43,7 +67,7 @@
       <pubDate>Tue, 22 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/vim8-package-opt-after/</guid>
-      <description>Since I started to use Arch Linux, I&amp;rsquo;ve also switched from using plugins such as vim-plug to using the native Vim8 packages utility. However, I encountered the problem where if we do packadd SOMEPACKAGE after (Neo)vim has initialized, and unfortunately if this plugin comes with an after directory, for example in an autocmd such as autocmd FileType python vim-textobj-python, the plugin will not work correctly due to the way Vim8 packages utility handles after directories.</description>
+      <description>&lt;p&gt;Since I started to use Arch Linux, I&amp;rsquo;ve also switched from using plugins such as &lt;a href=&#34;https://github.com/junegunn/vim-plug&#34;&gt;vim-plug&lt;/a&gt; to using the native Vim8 packages utility. However, I encountered the problem where if we do &lt;code&gt;packadd SOMEPACKAGE&lt;/code&gt; after (Neo)vim has initialized, and unfortunately if this plugin comes with an &lt;code&gt;after&lt;/code&gt; directory, for example in an &lt;code&gt;autocmd&lt;/code&gt; such as &lt;code&gt;autocmd FileType python vim-textobj-python&lt;/code&gt;, the plugin will not work correctly due to the way Vim8 packages utility handles &lt;code&gt;after&lt;/code&gt; directories.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -52,7 +76,7 @@
       <pubDate>Sun, 20 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/tridactyl-editorcmd-with-tmux/</guid>
-      <description>Tridactyl has been a decent replacement for Vimperator or Pentadactyl for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&amp;rsquo;m using tmux for most of the time, I start to wondering if I could do some tweak with the editorcmd so that instead of a new terminal emulator window, a termporary tmux window will be opened.</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/tridactyl/tridactyl&#34;&gt;Tridactyl&lt;/a&gt; has been a decent replacement for &lt;a href=&#34;https://github.com/vimperator/vimperator-labs&#34;&gt;Vimperator&lt;/a&gt; or &lt;a href=&#34;https://github.com/5digits/dactyl&#34;&gt;Pentadactyl&lt;/a&gt; for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&amp;rsquo;m using &lt;code&gt;tmux&lt;/code&gt; for most of the time, I start to wondering if I could do some tweak with the &lt;code&gt;editorcmd&lt;/code&gt; so that instead of a new terminal emulator window, a termporary tmux window will be opened.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -61,9 +85,7 @@
       <pubDate>Wed, 22 Nov 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</guid>
-      <description>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using rbenv and ruby-build with a brew-installed tcl-tk library.
-install tcl-tk $ brew install tcl-tk Then add /usr/local/opt/tcl-tk/bin to your path.
-Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your input.</description>
+      <description>&lt;p&gt;It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using &lt;code&gt;rbenv&lt;/code&gt; and &lt;code&gt;ruby-build&lt;/code&gt; with a brew-installed &lt;code&gt;tcl-tk&lt;/code&gt; library.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -72,7 +94,7 @@ Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your
       <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/eclim-setup/</guid>
-      <description>Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: Eclim, which I have been wondering about since the time when I was still using Windows XP back in my high school.</description>
+      <description>&lt;p&gt;Today I come into the situation where I am forced to use Eclipse, one of those huge IDEs that isolate me from the warm terminal world. However, as a user of (neo)vim, nothing can stop me from doing things in a, at least, vim-like environment. At this moment, one tool comes into my mind: &lt;a href=&#34;http://eclim.org/index.html&#34;&gt;Eclim&lt;/a&gt;, which I have been wondering about since the time when I was still using Windows XP back in my high school.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -81,7 +103,7 @@ Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your
       <pubDate>Thu, 21 Sep 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/whimsia/move-to-fx57/</guid>
-      <description>As the so-called next generation of Firefox, 57, has become available as the nightly version, the death of XUL is no longer far away. As the Calendar suggests, as soon as 2017-11-14 Firefox 57 will become the stable released version, and ESR will become the only version that supports the dying XUL addons. While qutebrowser could be a solution to save my way of exploring, it is still in alpha development and lacks some of my must-have features.</description>
+      <description>&lt;p&gt;As the so-called next generation of Firefox, 57, has become available as the nightly version, the death of XUL is no longer far away. As the &lt;a href=&#34;https://wiki.mozilla.org/RapidRelease/Calendar&#34;&gt;Calendar&lt;/a&gt; suggests, as soon as 2017-11-14 Firefox 57 will become the stable released version, and ESR will become the only version that supports the dying XUL addons. While &lt;a href=&#34;https://github.com/qutebrowser/qutebrowser&#34;&gt;qutebrowser&lt;/a&gt; could be a solution to save my way of exploring, it is still in alpha development and lacks some of my must-have features. So the problem is clear: whether to embrace the brand new Firefox 57 or stay back with Firefox ESR (52).&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -90,8 +112,7 @@ Now if you type wish, a tiny GUI should appear, and also a REPL waiting for your
       <pubDate>Fri, 30 Jun 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/neovim-python/</guid>
-      <description>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.
-install pyenv The installing process is similar to Ruby Setup here, just install pyenv instead. Don&amp;rsquo;t forget to also install pyenv-virtualenv, which is a handy tool in addition to pyenv that is capable of conveniently managing virtualenv.</description>
+      <description>&lt;p&gt;Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -100,9 +121,12 @@ install pyenv The installing process is similar to Ruby Setup here, just install
       <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/process-substitution-and-redirection-without-command/</guid>
-      <description>Today I found an interesting discussion about some interesting statements:
-$ echo &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) /dev/fd/11 $ cat &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&amp;#34;I am a cool here-string&amp;#34;) I am a cool here-string To understand how this works, we need to split the statements into pieces.
-here-string There isn&amp;rsquo;t much to say about &amp;lt;&amp;lt;&amp;lt;, named here-string, which can be understood as a brief form of heredoc. It simply redirects the string after it to stdin.</description>
+      <description>&lt;p&gt;Today I found an interesting &lt;a href=&#34;https://www.v2ex.com/t/370077&#34;&gt;discussion&lt;/a&gt; about some interesting statements:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;$ &lt;span style=&#34;color:#0aa&#34;&gt;echo&lt;/span&gt; &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;I am a cool here-string&amp;#34;&lt;/span&gt;)
+/dev/fd/11
+$ cat &amp;lt;(&amp;lt;&amp;lt;&amp;lt;&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;I am a cool here-string&amp;#34;&lt;/span&gt;)
+I am a cool here-string&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To understand how this works, we need to split the statements into pieces.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -111,8 +135,7 @@ here-string There isn&amp;rsquo;t much to say about &amp;lt;&amp;lt;&amp;lt;, na
       <pubDate>Sun, 09 Apr 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/tmux-force-utf8/</guid>
-      <description>I am used to use tmux on our server via ssh with the simple but elegant command ssh blabla@hostname -t tmux, but today I suddenly realized that under my tmux all the Unicode special characters doesn&amp;rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.
-Firstly I checked that if I simply ssh blabla@hostname and then tmux to generate or attach to a session, the session does show those characters correctly.</description>
+      <description>&lt;p&gt;I am used to use tmux on our server via ssh with the simple but elegant command &lt;code&gt;ssh blabla@hostname -t tmux&lt;/code&gt;, but today I suddenly realized that under my tmux all the Unicode special characters doesn&amp;rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -121,9 +144,7 @@ Firstly I checked that if I simply ssh blabla@hostname and then tmux to generate
       <pubDate>Wed, 23 Nov 2016 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/terminfo-truecolor/</guid>
-      <description>Everyone likes true color. But the true color support doesn&amp;rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.
-iterm2 Make a new file called term-256color-italic.terminfo, and add these:
-# A xterm-256color based TERMINFO that adds the escape sequences for italic. xterm-256color-italic|xterm with 256 colors and italic, sitm=\E[3m, ritm=\E[23m, kbs=\177, use=xterm-256color, then,</description>
+      <description>&lt;p&gt;Everyone likes true color. But the true color support doesn&amp;rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -132,8 +153,9 @@ iterm2 Make a new file called term-256color-italic.terminfo, and add these:
       <pubDate>Sun, 06 Nov 2016 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/mac-foobar2000/</guid>
-      <description>Today I realized that iTunes does not support *.flac files at all. Stubborn user as I am, NO ONE can force me to get used to their way of doing things. It&amp;rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.
-So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:</description>
+      <description>&lt;p&gt;Today I realized that iTunes does not support &lt;code&gt;*.flac&lt;/code&gt; files at all. Stubborn user as I am, &lt;strong&gt;NO ONE&lt;/strong&gt; can force me to get used to their way of doing things. It&amp;rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.&lt;/p&gt;
+
+&lt;p&gt;So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -151,11 +173,7 @@ So here is how I tried to get my favorite Foobar2000 to work in osx by using win
       <pubDate>Fri, 28 Oct 2016 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/ruby-setup/</guid>
-      <description>Here I record what I did to install ruby on my macbook.
-rbenv rbenv works as a ruby environment manager.
-brew update brew install rbenv and setup rbenv based on the instruction in:
-rbenv init ruby-build ruby-build is a plugin that provides rbenv with function rbenv install, which just works as installing differnt version of ruby into rbenv.
-if you install rbenv with HomeBrew, it should be already installed, but if not,</description>
+      <description>&lt;p&gt;Here I record what I did to install ruby on my macbook.&lt;/p&gt;</description>
     </item>
     
   </channel>

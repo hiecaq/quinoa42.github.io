@@ -16,9 +16,7 @@
       <pubDate>Wed, 23 Nov 2016 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/terminfo-truecolor/</guid>
-      <description>Everyone likes true color. But the true color support doesn&amp;rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.
-iterm2 Make a new file called term-256color-italic.terminfo, and add these:
-# A xterm-256color based TERMINFO that adds the escape sequences for italic. xterm-256color-italic|xterm with 256 colors and italic, sitm=\E[3m, ritm=\E[23m, kbs=\177, use=xterm-256color, then,</description>
+      <description>&lt;p&gt;Everyone likes true color. But the true color support doesn&amp;rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.&lt;/p&gt;</description>
     </item>
     
   </channel>

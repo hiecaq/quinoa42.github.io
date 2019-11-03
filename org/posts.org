@@ -846,19 +846,19 @@ CLOSED: [2019-10-28 Mon 00:18]
 
 其实我接触 Emacs 比 Vim 还早。当时 NOIP 集训的时候，来带队的学长用的就是 Emacs，顺带着把我带入坑了。当时我也没时间去学习 Elisp，更加没时间去维护我的配置，更重要的是我没法把我的配置带进考场，最后也就不了了之。
 
-之后我开始尝试使用 Vim，并在大学正式入门，使用 Vim 和 Neovim 完成了大学期间的所有的作业。越用 Vim，我对 Vim 的哲学越深感认同，无论是 text object 还是 modal editing 都如此自然，就好像是在和机器对话。 Neovim 虽然是与旧体制的一次割裂，但它带来的生态活力确实让停滞的 Vim 圈子重新转动了起来。这期间我也尝试过诸如 Intellij 之类的 IDE，但每次我都在一段时间后滚回了 Vim。一方面，这些 IDE 的 Vim 插件鲜有能完美j复刻 Native Vim 所有 motion/text object 和 operator 效果的，更不要说可定制性和生态系统了： Vimscript 是 Turing complete 的，和 JSON 这些配置语言中间隔了一道不可逾越之壁；另一方面， IDE 让我感觉它们只是让我离理解事物更远，我不知道它们是什么时候保存的我的文件，我不知道它们什么时候会根据硬盘上的更新重读文件，我不知道它们什么时候 stage 了我的修改，我不知道我要怎么从那复杂的 GUI 和见都没见过的菜单中找到我想要的功能，更重要的是我不知道该怎么把一些功能组合成一键调用的宏放到我的 nmap/vmap/imap 里。而命令行下的 Tmux+Vim 是如此简单直白，如此易于掌握。每一个自带的功能都可以用help查阅，每一个新增的功能都是我手动添加开启。我了解我环境的一切，我知道我的环境没有冗余功能，我也知道我的环境出现了问题该如何去 DEBUG、修复。
+之后我开始尝试使用 Vim，并在大学正式入门，使用 Vim 和 Neovim 完成了大学期间的所有的作业。越用 Vim，我对 Vim 的哲学越深感认同，无论是 text object 还是 modal editing 都如此自然，就好像是在和机器对话。 Neovim 虽然是与旧体制的一次割裂，但它带来的生态活力确实让停滞的 Vim 圈子重新转动了起来。这期间我也尝试过诸如 Intellij 之类的 IDE，但每次我都在一段时间后滚回了 Vim。一方面，这些 IDE 的 Vim 插件鲜有能完美j复刻 Native Vim 所有 motion/text object 和 operator 效果的，更不要说可定制性和生态系统了： Vimscript 是 Turing complete 的，和 JSON 这些配置语言中间隔了一道不可逾越之壁；另一方面， IDE 让我感觉它们只是让我离理解事物更远，我不知道它们是什么时候保存的我的文件，我不知道它们什么时候会根据硬盘上的更新重读文件，我不知道它们什么时候 stage 了我的修改，我不知道我要怎么从那复杂的 GUI 和见都没见过的菜单中找到我想要的功能，更重要的是我不知道该怎么把一些功能组合成一键调用的宏放到我的 nmap/vmap/imap 里。而命令行下的 Tmux+Vim 是如此简单直白，如此易于掌握。每一个自带的功能都可以用 help 查阅，每一个新增的功能都是我手动添加开启。我了解我环境的一切，我知道我的环境没有冗余功能，我也知道我的环境出现了问题该如何去 DEBUG、修复。
 
-但不知不觉，我已经离Vim的哲学之一越来越远： Do one thing, do it well. 我安慰自己，我的庞大 Neovim 配置仍然遵循 UNIX 哲学；它的 one thing 就是文本编辑，因此所有文本编辑的事情它都在做。但有时候我还是会想，既然我需要如此多的功能，那我为什么不用更加全能，更加综合性的 Emacs 呢？
+但不知不觉，我已经离 Vim 的哲学之一越来越远： Do one thing, do it well. 我安慰自己，我的庞大 Neovim 配置仍然遵循 UNIX 哲学；它的 one thing 就是文本编辑，因此所有文本编辑的事情它都在做。但有时候我还是会想，既然我需要如此多的功能，那我为什么不用更加全能，更加综合性的 Emacs 呢？
 
 于是乎，趁着这个机会，我花了将近2个月的时间体验了新时代的 Emacs。我还是按照我自己的风格，不去选用 Spacemacs 和 Doom Emacs 这样的大型配置（因为它们的问题和 IDE 类似），而是四处 google 和翻文档，从零开始积攒了我自己的配置文件。这个过程中，我对 Emacs 也是越来越喜欢，而到我配置文件基本完成的一刻，也就是今天，我也算是完成了从 Vim 皈依到 Emacs 的个人转变。
 
 我觉得 Emacs 和 Vim 相比，主要有以下几个优缺点:
-+ Keymap :: Emacs 的 Keymap 有优先级，输入时会依次 fallback，也可以按需、按 mode 等等开启或关闭，这和Vim只能靠 global/buffer local mapping 来区分相比优势很大。
++ Keymap :: Emacs 的 Keymap 有优先级，输入时会依次 fallback，也可以按需、按 mode 等等开启或关闭，这和 Vim 只能靠 global/buffer local mapping 来区分相比优势很大。
 + 复杂的 keybinding :: 这个毫无疑问是缺点。不是 Modal editing 的 Emacs 需要很复杂的 Ctrl, Alt, Shift 和其他按键依次组合才能选中某个常见功能，比如 =C-x 5 o= 是选中另一个 frame。当然，Emacs 社区有很多解决这个难题的方案： =which-key= ，自动提示已输入 prefix 开头的所有 key binding； =hydra= （和类似的 =Hercules=)，可选地省略公共 prefix，快速输入指令；当然，还有 Evil，the Extensible Vi Layer. 说Vi明显是自谦，因为它实现了绝大部分Vi IMproved 常用的功能。和上面提到的 Keymap 配合，甚至可以实现很多原生 Vim 做不到的效果。
 + Lisp :: 虽然Vimscript也是 Turing complete，但 Lisp 真的很酷，真的很酷，真的很酷。除了很酷之外，Emacs 生态的插件很少需要外部依赖，很多都是完全用 Emacs Lisp 实现的(比如 =Editorconfig=)，不像 Neovim 需要 Python/ruby 等等编写的 Remote Plugin。
 + 超长的初始化时间 :: 我的 Neovim 初始化只需要 300ms，而 Emacs 光是启动 headless daemon 就需要将近2秒。好在 Emacs 自己有规避方案，也就是把 Emacs 当作一个服务器来跑，用 emacsclient 来从这个服务器调起窗口。这个使用环境下，Random file access 需要的时间极大缩短，能和 Neovim 媲美。
 + 丰富的原生功能 :: Emacs 自带的 built-in 涵盖了非常广的功能，而且这个规模还在扩大。统一的可堪一用的原生环境提供了更加统一的接口。
-+ Org mode :: 如果说 Emacs 有什么杀手锏是 Vim 永远也无法实现的，那恐怕就是 Org mode 了。GUI 的 Emacs 支持类富文本显示，可以给不同级别的 heading 设置不同的字体，包括颜色和大小。它还可以用非等宽字体显示文本片段，也可以行内显示插入的图片和公式。更强的是 Org Babel 提供的 literate programming 支持（我的 Emacs 配置就是使用 literate programming style 编写的），这让写解题报告和写代码同步成为了可能。更不要说Org Mode自带的 Task management 支持了，与此相关的著作互联网上到处都是，我就不再复述了。值得一提的是 Org mode 支持内部的全局（指全盘）GUID reference，这就让到处移动文件和目录树但不破坏 relative link 成为了可能。
++ Org mode :: 如果说 Emacs 有什么杀手锏是 Vim 永远也无法实现的，那恐怕就是 Org mode 了。GUI 的 Emacs 支持类富文本显示，可以给不同级别的 heading 设置不同的字体，包括颜色和大小。它还可以用非等宽字体显示文本片段，也可以行内显示插入的图片和公式。更强的是 Org Babel 提供的 literate programming 支持（我的 [[https://quinoa42.github.io/en/dot-emacs][Emacs 配置]]就是使用 literate programming style 编写的），这让写解题报告和写代码同步成为了可能。更不要说 Org Mode 自带的 Task management 支持了，与此相关的著作互联网上到处都是，我就不再复述了。值得一提的是 Org mode 支持内部的全局（指全盘）GUID reference，这就让到处移动文件和目录树但不破坏 relative link 成为了可能。
 
 我也进入了不少 Emacs User 都会进入的奇妙状态：想用 Org mode 把那些看起来非常有关联却又得分开使用不同软件来实现的需求用 Org mode 来统一。这其中包括了收集文档/网页剪裁/个人 WIKI /任务管理/个人 blog 等等等等。就我最近的体验来看，Emacs 和 Org mode 已经非常接近我想要的效果了。这个话展开讲可能又是几千个字，所以留待以后再谈。但作为这个大工程的一部分，从今日起，我的博客也搬迁到了 [[https://ox-hugo.scripter.co/][ox-hugo]]。这个项目可以把 Org Mode 的某个 sub tree 输出为单篇文章，一个文件就可以是一整个 section，而且 org mode 自己的 tag/todo state 等等的标记也会变成 Hugo 兼容的 front matter 里的信息，非常的酷。
 

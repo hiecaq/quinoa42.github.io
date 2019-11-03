@@ -3,11 +3,65 @@ DefaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 title = "Emain Ablach"
 pygmentsCodeFences = true
-
 [languages]
 
 [languages.en]
 weight = 1
+
+[[languages.en.menu.head]]
+url    = "/en/"
+name   = "Emain Ablach"
+weight = 0
+
+[[languages.en.menu.main]]
+identifier = "whimsia"
+name = "Whimsia"
+url = "/en/whimsia/"
+
+[[languages.en.menu.main]]
+identifier = "oceanus"
+name = "Oceanus"
+url = "/en/oceanus/"
+
+[[languages.en.menu.ops]]
+url = "/en/"
+name = "en"
+
+[[languages.en.menu.ops]]
+url = "/zh/"
+name = "zh"
+
+[[languages.en.menu.others]]
+url = "/en/dot-emacs"
+name = "init.el"
+
 [languages.zh]
 weight = 2
 hasCJKLanguage = true
+
+[[languages.zh.menu.head]]
+url    = "/zh/"
+name   = "Emain Ablach"
+weight = 0
+
+[[languages.zh.menu.main]]
+identifier = "whimsia"
+name = "Whimsia"
+url = "/zh/whimsia/"
+
+[[languages.zh.menu.main]]
+identifier = "oceanus"
+name = "Oceanus"
+url = "/zh/oceanus/"
+
+[[languages.zh.menu.others]]
+url = "/en/dot-emacs"
+name = "init.el"
+
+[[languages.zh.menu.ops]]
+url = "/en/"
+name = "en"
+
+[[languages.zh.menu.ops]]
+url = "/zh/"
+name = "zh"

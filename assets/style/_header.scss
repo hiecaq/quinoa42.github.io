@@ -1,12 +1,24 @@
 #header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
-    .jumplist {
-        ul {
-            li {
-                margin-left: 6px;
-            }
-        }
+    .logo {
+        font-size: 1.5em;
     }
+    .heading {
+        margin-right: 4px;
+    }
+    ul {
+        padding-left: 0px;
+    }
+
+    .left, .right {
+        display: inline-block;
+    }
+
+    .active a {
+        text-decoration: underline;
+    }
+
 }

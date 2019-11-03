@@ -5,20 +5,40 @@
     <meta name="viewport" content="width=device-width" />
     {{ $style := resources.Get "style/site.scss" | resources.ToCSS | resources.Minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}">
-    <title>{{ block "title" . }}
-      {{ .Site.Title }}
-      {{ end }}</title>
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
   </head>
   <body>
     <header id="header">
-      <div class="logo"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></div>
-      <nav class="jumplist">
-        <ul>
-          {{ range .Site.Sections }}
-          <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-          {{ end }}
-        </ul>
-      </nav>
+      <div class="heading left">
+        {{ range .Site.Menus.head }}
+        <a class="logo" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+        {{ end }}
+        {{ range .Site.Menus.ops }}
+        <a class="lang-op" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+        {{ end }}
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            {{ $currentPage := . }}
+            {{ range .Site.Menus.main }}
+            <li>
+              <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+            </li>
+            {{ end }}
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            {{ $currentPage := . }}
+            {{ range .Site.Menus.others }}
+            <li>
+              <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+            </li>
+            {{ end }}
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
     {{ block "main" . }}

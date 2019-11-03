@@ -5,6 +5,7 @@
 #+hugo_base_dir: ../
 #+hugo_auto_set_lastmod: t
 #+hugo_section: ./
+#+hugo_tags: Emacs
 #+hugo_level_offset: 1
 #+date: 2019-10-28
 

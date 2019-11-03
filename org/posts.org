@@ -831,7 +831,7 @@ use a certain version of ruby to be used globally:
 :EXPORT_HUGO_SECTION: Whimsia
 :END:
 Zatsudan is for all posts unrelated to tech, science and math. Written in some random language.
-** DONE (restart) :@meta:
+** DONE (restart) :@meta:Emacs:Vim:
 CLOSED: [2019-10-28 Mon 00:18]
 :PROPERTIES:
 :EXPORT_FILE_NAME: switch-to-ox-hugo.zh.md
@@ -854,11 +854,11 @@ CLOSED: [2019-10-28 Mon 00:18]
 
 我觉得 Emacs 和 Vim 相比，主要有以下几个优缺点:
 + Keymap :: Emacs 的 Keymap 有优先级，输入时会依次 fallback，也可以按需、按 mode 等等开启或关闭，这和 Vim 只能靠 global/buffer local mapping 来区分相比优势很大。
-+ 复杂的 keybinding :: 这个毫无疑问是缺点。不是 Modal editing 的 Emacs 需要很复杂的 Ctrl, Alt, Shift 和其他按键依次组合才能选中某个常见功能，比如 =C-x 5 o= 是选中另一个 frame。当然，Emacs 社区有很多解决这个难题的方案： =which-key= ，自动提示已输入 prefix 开头的所有 key binding； =hydra= （和类似的 =Hercules=)，可选地省略公共 prefix，快速输入指令；当然，还有 Evil，the Extensible Vi Layer. 说Vi明显是自谦，因为它实现了绝大部分Vi IMproved 常用的功能。和上面提到的 Keymap 配合，甚至可以实现很多原生 Vim 做不到的效果。
++ 复杂的 keybinding :: 这个毫无疑问是缺点。不是 Modal editing 的 Emacs 需要很复杂的 Ctrl, Alt, Shift 和其他按键依次组合才能选中某个常见功能，比如 =C-x 5 o= 是选中另一个 frame。当然，Emacs 社区有很多解决这个难题的方案： =which-key= ，自动提示已输入 prefix 开头的所有 key binding； =hydra= （和类似的 =Hercules=)，可选地省略公共 prefix，快速输入指令；当然，还有 Evil，the Extensible Vi Layer. 说 Vi 可能是自谦，因为它实现了绝大部分Vi IMproved 常用的功能。和上面提到的 Keymap 配合，甚至可以实现很多原生 Vim 做不到的效果。
 + Lisp :: 虽然Vimscript也是 Turing complete，但 Lisp 真的很酷，真的很酷，真的很酷。除了很酷之外，Emacs 生态的插件很少需要外部依赖，很多都是完全用 Emacs Lisp 实现的(比如 =Editorconfig=)，不像 Neovim 需要 Python/ruby 等等编写的 Remote Plugin。
 + 超长的初始化时间 :: 我的 Neovim 初始化只需要 300ms，而 Emacs 光是启动 headless daemon 就需要将近2秒。好在 Emacs 自己有规避方案，也就是把 Emacs 当作一个服务器来跑，用 emacsclient 来从这个服务器调起窗口。这个使用环境下，Random file access 需要的时间极大缩短，能和 Neovim 媲美。
 + 丰富的原生功能 :: Emacs 自带的 built-in 涵盖了非常广的功能，而且这个规模还在扩大。统一的可堪一用的原生环境提供了更加统一的接口。
-+ Org mode :: 如果说 Emacs 有什么杀手锏是 Vim 永远也无法实现的，那恐怕就是 Org mode 了。GUI 的 Emacs 支持类富文本显示，可以给不同级别的 heading 设置不同的字体，包括颜色和大小。它还可以用非等宽字体显示文本片段，也可以行内显示插入的图片和公式。更强的是 Org Babel 提供的 literate programming 支持（我的 [[https://quinoa42.github.io/en/dot-emacs][Emacs 配置]]就是使用 literate programming style 编写的），这让写解题报告和写代码同步成为了可能。更不要说 Org Mode 自带的 Task management 支持了，与此相关的著作互联网上到处都是，我就不再复述了。值得一提的是 Org mode 支持内部的全局（指全盘）GUID reference，这就让到处移动文件和目录树但不破坏 relative link 成为了可能。
++ Org mode :: 如果说 Emacs 有什么杀手锏是 Vim 永远也无法实现的，那恐怕就是 Org mode 了。GUI 的 Emacs 支持类富文本显示，可以给不同级别的 heading 设置不同的字体，包括颜色和大小。它还可以用非等宽字体显示文本片段，也可以行内显示插入的图片和公式。更强的是 Org Babel 提供的 literate programming 支持（我的 [[https://quinoa42.github.io/en/dot-emacs][Emacs 配置]]就是使用 literate programming style 编写的），这让写解题报告和写代码同步成为了可能。更不要说 Org Mode 自带的 Task management 支持了，与此相关的著作互联网上到处都是，我就不再复述了。值得一提的是 Org mode 支持内部的全局（全文件系统）GUID reference，这就让到处移动文件和目录树但不破坏 relative link 成为了可能。
 
 我也进入了不少 Emacs User 都会进入的奇妙状态：想用 Org mode 把那些看起来非常有关联却又得分开使用不同软件来实现的需求用 Org mode 来统一。这其中包括了收集文档/网页剪裁/个人 WIKI /任务管理/个人 blog 等等等等。就我最近的体验来看，Emacs 和 Org mode 已经非常接近我想要的效果了。这个话题展开讲可能又是几千个字，所以留待以后再谈。但作为这个大工程的一部分，从今日起，我的博客也搬迁到了 [[https://ox-hugo.scripter.co/][ox-hugo]]。这个项目可以把 Org Mode 的某个 sub tree 输出为单篇文章，一个文件就可以是一整个 section，而且 org mode 自己的 tag/todo state 等等的标记也会变成 Hugo 兼容的 front matter 里的信息，非常的酷。
 

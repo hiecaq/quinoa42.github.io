@@ -5,10 +5,19 @@
     <link>https://quinoa42.github.io/en/</link>
     <description>Recent content on Emain Ablach</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Nov 2019 15:43:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Nov 2019 00:25:00 +0800</lastBuildDate>
     
 	<atom:link href="https://quinoa42.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode 8: String to Integer (atoi)</title>
+      <link>https://quinoa42.github.io/en/oceanus/leetcode-8/</link>
+      <pubDate>Wed, 06 Nov 2019 00:25:00 +0800</pubDate>
+      
+      <guid>https://quinoa42.github.io/en/oceanus/leetcode-8/</guid>
+      <description>Started from today I&amp;rsquo;ll post some short solutions / reports to some algorithm-ish problems. Today&amp;rsquo;s one is String to Integer (atoi) from LeetCode. This one is fairly simple so I&amp;rsquo;ll skip the algorithm analysis part. I choose this simple problem because it&amp;rsquo;s a good opportunity to try Literate Programming beyond simple config maintenance. Having spending time figuring out how to make Org Mode and Org Babel behave in the way I want, I don&amp;rsquo;t feel like that I have enough time to solve a problem harder than simple string manipulation.</description>
+    </item>
     
     <item>
       <title>About</title>

@@ -6,6 +6,147 @@
 :PROPERTIES:
 :EXPORT_HUGO_SECTION: Oceanus
 :END:
+** DONE LeetCode 8: String to Integer (atoi) :@algorithm:C:
+CLOSED: [2019-11-06 Wed 00:25]
+:PROPERTIES:
+:EXPORT_FILE_NAME: leetcode-8.en.md
+:END:
+Started from today I'll post some short solutions / reports to some algorithm-ish problems. Today's one is
+[[https://leetcode.com/problems/string-to-integer-atoi/][String to Integer (atoi)]] from LeetCode. This one is fairly simple so I'll skip the algorithm analysis part. I choose this simple problem because it's a good opportunity to try Literate Programming beyond simple config maintenance. Having spending time figuring out how to make Org Mode  and Org Babel behave in the way I want, I don't feel like that I have enough time to solve a problem harder than simple string manipulation.
+
+*** Full program
+#+name: myatoi
+#+begin_src C :exports code :noweb yes :padline no :eval no-export
+  #include <stdint.h>
+
+  int myAtoi(char *str) {
+      <<myatoi-prefix>>
+
+      <<myatoi-signhandle>>
+
+      <<myatoi-convert>>
+  }
+#+end_src
+
+*** Steps
+First, skip all space and immediately escape from some edge cases, including empty string and strings that begin with letters:
+#+name: myatoi-prefix
+#+begin_src C :exports code :padline no
+  while (*str == ' ' && *str != '\0') {
+      str++;
+  }
+  if (*str == '\0') {
+      return 0;
+  }
+  if ((*str < '0' || *str > '9') && (*str != '+' && *str !='-')) {
+      return 0;
+  }
+#+end_src
+
+Then, depend on what's coming next, set the sign value. Also do remember to skip sign symbols.
+#+name: myatoi-signhandle
+#+begin_src C :exports code :padline no
+  int64_t sign = 1;
+  if (*str == '-') {
+      sign = -1;
+      str++;
+  } else if (*str == '+') {
+      str++;
+  }
+#+end_src
+
+Finally the main part, simply just use a 64 bit signed integer to save intermediate results. Technically 32 bit signed int is good enough to solve this problem, but Leetcode mark a testcase as failed if you use some overflow trick.
+#+name: myatoi-convert
+#+begin_src C :exports code :padline no
+  int64_t n = 0;
+  while (*str >= '0' && *str <= '9') {
+      int64_t digit = *str - '0';
+      n = n * 10 + sign * digit;
+      if (n >= INT32_MAX) {
+          return INT32_MAX;
+      } else if (n <= INT32_MIN) {
+          return INT32_MIN;
+      }
+      ++str;
+  }
+  return n;
+#+end_src
+
+*** tests
+Example testcase 1:
+#+header: :includes (list "<stdlib.h>" "<stdio.h>")
+#+begin_src C :exports both :results output :wrap example :noweb strip-export :padline no :eval never-export
+  <<myatoi>>
+  printf("%d == %d", myAtoi("42"), 42);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+42 == 42
+#+end_example
+
+Example testcase 2:
+#+header: :includes (list "<stdlib.h>" "<stdio.h>")
+#+begin_src C :exports both :results output :wrap example :noweb strip-export :padline no :eval never-export
+  <<myatoi>>
+  printf("%d == %d", myAtoi("   -42"), -42);
+#+end_src
+
+Example testcase 3:
+#+RESULTS:
+#+begin_example
+-42 == -42
+#+end_example
+
+Example testcase 4:
+#+header: :includes (list "<stdlib.h>" "<stdio.h>")
+#+begin_src C :exports both :results output :wrap example :noweb strip-export :padline no :eval never-export
+  <<myatoi>>
+  printf("%d == %d", myAtoi("4193 with words"), 4193);
+#+end_src
+
+Example testcase 5:
+#+RESULTS:
+#+begin_example
+4193 == 4193
+#+end_example
+
+Example testcase 6:
+#+header: :includes (list "<stdlib.h>" "<stdio.h>")
+#+begin_src C :exports both :results output :wrap example :noweb strip-export :padline no :eval never-export
+  <<myatoi>>
+  printf("%d == %d", myAtoi("words and 987"), 0);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+0 == 0
+#+end_example
+
+Example testcase 7:
+#+header: :includes (list "<stdlib.h>" "<stdio.h>")
+#+begin_src C :exports both :results output :wrap example :noweb strip-export :padline no :eval never-export
+  <<myatoi>>
+  printf("%d == %d", myAtoi("-9128347233"), -2147483648);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+-2147483648 == -2147483648
+#+end_example
+
+Another edge case:
+#+header: :includes (list "<stdlib.h>" "<stdio.h>")
+#+begin_src C :exports both :results output :wrap example :noweb strip-export :padline no :eval never-export
+  <<myatoi>>
+  printf("%d == %d", myAtoi("2147483648"), 2147483647);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+2147483647 == 2147483647
+#+end_example
+
 ** DONE Set up haskell-ide-engine and xmonad :@software:Haskell:xmonad:Vim:ArchLinux:
 CLOSED: [2019-07-09 Tue]
 :PROPERTIES:

@@ -16,7 +16,7 @@ Started from today I'll post some short solutions / reports to some algorithm-is
 
 *** Full program
 #+name: myatoi
-#+begin_src C :exports code :noweb yes :padline no :eval no-export
+#+begin_src C -n :exports code :noweb yes :padline no :eval no-export
   #include <stdint.h>
 
   int myAtoi(char *str) {
@@ -31,7 +31,7 @@ Started from today I'll post some short solutions / reports to some algorithm-is
 *** Steps
 First, skip all space and immediately escape from some edge cases, including empty string and strings that begin with letters:
 #+name: myatoi-prefix
-#+begin_src C :exports code :padline no
+#+begin_src C -n :exports code :padline no
   while (*str == ' ' && *str != '\0') {
       str++;
   }
@@ -45,7 +45,7 @@ First, skip all space and immediately escape from some edge cases, including emp
 
 Then, depend on what's coming next, set the sign value. Also do remember to skip sign symbols.
 #+name: myatoi-signhandle
-#+begin_src C :exports code :padline no
+#+begin_src C +n :exports code :padline no
   int64_t sign = 1;
   if (*str == '-') {
       sign = -1;
@@ -57,7 +57,7 @@ Then, depend on what's coming next, set the sign value. Also do remember to skip
 
 Finally the main part, simply just use a 64 bit signed integer to save intermediate results. Technically 32 bit signed int is good enough to solve this problem, but Leetcode mark a testcase as failed if you use some overflow trick.
 #+name: myatoi-convert
-#+begin_src C :exports code :padline no
+#+begin_src C +n :exports code :padline no
   int64_t n = 0;
   while (*str >= '0' && *str <= '9') {
       int64_t digit = *str - '0';

@@ -16,7 +16,7 @@
       <pubDate>Sun, 09 Apr 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/tmux-force-utf8/</guid>
-      <description>&lt;p&gt;I am used to use tmux on our server via ssh with the simple but elegant command &lt;code&gt;ssh blabla@hostname -t tmux&lt;/code&gt;, but today I suddenly realized that under my tmux all the Unicode special characters doesn&amp;rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.&lt;/p&gt;</description>
+      <description>&lt;p&gt;I am used to use tmux on our server via ssh with the simple but elegant command &lt;code&gt;ssh blabla@hostname -t tmux&lt;/code&gt;, but today I suddenly realized that under my tmux all the Unicode special characters doesn&#39;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.&lt;/p&gt;</description>
     </item>
     
   </channel>

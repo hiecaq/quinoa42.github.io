@@ -77,34 +77,29 @@
     </div>
   </header>
   <p>Here I record what I did to install ruby on my macbook.</p>
-
 <h2 id="rbenv">rbenv</h2>
-
 <p><a href="https://github.com/rbenv/rbenv#readme">rbenv</a> works as a ruby environment manager.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew update
-brew install rbenv</code></pre></div>
-<p>and setup rbenv based on the instruction in:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv init</code></pre></div>
-<h2 id="ruby-build">ruby-build</h2>
-
+brew install rbenv
+</code></pre></div><p>and setup rbenv based on the instruction in:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv init
+</code></pre></div><h2 id="ruby-build">ruby-build</h2>
 <p><a href="https://github.com/rbenv/ruby-build#readme">ruby-build</a> is a plugin that provides rbenv with function <code>rbenv install</code>, which just works as installing differnt version of ruby into rbenv.</p>
-
 <p>if you install rbenv with HomeBrew, it should be already installed, but if not,</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew install ruby-build</code></pre></div>
-<h2 id="install-ruby">install ruby</h2>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew install ruby-build
+</code></pre></div><h2 id="install-ruby">install ruby</h2>
 <p>To see the list of ruby versions available:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv install -l</code></pre></div>
-<p>To install ruby (for example, 2.3.1):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv install <span style="color:#099">2</span>.3.1
-rbenv rehash</code></pre></div>
-<p>use a certain version of ruby to be used globally:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv global <span style="color:#099">2</span>.3.1</code></pre></div>
-<h2 id="bundler">bundler</h2>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv install -l
+</code></pre></div><p>To install ruby (for example, 2.3.1):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv install 2.3.1
+rbenv rehash
+</code></pre></div><p>use a certain version of ruby to be used globally:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv global 2.3.1
+</code></pre></div><h2 id="bundler">bundler</h2>
 <p><a href="http://bundler.io/">bundler</a> is a standalone gem that is able to manage gems, and it has can be integrated easily with rbenv via <a href="https://github.com/rbenv/rbenv/wiki/Plugins#bundler-integration">binstubs</a>.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rbenv version <span style="color:#aaa;font-style:italic">### check if the current ruby versio</span>
-gem install bundler <span style="color:#aaa;font-style:italic">##</span></code></pre></div>
+gem install bundler <span style="color:#aaa;font-style:italic">##</span>
+</code></pre></div>
   <footer class="reading-info">
     <div class="left">
        <div class="tags">

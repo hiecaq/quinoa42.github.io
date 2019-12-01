@@ -61,7 +61,7 @@
     <h1>Terminfo for iterm2 and tmux that support italics, truecolor and fixed ctrl-h</h1>
     <div class="reading-info">
       <div class="left">
-        <span>236 words</span>
+        <span>235 words</span>
         <span>
           &bull;
         </span>
@@ -76,24 +76,19 @@
       </div>
     </div>
   </header>
-  <p>Everyone likes true color. But the true color support doesn&rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.</p>
-
+  <p>Everyone likes true color. But the true color support doesn't come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.</p>
 <h2 id="iterm2">iterm2</h2>
-
 <p>Make a new file called <code>term-256color-italic.terminfo</code>, and add these:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A xterm-256color based TERMINFO that adds the escape sequences for italic.
 xterm-256color-italic|xterm with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
   kbs=\177,
-  use=xterm-256color,</code></pre></div>
-<p>then,</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic xterm-256color-italic.terminfo</code></pre></div>
-<p>Open iterm&rsquo;s <code>Preferences/profiles/Terminal</code> page, and edit <code>Report Terminal Type</code> into <code>xterm-256color-italic</code>.</p>
-
+  use=xterm-256color,
+</code></pre></div><p>then,</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic xterm-256color-italic.terminfo
+</code></pre></div><p>Open iterm's <code>Preferences/profiles/Terminal</code> page, and edit <code>Report Terminal Type</code> into <code>xterm-256color-italic</code>.</p>
 <p>iTerm natively support true color.</p>
-
 <h2 id="tmux">tmux</h2>
-
 <p>Make a new file called <code>tmux.terminfo</code>, and add these:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># A screen-256color based TERMINFO that adds the escape sequences for italic.
 # run to add to term db: tic -x tmux.terminfo
@@ -104,16 +99,15 @@ tmux|tmux terminal multiplexer,
 
 tmux-256color|tmux with 256 colors,
   use=xterm-256color, use=tmux,
-  kbs=\177,</code></pre></div>
-<p>then,</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic -x tmux.terminfo</code></pre></div>
-<p>Also add these to your <code>.tmux.conf</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tmux" data-lang="tmux"># use italic
-set -g default-terminal &#34;tmux-256color&#34;
+  kbs=\177,
+</code></pre></div><p>then,</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tic -x tmux.terminfo
+</code></pre></div><p>Also add these to your <code>.tmux.conf</code>:</p>
+<pre><code class="language-tmux" data-lang="tmux"># use italic
+set -g default-terminal &quot;tmux-256color&quot;
 # true color!!!
-set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pre></div>
-<h2 id="neovim">neovim</h2>
-
+set-option -ga terminal-overrides &quot;,xterm-256color-italic:Tc&quot;
+</code></pre><h2 id="neovim">neovim</h2>
 <p>Now , time to set up neovim (using
 <a href="https://github.com/icymind/NeoSolarized">NeoSolarized</a>):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#aaa;font-style:italic">&#34; enable 256 colors</span><span style="color:#f00;background-color:#faa">
@@ -127,11 +121,9 @@ set-option -ga terminal-overrides &#34;,xterm-256color-italic:Tc&#34;</code></pr
 </span><span style="color:#aaa;font-style:italic">&#34; color theme</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>colorscheme NeoSolarized<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#aaa;font-style:italic">&#34; set background type</span><span style="color:#f00;background-color:#faa">
-</span><span style="color:#f00;background-color:#faa"></span>set background=<span style="color:#0aa">dark</span></code></pre></div>
-<p>Note that <code>^[</code> is the special character <code>\e</code>.</p>
-
+</span><span style="color:#f00;background-color:#faa"></span>set background=<span style="color:#0aa">dark</span><span style="color:#f00;background-color:#faa">
+</span></code></pre></div><p>Note that <code>^[</code> is the special character <code>\e</code>.</p>
 <h2 id="reference">Reference</h2>
-
 <ul>
 <li><a href="https://github.com/icymind/NeoSolarized">NeoSolarized</a></li>
 <li><a href="https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/">Italic fonts in iTerm2, tmux, and vim</a></li>

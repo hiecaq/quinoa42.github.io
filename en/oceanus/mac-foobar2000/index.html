@@ -76,28 +76,20 @@
       </div>
     </div>
   </header>
-  <p>Today I realized that iTunes does not support <code>*.flac</code> files at all. Stubborn user as I am, <strong>NO ONE</strong> can force me to get used to their way of doing things. It&rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.</p>
-
+  <p>Today I realized that iTunes does not support <code>*.flac</code> files at all. Stubborn user as I am, <strong>NO ONE</strong> can force me to get used to their way of doing things. It's okay for iTunes to only support its own format of lossless music, but I just choose to not use it.</p>
 <p>So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:</p>
-
 <h2 id="wineskin">wineskin</h2>
-
 <p>Wineskin is a third-party tool to easily make wine wrapper. A wrapper works as a native osx app, and inside the wrapper runs your favorite windows program.</p>
-
 <p>To use it, simply download its official app <a href="http://wineskin.urgesoftware.com/tiki-index.php?page=Downloads">Wineskin Winery</a>.</p>
-
 <p>Unzip the file and throw it somewhere or into <code>Applications</code> if you like, then update the Wrapper Version and install some versions of Engines (usually newest works just fine). Things like <code>WS*Wine****</code> is the normal Wrapper which compiled from the official wine source code, while <code>WS*WineCX****</code> compiled from the <a href="https://www.codeweavers.com/">Crossover</a> wine source code.</p>
-
 <h2 id="wrapper-for-foobar2000">wrapper for Foobar2000</h2>
-
 <p>Here I chose <code>Wineskin-2.6.2</code> for wrapper and <code>WS9Wine1.9.2.1</code> for Engine.</p>
-
 <p>Since I use a Chinese lazy pack of Foobar2000, I add the following command to <code>Configuration - Custom Commands</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0aa">export</span> <span style="color:#a00">LANG</span>=zh_CN.UTF-8</code></pre></div>
-<p>Also, install Chinese font support via <code>winetricks</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0aa">export</span> <span style="color:#a00">LANG</span>=zh_CN.UTF-8
+</code></pre></div><p>Also, install Chinese font support via <code>winetricks</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">winetricks wenquanyi
-winetricks fakechinese</code></pre></div>
-<p>I found a handy ready-to-use environment setup progress via <code>winetricks</code> <a href="https://hydrogenaud.io/index.php/topic,110516.msg923588.html#msg923588">here</a>:</p>
+winetricks fakechinese
+</code></pre></div><p>I found a handy ready-to-use environment setup progress via <code>winetricks</code> <a href="https://hydrogenaud.io/index.php/topic,110516.msg923588.html#msg923588">here</a>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">gdiplus_winxp
 wsh57
 fontsmooth=rgb
@@ -108,23 +100,20 @@ w_workaround_wine_bug-25648
 msxml3
 wmp10
 vb6run
-vcrun2010</code></pre></div>
-<h2 id="problems">problems</h2>
-
+vcrun2010
+</code></pre></div><h2 id="problems">problems</h2>
 <p>Now most parts of my Foobar2000 work well. The only problem I encounter is that one of my WSH Panel is broken:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Parsing file&#34;C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js&#34;
 Error: WSH Panel Mod Plus (JS Smooth Browser v20151114-1630-340 by Br3tt aka Falstaff &gt;&gt; http://br3tt.deviantart.com): Microsoft JScript runtime error:
 Automation server can&#39;t create object
 File: C:\Program Files\Mnlt2\foobar2000\Skins\Mnlt2\WSH-Browser\Browser.js
 Ln: 3207, Col: 1
-&lt;source text only available at compile time&gt;</code></pre></div>
-<p>There are mainly two solution for this:</p>
-
+&lt;source text only available at compile time&gt;
+</code></pre></div><p>There are mainly two solution for this:</p>
 <ol>
 <li><a href="http://www.cnblogs.com/sirrah/articles/2349099.html">JS中automation服务器不能创建对象</a></li>
-<li><a href="https://leftosa.wordpress.com/2013/05/08/fix-for-automation-server-cant-create-object/">Fix for &ldquo;Automation Server Can&rsquo;t Create Object&rdquo;</a></li>
+<li><a href="https://leftosa.wordpress.com/2013/05/08/fix-for-automation-server-cant-create-object/">Fix for &ldquo;Automation Server Can't Create Object&rdquo;</a></li>
 </ol>
-
 <p>Neither of them work for me. So I delete the line of the source code that imports <code>Browser.js</code>. Although I cannot use this function anymore, no more error found.</p>
   <footer class="reading-info">
     <div class="left">

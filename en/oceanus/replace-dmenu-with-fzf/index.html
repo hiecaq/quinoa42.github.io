@@ -76,79 +76,59 @@
       </div>
     </div>
   </header>
-  <p>One thing that I do really miss after switching from Mac OS to Arch Linux is <a href="https://www.alfredapp.com/">Alfred</a>. I heard there is an alternative for Linux called <a href="https://github.com/albertlauncher/albert">Albert</a> but I haven&rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn&rsquo;t fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.</p>
-
+  <p>One thing that I do really miss after switching from Mac OS to Arch Linux is <a href="https://www.alfredapp.com/">Alfred</a>. I heard there is an alternative for Linux called <a href="https://github.com/albertlauncher/albert">Albert</a> but I haven't tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don't feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn't fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.</p>
 <h2 id="tools-used">Tools used</h2>
-
 <ol>
 <li><a href="https://i3wm.org/">i3</a>: I set the keyboard shortcuts and default window layout for the simple launcher in my i3 config. Any other window manager or desktop environment should work too.</li>
 <li><a href="https://github.com/yshui/compton">compton</a>: used to beautify the launcher: being transparent is always the easiest solution to make something pretty.</li>
 <li><a href="https://github.com/jwilm/alacritty">alacritty</a>: Fzf will be run in a terminal emulator. Any emulator that supports setting window class and running a command from CLI args should work too.</li>
 <li><a href="https://github.com/junegunn/fzf">fzf</a></li>
 </ol>
-
 <h2 id="notable-details">Notable details</h2>
-
-<p>First, to make the launcher looks nicer, we need to specify window layout and opacity of the launcher window. We can do this by using alacritty&rsquo;s <code>--class</code> flag to set the window class, and run the command we want (i.e. fzf), for example,</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">alacritty --class <span style="color:#a50">&#34;fzfmenu&#34;</span> -e fzf</code></pre></div>
-<p>With this flag, alacritty will set the first value in <code>WM_CLASS</code> to the given name. We can check this by using <code>xprop</code> (thanks for the explanation on this from <a href="https://i3wm.org/docs/userguide.html">i3 User Guide</a>):</p>
+<p>First, to make the launcher looks nicer, we need to specify window layout and opacity of the launcher window. We can do this by using alacritty's <code>--class</code> flag to set the window class, and run the command we want (i.e. fzf), for example,</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">alacritty --class <span style="color:#a50">&#34;fzfmenu&#34;</span> -e fzf
+</code></pre></div><p>With this flag, alacritty will set the first value in <code>WM_CLASS</code> to the given name. We can check this by using <code>xprop</code> (thanks for the explanation on this from <a href="https://i3wm.org/docs/userguide.html">i3 User Guide</a>):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ xprop WM_CLASS
-WM_CLASS(STRING)=<span style="color:#a50">&#34;fzfmenu&#34;</span>, <span style="color:#a50">&#34;Alacritty&#34;</span></code></pre></div>
-<p>In <a href="https://i3wm.org/docs/userguide.html">i3</a>, the first argument will be referenced by <code>instance</code> while the second one by <code>class</code>. Similarly, in <code>compton</code>, the first argument matches to <code>class_i</code> while the second to <code>class_g</code>.</p>
-
+WM_CLASS(STRING)=<span style="color:#a50">&#34;fzfmenu&#34;</span>, <span style="color:#a50">&#34;Alacritty&#34;</span>
+</code></pre></div><p>In <a href="https://i3wm.org/docs/userguide.html">i3</a>, the first argument will be referenced by <code>instance</code> while the second one by <code>class</code>. Similarly, in <code>compton</code>, the first argument matches to <code>class_i</code> while the second to <code>class_g</code>.</p>
 <p>Another problem is that, if not running the following command after fzf in background, the window of alacritty will just block there waiting for the command to finish; If we only use <code>&amp;</code> when calling the command, it will get killed when alacritty quit after that immediately because alacritty owns it. The solution is to do this with <code>nohup COMMAND &amp;</code>. We probably will never going to need the stdout from our command, so we can simply redirect stdout and stderr to <code>/dev/null</code> to prevent <code>nohup</code> to create <code>nohup.out</code> (see its <a href="https://linux.die.net/man/1/nohup">manpage</a> for details).</p>
-
 <h2 id="scripts">Scripts</h2>
-
 <h3 id="launch-apps">launch apps</h3>
-
 <p><code>fzf_run</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#4c8317">#!/usr/bin/env zsh
-</span><span style="color:#4c8317"></span>print -rl -- <span style="color:#a50">${</span>(ko)commands<span style="color:#a50">}</span> | fzf | (nohup <span style="color:#a50">${</span><span style="color:#a00">SHELL</span><span style="color:#00a">:-</span><span style="color:#a50">&#34;/bin/sh&#34;</span><span style="color:#a50">}</span> &amp;) &gt;/dev/null <span style="color:#099">2</span>&gt;&amp;<span style="color:#099">1</span></code></pre></div>
-<p>Notice that to list all commands easily I used zsh as the shell for this script explicitly. <code>${commands}</code> will expand to the <a href="http://zsh.sourceforge.net/Doc/Release/Zsh-Modules.html#index-commands">command hash table</a> and <code>k</code> flag will substitute keys instead of values, which are command names instead of full paths (found on an <a href="https://unix.stackexchange.com/a/120818">excellent Unix &amp; Linux Stack Exchange answer</a>).</p>
-
+</span><span style="color:#4c8317"></span>print -rl -- <span style="color:#a50">${</span>(ko)commands<span style="color:#a50">}</span> | fzf | (nohup <span style="color:#a50">${</span><span style="color:#a00">SHELL</span><span style="color:#00a">:-</span><span style="color:#a50">&#34;/bin/sh&#34;</span><span style="color:#a50">}</span> &amp;) &gt;/dev/null 2&gt;&amp;<span style="color:#099">1</span>
+</code></pre></div><p>Notice that to list all commands easily I used zsh as the shell for this script explicitly. <code>${commands}</code> will expand to the <a href="http://zsh.sourceforge.net/Doc/Release/Zsh-Modules.html#index-commands">command hash table</a> and <code>k</code> flag will substitute keys instead of values, which are command names instead of full paths (found on an <a href="https://unix.stackexchange.com/a/120818">excellent Unix &amp; Linux Stack Exchange answer</a>).</p>
 <h3 id="open-a-specific-pdf-with-zathura">open a specific pdf with zathura</h3>
-
 <p>I realize I need to do this quite often, so I wrote the following script (<code>fzf_zathura</code>):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#4c8317">#!/usr/bin/env sh
-</span><span style="color:#4c8317"></span>fd -a -e <span style="color:#a50">&#34;pdf&#34;</span> . ~/documents | fzf | (nohup xargs -I{} zathura <span style="color:#a50">&#34;{}&#34;</span> &gt;/dev/null <span style="color:#099">2</span>&gt;&amp;<span style="color:#099">1</span> &amp;)</code></pre></div>
-<h3 id="open-a-new-tmux-window-to-edit-a-file-in-dotfiles-dir-with-neovim">open a new tmux window to edit a file in dotfiles dir with neovim</h3>
-
+</span><span style="color:#4c8317"></span>fd -a -e <span style="color:#a50">&#34;pdf&#34;</span> . ~/documents | fzf | (nohup xargs -I{} zathura <span style="color:#a50">&#34;{}&#34;</span> &gt;/dev/null 2&gt;&amp;<span style="color:#099">1</span> &amp;)
+</code></pre></div><h3 id="open-a-new-tmux-window-to-edit-a-file-in-dotfiles-dir-with-neovim">open a new tmux window to edit a file in dotfiles dir with neovim</h3>
 <p>This is also a thing I do quite often. I named it <code>fzf_dotfiles</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#4c8317">#!/usr/bin/env zsh
-</span><span style="color:#4c8317"></span>fd --max-depth=<span style="color:#099">4</span> -t f . ~/.dotfiles | fzf | xargs -I{} tmux new-window -n launcher nvim -f <span style="color:#a50">&#34;{}&#34;</span></code></pre></div>
-<p>Note that for this one we don&rsquo;t have to use <code>nohup &amp;</code> because <code>tmux new-window</code> is non-blocking.</p>
-
+</span><span style="color:#4c8317"></span>fd --max-depth=<span style="color:#099">4</span> -t f . ~/.dotfiles | fzf | xargs -I{} tmux new-window -n launcher nvim -f <span style="color:#a50">&#34;{}&#34;</span>
+</code></pre></div><p>Note that for this one we don't have to use <code>nohup &amp;</code> because <code>tmux new-window</code> is non-blocking.</p>
 <h2 id="setting-launching-shortcuts">Setting launching shortcuts</h2>
-
-<p>Now we handle launching alacritty that runs the scripts in i3&rsquo;s config file:</p>
+<p>Now we handle launching alacritty that runs the scripts in i3's config file:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">bindsym $mod+space exec alacritty --class &#34;fzfmenu&#34; -e fzf_run
 bindsym $mod+z exec alacritty --class &#34;fzfmenu&#34; -e fzf_zathura
-bindsym $mod+v exec alacritty -d 120 24 --class &#34;fzfmenu&#34; -e fzf_dotfiles</code></pre></div>
-<h2 id="setting-default-window-layout">Setting default window layout</h2>
-
-<p>Also in i3&rsquo;s config file, add</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">for_window [instance=&#34;fzfmenu&#34;] floating enable</code></pre></div>
-<h2 id="make-it-transparent">Make it transparent</h2>
-
-<p>Add this to compton&rsquo;s config file:</p>
+bindsym $mod+v exec alacritty -d 120 24 --class &#34;fzfmenu&#34; -e fzf_dotfiles
+</code></pre></div><h2 id="setting-default-window-layout">Setting default window layout</h2>
+<p>Also in i3's config file, add</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">for_window [instance=&#34;fzfmenu&#34;] floating enable
+</code></pre></div><h2 id="make-it-transparent">Make it transparent</h2>
+<p>Add this to compton's config file:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">opacity-rule = [
     &#34;90:class_i = &#39;fzfmenu&#39;&#34;
-]</code></pre></div>
-<h2 id="conclusion">Conclusion</h2>
-
+]
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
 <p>Now we are done!</p>
-
 <figure><a href="https://i.imgur.com/6rDB3HC.png">
     <img src="https://i.imgur.com/6rDB3HC.png"
          alt="screenshot"/> </a>
 </figure>
 
-
 <p>This launcher is super easy to tweak, and we can add any other functions we want. Goodbye dmenu!</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
 <li><a href="https://i3wm.org/docs/userguide.html">i3guide</a></li>
 <li><a href="https://linux.die.net/man/1/nohup">nohup(1) Linux man page</a></li>

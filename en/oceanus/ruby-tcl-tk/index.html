@@ -77,30 +77,23 @@
     </div>
   </header>
   <p>It happens to be the case where I run into the need of using ruby and tk.Anyway, it tooks me a while to figure out how to compile a ruby by using <code>rbenv</code> and <code>ruby-build</code> with a brew-installed <code>tcl-tk</code> library.</p>
-
 <h2 id="install-tcl-tk">install tcl-tk</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ brew install tcl-tk</code></pre></div>
-<p>Then add <code>/usr/local/opt/tcl-tk/bin</code> to your path.</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ brew install tcl-tk
+</code></pre></div><p>Then add <code>/usr/local/opt/tcl-tk/bin</code> to your path.</p>
 <p>Now if you type <code>wish</code>, a tiny GUI should appear, and also a REPL waiting for your input.</p>
-
 <p>Type</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">% info patchlevel</code></pre></div>
-<p>into the REPL, and a version such as <code>8.6.7</code> should appear reflecting the version installed by brew.</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">% info patchlevel
+</code></pre></div><p>into the REPL, and a version such as <code>8.6.7</code> should appear reflecting the version installed by brew.</p>
 <h2 id="compile-ruby">compile ruby</h2>
-
 <p>It turns out that <code>rbenv install</code> (or <code>ruby-build</code>) <a href="https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838">accept</a> <code>CONFIGURE_OPTS</code> env variable. So we can use this one-line code to compile the ruby:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#a00">CONFIGURE_OPTS</span>=<span style="color:#a50">&#34;--with-tcltkversion=8.6 --with-tcl-lib=/usr/local/opt/tcl-tk/lib --with-tk-lib=/usr/local/opt/tcl-tk/lib --with-tcl-include=/usr/local/opt/tcl-tk/include --with-tk-include=/usr/local/opt/tcl-tk/include&#34;</span> rbenv install <span style="color:#099">2</span>.2.8</code></pre></div>
-<p>in <code>irb</code> with this ruby activated, (e.g. =rbenv local 2.2.8=), you should be able to see output like these with the commands:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#a00">CONFIGURE_OPTS</span>=<span style="color:#a50">&#34;--with-tcltkversion=8.6 --with-tcl-lib=/usr/local/opt/tcl-tk/lib --with-tk-lib=/usr/local/opt/tcl-tk/lib --with-tcl-include=/usr/local/opt/tcl-tk/include --with-tk-include=/usr/local/opt/tcl-tk/include&#34;</span> rbenv install 2.2.8
+</code></pre></div><p>in <code>irb</code> with this ruby activated, (e.g. =rbenv local 2.2.8=), you should be able to see output like these with the commands:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">irb(main):<span style="color:#099">001</span>:<span style="color:#099">0</span>&gt; <span style="color:#0aa">require</span> <span style="color:#a50">&#39;tk&#39;</span>
 =&gt; <span style="color:#00a">true</span>
 irb(main):<span style="color:#099">002</span>:<span style="color:#099">0</span>&gt; <span style="color:#a00">Tk</span>::<span style="color:#a00">TK_PATCHLEVEL</span>
-=&gt; <span style="color:#a50">&#34;8.6.7&#34;</span></code></pre></div>
-<p>where the version output should match the <code>tcl-tk</code> version installed via <code>brew</code>.</p>
-
+=&gt; <span style="color:#a50">&#34;</span><span style="color:#a50">8.6.7</span><span style="color:#a50">&#34;</span>
+</code></pre></div><p>where the version output should match the <code>tcl-tk</code> version installed via <code>brew</code>.</p>
 <h2 id="reference">Reference</h2>
-
 <ul>
 <li><a href="http://www.tkdocs.com/tutorial/install.html">Installing Tk</a></li>
 <li><a href="https://github.com/rbenv/ruby-build/issues/77#issuecomment-2536838">rbenv/ruby-build #77</a></li>

@@ -16,7 +16,7 @@
       <pubDate>Sun, 27 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</guid>
-      <description>&lt;p&gt;One thing that I do really miss after switching from Mac OS to Arch Linux is &lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt;. I heard there is an alternative for Linux called &lt;a href=&#34;https://github.com/albertlauncher/albert&#34;&gt;Albert&lt;/a&gt; but I haven&amp;rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&amp;rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn&amp;rsquo;t fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.&lt;/p&gt;</description>
+      <description>&lt;p&gt;One thing that I do really miss after switching from Mac OS to Arch Linux is &lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt;. I heard there is an alternative for Linux called &lt;a href=&#34;https://github.com/albertlauncher/albert&#34;&gt;Albert&lt;/a&gt; but I haven&#39;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&#39;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn&#39;t fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.&lt;/p&gt;</description>
     </item>
     
   </channel>

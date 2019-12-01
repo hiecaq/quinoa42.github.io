@@ -61,7 +61,7 @@
     <h1>Python environment configuration for Neovim</h1>
     <div class="reading-info">
       <div class="left">
-        <span>569 words</span>
+        <span>565 words</span>
         <span>
           &bull;
         </span>
@@ -77,67 +77,60 @@
     </div>
   </header>
   <p>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.</p>
-
 <h2 id="install-pyenv">install pyenv</h2>
-
-<p>The installing process is similar to <a href="/en/oceanus/ruby-setup/">Ruby Setup</a> here, just install <a href="https://github.com/pyenv/pyenv">pyenv</a> instead. Don&rsquo;t forget to also install <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a>, which is a handy tool in addition to <code>pyenv</code> that is capable of conveniently managing <code>virtualenv</code>.</p>
-
+<p>The installing process is similar to <a href="/en/oceanus/ruby-setup/">Ruby Setup</a> here, just install <a href="https://github.com/pyenv/pyenv">pyenv</a> instead. Don't forget to also install <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a>, which is a handy tool in addition to <code>pyenv</code> that is capable of conveniently managing <code>virtualenv</code>.</p>
 <h2 id="set-up-virtualenv">set up virtualenv</h2>
-
 <p>See <a href="https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim">here</a> for more details.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv install --list <span style="color:#aaa;font-style:italic"># list all the available versions</span>
-pyenv install <span style="color:#099">2</span>.7.13 <span style="color:#aaa;font-style:italic"># latest python2</span>
-pyenv install <span style="color:#099">3</span>.6.1 <span style="color:#aaa;font-style:italic"># latest python3</span>
+pyenv install 2.7.13 <span style="color:#aaa;font-style:italic"># latest python2</span>
+pyenv install 3.6.1 <span style="color:#aaa;font-style:italic"># latest python3</span>
 
-pyenv virtualenv <span style="color:#099">2</span>.7.13 neovim2 <span style="color:#aaa;font-style:italic"># virtualenv for python2</span>
+pyenv virtualenv 2.7.13 neovim2 <span style="color:#aaa;font-style:italic"># virtualenv for python2</span>
 pyenv activate neovim2
 pip install neovim
 pyenv deactive
 
-pyenv virtualenv <span style="color:#099">3</span>.6.1 neovim3 <span style="color:#aaa;font-style:italic"># virtualenv for python3</span>
+pyenv virtualenv 3.6.1 neovim3 <span style="color:#aaa;font-style:italic"># virtualenv for python3</span>
 pyenv activate neovim3
 pip install neovim
-pyenv deactivate</code></pre></div>
-<p>Then, we need to set the path for python provider in your Neovim config file (e.g. =init.nvim=):</p>
+pyenv deactivate
+</code></pre></div><p>Then, we need to set the path for python provider in your Neovim config file (e.g. =init.nvim=):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#aaa;font-style:italic">&#34; Python provider</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">if</span> has(<span style="color:#a50">&#34;nvim&#34;</span>)<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    <span style="color:#00a">let</span> g:python_host_prog = $HOME . <span style="color:#a50">&#34;/.pyenv/versions/neovim2/bin/python&#34;</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    <span style="color:#00a">let</span> g:python3_host_prog = $HOME . <span style="color:#a50">&#34;/.pyenv/versions/neovim3/bin/python&#34;</span><span style="color:#f00;background-color:#faa">
-</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">endif</span></code></pre></div>
-<p>Restart Neovim and then check if the providers work successfully:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">:CheckHealth</code></pre></div>
-<p>It is supposed to print out <code>SUCCESS</code> in both <code>python2</code> and <code>python3</code> parts.</p>
-
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">endif</span><span style="color:#f00;background-color:#faa">
+</span></code></pre></div><p>Restart Neovim and then check if the providers work successfully:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">:CheckHealth
+</code></pre></div><p>It is supposed to print out <code>SUCCESS</code> in both <code>python2</code> and <code>python3</code> parts.</p>
 <h2 id="things-you-probably-need">Things you probably need</h2>
-
 <p>I personally use <a href="https://github.com/junegunn/vim-plug">vim-plug</a> to manage my plugins, <a href="https://github.com/Shougo/deoplete.nvim">deoplete</a> to implement autocompletion, and <a href="https://github.com/w0rp/ale">ale</a> to lint/fix my code. And for Python I use <a href="https://github.com/davidhalter/jedi">jedi</a> to analysis my code and support autocompletion, <a href="https://pypi.python.org/pypi/flake8">flake8</a> as the linter, <a href="https://github.com/google/yapf">YAPF</a> and <a href="https://github.com/timothycrosley/isort">isort</a> as the &ldquo;fixers&rdquo;.</p>
-
 <p>First, install all these python tools (I personally install them for Python3):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv activate neovim3
 python3 -m pip install flake8
 pip install jedi
 pip install yapf
 pip install isort
-pyenv deactivate</code></pre></div>
-<p>Install the plugins via <code>vim-plug</code> for Neovim if you haven&rsquo;t (you can use something else if you want):</p>
+pyenv deactivate
+</code></pre></div><p>Install the plugins via <code>vim-plug</code> for Neovim if you haven't (you can use something else if you want):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#00a">if</span> has(<span style="color:#a50">&#34;nvim&#34;</span>)<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    Plug <span style="color:#a50">&#39;w0rp/ale&#39;</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    Plug <span style="color:#a50">&#39;Shougo/deoplete.nvim&#39;</span>, { <span style="color:#a50">&#39;do&#39;</span> : <span style="color:#a50">&#39;:UpdateRemotePlugins&#39;</span> }<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    Plug <span style="color:#a50">&#39;Shougo/echodoc.vim&#39;</span> <span style="color:#aaa;font-style:italic">&#34; it can show function def at the command line</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    Plug <span style="color:#a50">&#39;zchee/deoplete-jedi&#39;</span>, { <span style="color:#a50">&#39;for&#39;</span> : <span style="color:#a50">&#39;python&#39;</span> } <span style="color:#aaa;font-style:italic">&#34; deoplete source for python</span><span style="color:#f00;background-color:#faa">
-</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">endif</span></code></pre></div>
-<p>Next, if you want, manually set the linter/fixer for <code>ale</code>:</p>
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">endif</span><span style="color:#f00;background-color:#faa">
+</span></code></pre></div><p>Next, if you want, manually set the linter/fixer for <code>ale</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#00a">let</span> g:ale_linters = {<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>            \   <span style="color:#a50">&#39;python&#39;</span> : [<span style="color:#a50">&#39;flake8&#39;</span>],<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>            \}<span style="color:#f00;background-color:#faa">
-</span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_fixers = {<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>            \   <span style="color:#a50">&#39;python&#39;</span>: [<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>            \       <span style="color:#a50">&#39;yapf&#39;</span>,<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>            \       <span style="color:#a50">&#39;isort&#39;</span>,<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>            \   ],<span style="color:#f00;background-color:#faa">
-</span><span style="color:#f00;background-color:#faa"></span>            \}</code></pre></div>
-<p>Here is the tricky part. Since our special virtualenv(s) for Neovim is not activated usually, <code>pyenv</code> will prevent Neovim to call the executables. So we have to set the executable paths manually:</p>
+</span><span style="color:#f00;background-color:#faa"></span>            \}<span style="color:#f00;background-color:#faa">
+</span></code></pre></div><p>Here is the tricky part. Since our special virtualenv(s) for Neovim is not activated usually, <code>pyenv</code> will prevent Neovim to call the executables. So we have to set the executable paths manually:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#aaa;font-style:italic">&#34; use flake8 installed at the virtualenv for neovim</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_flake8_executable = $HOME . <span style="color:#a50">&#34;/.pyenv/versions/neovim3/bin/flake8&#34;</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_flake8_use_global = <span style="color:#099">1</span><span style="color:#f00;background-color:#faa">
@@ -146,22 +139,16 @@ pyenv deactivate</code></pre></div>
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_yapf_use_global = <span style="color:#099">1</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#aaa;font-style:italic">&#34; use isort installed at the virtualenv for neovim</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_isort_executable = $HOME . <span style="color:#a50">&#34;/.pyenv/versions/neovim3/bin/isort&#34;</span><span style="color:#f00;background-color:#faa">
-</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_isort_use_global = <span style="color:#099">1</span></code></pre></div>
-<p>As a problem I encountered, the intended global config file for <code>YAPF</code>, located at <code>~/.config/yapf/style</code>, is not used when called from <code>ale</code>. Put the file at <code>~/.style.yapf</code> would fix this problem.</p>
-
-<p>One last thing about fixers and linters is that the preceding result will be overwrited by the following ones. For example, when calling <code>ALEFix</code>, my configuration will cause <code>isort</code> to run after <code>YAPF</code>, which will potentially generate some blank lines. I don&rsquo;t have perfect solution for this yet, but run <code>ALEFix</code> again could fix these empty lines.</p>
-
+</span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_isort_use_global = <span style="color:#099">1</span><span style="color:#f00;background-color:#faa">
+</span></code></pre></div><p>As a problem I encountered, the intended global config file for <code>YAPF</code>, located at <code>~/.config/yapf/style</code>, is not used when called from <code>ale</code>. Put the file at <code>~/.style.yapf</code> would fix this problem.</p>
+<p>One last thing about fixers and linters is that the preceding result will be overwrited by the following ones. For example, when calling <code>ALEFix</code>, my configuration will cause <code>isort</code> to run after <code>YAPF</code>, which will potentially generate some blank lines. I don't have perfect solution for this yet, but run <code>ALEFix</code> again could fix these empty lines.</p>
 <p>There are many other settings for the plugins. You can check out my <a href="https://github.com/quinoa42/dotfiles/blob/master/applications/nvim/init.vim#L288">dotfiles repo</a> if you are interested.</p>
-
 <p>Note that there are some useful plugins for Python that worth having a look:</p>
-
 <ul>
 <li><a href="https://github.com/python-mode/python-mode">python-mode</a></li>
 <li><a href="https://github.com/vim-python/python-syntax">python-syntax</a></li>
 </ul>
-
 <h2 id="reference">reference</h2>
-
 <ul>
 <li><a href="https://github.com/pyenv/pyenv">pyenv github repo</a></li>
 <li><a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv github repo</a></li>

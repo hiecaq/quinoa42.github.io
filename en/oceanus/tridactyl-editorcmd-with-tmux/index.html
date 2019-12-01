@@ -76,27 +76,20 @@
       </div>
     </div>
   </header>
-  <p><a href="https://github.com/tridactyl/tridactyl">Tridactyl</a> has been a decent replacement for <a href="https://github.com/vimperator/vimperator-labs">Vimperator</a> or <a href="https://github.com/5digits/dactyl">Pentadactyl</a> for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&rsquo;m using <code>tmux</code> for most of the time, I start to wondering if I could do some tweak with the <code>editorcmd</code> so that instead of a new terminal emulator window, a termporary tmux window will be opened.</p>
-
+  <p><a href="https://github.com/tridactyl/tridactyl">Tridactyl</a> has been a decent replacement for <a href="https://github.com/vimperator/vimperator-labs">Vimperator</a> or <a href="https://github.com/5digits/dactyl">Pentadactyl</a> for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I'm using <code>tmux</code> for most of the time, I start to wondering if I could do some tweak with the <code>editorcmd</code> so that instead of a new terminal emulator window, a termporary tmux window will be opened.</p>
 <h2 id="first-attempt">First attempt</h2>
-
 <p>How <code>editorcmd</code> works is pretty simple: once the user invokes <code>editor()</code>, tridactyl will expand the first occurrence of <code>%f</code> into the filepath for the tempfile, or just append the filepath at the end if <code>%f</code> is not found (see <a href="https://github.com/tridactyl/tridactyl/blob/ddfb5b5/src/excmds.ts#L255">this</a> for details). So we could easily come up with the following code:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f&#39;</code></pre></div>
-<p>However, this actually doesn&rsquo;t work the way we want. What happens is that <code>tmux new-window</code> doesn&rsquo;t block until the window is closed. As a result, once the given command has returned, tridactyl will go straight to read from the provided tempfile, which will turn out to be empty since it&rsquo;s just opened by the Neovim in the new tmux window. We need to find a way to block the command until the window is closed.</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f&#39;
+</code></pre></div><p>However, this actually doesn't work the way we want. What happens is that <code>tmux new-window</code> doesn't block until the window is closed. As a result, once the given command has returned, tridactyl will go straight to read from the provided tempfile, which will turn out to be empty since it's just opened by the Neovim in the new tmux window. We need to find a way to block the command until the window is closed.</p>
 <h2 id="solution">Solution</h2>
-
 <p>A <a href="https://unix.stackexchange.com/a/137547">StackExchange answer</a> points out the solution: to use <code>tmux wait-for</code>. <code>tmux wait-for &lt;CHANNEL&gt;</code> will block until receiving the signal on the given <code>CHANNEL</code>, while <code>tmux wait-for -S &lt;CHANNEL&gt;</code> will send such a signal to the <code>CHANNEL</code>. Thus, the solution will be:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f; tmux wait-for -S firefox-neww-done&#39; \; wait-for firefox-neww-done</code></pre></div>
-<p>This binding divides into two sequential command:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set editorcmd tmux new-window -n firefox &#39;nvim -f %f; tmux wait-for -S firefox-neww-done&#39; \; wait-for firefox-neww-done
+</code></pre></div><p>This binding divides into two sequential command:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">new-window -n firefox <span style="color:#a50">&#39;nvim -f %f; tmux wait-for -S firefox-neww-done&#39;</span>
-wait-for firefox-neww-done</code></pre></div>
-<p><code>\;</code> is to make sure the shell will not interpret this <code>;</code> so that it can be passed to <code>tmux</code>, where it also serves the purpose of dividing the commands (see the <a href="http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS">manpage</a> for details).</p>
-
+wait-for firefox-neww-done
+</code></pre></div><p><code>\;</code> is to make sure the shell will not interpret this <code>;</code> so that it can be passed to <code>tmux</code>, where it also serves the purpose of dividing the commands (see the <a href="http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS">manpage</a> for details).</p>
 <p>So in this new version, the second line will block until the first line returned, where in the first line the signal will not be sent until Neovim is closed. Once the signal is sent, the new <code>tmux</code> window will also be closed too. Everything works as expected!</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
 <li><a href="https://unix.stackexchange.com/a/137547">answer to the question &lsquo;Make tmux block until program completes&rsquo; by Chris Johnsen</a></li>
 <li><a href="http://man.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1#COMMANDS">Manpage of tmux on OpenBSD</a></li>

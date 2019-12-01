@@ -16,7 +16,7 @@
       <pubDate>Sun, 20 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/tridactyl-editorcmd-with-tmux/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/tridactyl/tridactyl&#34;&gt;Tridactyl&lt;/a&gt; has been a decent replacement for &lt;a href=&#34;https://github.com/vimperator/vimperator-labs&#34;&gt;Vimperator&lt;/a&gt; or &lt;a href=&#34;https://github.com/5digits/dactyl&#34;&gt;Pentadactyl&lt;/a&gt; for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&amp;rsquo;m using &lt;code&gt;tmux&lt;/code&gt; for most of the time, I start to wondering if I could do some tweak with the &lt;code&gt;editorcmd&lt;/code&gt; so that instead of a new terminal emulator window, a termporary tmux window will be opened.&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/tridactyl/tridactyl&#34;&gt;Tridactyl&lt;/a&gt; has been a decent replacement for &lt;a href=&#34;https://github.com/vimperator/vimperator-labs&#34;&gt;Vimperator&lt;/a&gt; or &lt;a href=&#34;https://github.com/5digits/dactyl&#34;&gt;Pentadactyl&lt;/a&gt; for me since I said goodbye to the XUL extensions. It supports the invocation of external editor (I mean Vim, of course) in its own insert mode pretty well, but the default behavior is to open Vim in a new terminal emulator window. Considering that I&#39;m using &lt;code&gt;tmux&lt;/code&gt; for most of the time, I start to wondering if I could do some tweak with the &lt;code&gt;editorcmd&lt;/code&gt; so that instead of a new terminal emulator window, a termporary tmux window will be opened.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -25,7 +25,7 @@
       <pubDate>Sun, 09 Apr 2017 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/tmux-force-utf8/</guid>
-      <description>&lt;p&gt;I am used to use tmux on our server via ssh with the simple but elegant command &lt;code&gt;ssh blabla@hostname -t tmux&lt;/code&gt;, but today I suddenly realized that under my tmux all the Unicode special characters doesn&amp;rsquo;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.&lt;/p&gt;</description>
+      <description>&lt;p&gt;I am used to use tmux on our server via ssh with the simple but elegant command &lt;code&gt;ssh blabla@hostname -t tmux&lt;/code&gt;, but today I suddenly realized that under my tmux all the Unicode special characters doesn&#39;t display correctly for some reason. If I remembered correctly they did display without any fault just yesterday, but anyway after a few minutes I found (probably) a solution to this problem.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@
       <pubDate>Wed, 23 Nov 2016 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/terminfo-truecolor/</guid>
-      <description>&lt;p&gt;Everyone likes true color. But the true color support doesn&amp;rsquo;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Everyone likes true color. But the true color support doesn&#39;t come out of the box for most terminal emulators, and some of them are just never going to support it. However, for some of them with some simple tweak true color will just simply be available.&lt;/p&gt;</description>
     </item>
     
   </channel>

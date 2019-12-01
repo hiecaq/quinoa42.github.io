@@ -66,6 +66,7 @@ This file might be out of sync. The newest version is available [[https://github
 - [[#templates][Templates]]
   - [[#yasnippet][Yasnippet]]
   - [[#yankpad][Yankpad]]
+  - [[#auto-insert][Auto-insert]]
 - [[#code][Code]]
   - [[#xref][xref]]
   - [[#projectile][Projectile]]
@@ -88,6 +89,7 @@ This file might be out of sync. The newest version is available [[https://github
   - [[#plantuml][plantuml]]
   - [[#rust][rust]]
   - [[#beancount][beancount]]
+  - [[#cmake][CMake]]
 - [[#magit][Magit]]
 
 * General Settings
@@ -165,6 +167,20 @@ Turn off lockfiles. They cannot be moved to a different directory, and they cons
 #+begin_src emacs-lisp
   (setq create-lockfiles nil)
 #+end_src
+
+A helper function that create a filename from basename and extension:
+#+begin_src emacs-lisp
+  (defun my/filename-with-extension (base ext)
+    "build a filename with basename and extension."
+    (let ((base (if base base ""))
+          (ext (if ext ext "")))
+      (pcase (list base ext)
+        (`("" "") (throw 'illegal t))
+        (`("" ,e) e)
+        (`(,b "") b)
+        (`(,b ,e) (format "%s.%s" b e)))))
+#+end_src
+
 * Emacs as a server
 :PROPERTIES:
 :ID:       61824a41-57c9-48ac-bae6-cedbc44da756
@@ -228,13 +244,13 @@ Setting faces. Technically this should be done in the =TRUE= branch for all case
          ((x-family-fonts "Sans Serif")               (set-face-attribute 'variable-pitch nil :family "Sans Serif"))
          (nil (warn "Cannot find a Sans Serif Font.")))
         (cond
-         ((x-list-fonts   "DejaVuSansMono Nerd Font") (set-face-attribute 'default nil        :font   "DejaVuSansMono Nerd Font"))
+         ((x-family-fonts "DejaVuSansMono Nerd Font") (set-face-attribute 'default nil        :family "DejaVuSansMono Nerd Font"))
          ((x-family-fonts "Consolas")                 (set-face-attribute 'default nil        :family "Consolas"))
          ((x-family-fonts "Monospace")                (set-face-attribute 'default nil        :family "Monospace"))
          (nil (warn "Cannot find a Mono Font."))))
     (progn ;; FALSE: hard coded based on system
       (when (eq system-type 'gnu/linux)
-        (set-face-attribute 'default nil :font "DejaVuSansMono Nerd Font")
+        (set-face-attribute 'default nil        :family "DejaVuSansMono Nerd Font")
         (set-face-attribute 'variable-pitch nil :family "Latin Modern Math"))
       (when (eq system-type 'windows-nt)
         (set-face-attribute 'default nil :font "Consolas")
@@ -498,6 +514,13 @@ It's okay to rebind =C-h= because =<F1>= basically does the same thing.
 #+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-general
   ([remap evil-ex-search-forward] 'swiper)
   ([remap evil-ex-search-backward] 'swiper-backward)
+#+end_src
+
+My UHK's keybinding is designed for using with Vim, so my Alt is really far far away from where I would normally position my fingers. Since I did not bind =S-s= =S-x= in my =xmonad= config, it's reasonable to bind these to their Meta relatives:
+#+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-general
+  (when (eq system-type 'gnu/linux)
+    (general-nvmap "s-s" (general-simulate-key "M-s"))
+    (general-nvmap "s-x" (general-simulate-key "M-x")))
 #+end_src
 
 When =visual-line-mode= is set (especially in =org-mode=), I want Vim to behave as visual lines are normal lines (i.e. bind =j= to =gj= etc)
@@ -1054,11 +1077,12 @@ gtags --gtagslabel=new-ctags
     (general-setq treemacs-persist-file (expand-file-name "emacs/treemacs-persist" (xdg-data-home)))
     (general-setq treemacs-last-error-persist-file (expand-file-name "emacs/treemacs-persist-at-last-error" (xdg-cache-home)))
     :config
-    (treemacs-filewatch-mode t)
+    (treemacs-filewatch-mode +1)
+    (treemacs-follow-mode 0)
     (pcase (cons (not (null (executable-find "git")))
                  (not (null treemacs-python-executable)))
       (`(t . t)
-       (treemacs-git-mode 'deferred))
+       (treemacs-git-mode 'extended))
       (`(t . _)
        (treemacs-git-mode 'simple))))
 #+end_src
@@ -1239,6 +1263,28 @@ NOTE: I'm using =yankpad= now instead of directly using =yasnippet=, so I commen
       "y" 'yankpad-insert)
     (my/leader-def 'insert
       "y" 'yankpad-expand))
+#+end_src
+
+** Auto-insert
+:PROPERTIES:
+:ID:       97e11f90-97f9-4e20-9979-c5e05d04c3ce
+:END:
+#+begin_src emacs-lisp
+  (defun my/auto-insert-yankpad()
+    "replace buffer content with expanded yankpad snippet."
+    (let ((str (substring (buffer-substring-no-properties (point-min) (point-max))
+                         0 -1)))
+      (erase-buffer)
+      (yankpad-insert-from-current-category str)))
+
+  (use-package autoinsert
+    :init
+    ;; Don't want to be prompted before insertion:
+    (setq auto-insert-query nil)
+    (setq auto-insert-directory (locate-user-emacs-file "templates"))
+    :config
+    (define-auto-insert "\\.h$" ["header.h" my/auto-insert-yankpad])
+    (auto-insert-mode 1))
 #+end_src
 
 * Code
@@ -1760,6 +1806,7 @@ Emacs does not come with dot language support out of the box. [[http://users.sky
   (use-package graphviz-dot-mode
     :ensure t)
 #+end_src
+
 ** C and C++
 :PROPERTIES:
 :ID:       1bb8e5ad-9735-4fc2-8133-e3fe62e030db
@@ -1770,7 +1817,7 @@ Indent using 1 level:
   (defvaralias 'c-basic-offset 'tab-width)
 #+end_src
 
-Fix indentations. See the help page of ~c-offsets-alist~ for details.
+Fix indentations. See the help page of ~c-offsets-alist~ for details. When in doubt, use =C-c C-s= to see the fallback order at the cursor position, and =C-c C-o= to quickly try a different value.
 #+begin_src emacs-lisp
   (defun my/c-mode ()
     (c-set-offset 'arglist-intro '+)
@@ -1778,17 +1825,41 @@ Fix indentations. See the help page of ~c-offsets-alist~ for details.
     (c-set-offset 'arglist-cont-nonempty '+)
     (c-set-offset 'brace-list-intro '+)
     (c-set-offset 'substatement-open 0)
+    (c-set-offset 'inextern-lang 0)
     (c-set-offset 'arglist-close 0))
   (add-hook 'c-mode-hook 'my/c-mode)
 #+end_src
+
+A helper function that convert a header file's name to a =_HEADER_H_= macro:
+#+begin_src emacs-lisp
+  (defun my/c-header-filename-macro ()
+      "convert header filename.h to __FILENAME_H__"
+    (let* ((filename  (file-name-nondirectory (buffer-file-name)))
+           (basename  (file-name-sans-extension filename))
+           (extension (file-name-extension filename)))
+      (format "_%s_%s_" (upcase basename) (upcase extension))))
+#+end_src
+
+A helper function that get a =c/cpp= file's corresponding conventional header file name:
+#+begin_src emacs-lisp
+  (defun my/c-header-filename-to-this ()
+      "convert header filename.{c,cpp} to filename.h"
+    (let* ((filename  (file-name-nondirectory (buffer-file-name)))
+           (basename  (file-name-sans-extension filename)))
+      (my/filename-with-extension basename "h")))
+#+end_src
+
 *** ccls
+:PROPERTIES:
+:ID:       10cfbc64-de37-4a40-9f44-738fb936b596
+:END:
 [[https://github.com/MaskRay/ccls][ccls]] is a maintained fork of =cquery=, a language server implementation for C/C++. It provides some extra features beyond the language server protocol, and its author is an Emacs user, so there is a help package available:
 #+begin_src emacs-lisp
   (use-package ccls
     :hook ((c-mode c++-mode objc-mode cuda-mode) .
            (lambda () (require 'ccls) (lsp-deferred)))
     :init
-    (general-setq flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc)))
+    (general-setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc)))
 #+end_src
 
 ** plantuml
@@ -1835,6 +1906,17 @@ reference:
     :init
     (add-hook 'beancount-mode-hook #'outline-minor-mode)
     (defvaralias 'beancount-transaction-indent 'tab-width))
+#+end_src
+
+** CMake
+:PROPERTIES:
+:ID:       f062614a-4de0-4ebb-8d43-04ac218ba3dd
+:END:
+[[https://gitlab.kitware.com/cmake/cmake][cmake]] is the most (in)famous C/C++ build source generator.
+#+begin_src emacs-lisp
+  (use-package cmake-mode
+    :ensure t
+    :mode ("\\'CMakeLists\\.txt\\'" . cmake-mode))
 #+end_src
 
 * Magit

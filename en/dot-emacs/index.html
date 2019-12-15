@@ -61,18 +61,18 @@
     <h1>quinoa42&#39;s dotEmacs</h1>
     <div class="reading-info">
       <div class="left">
-        <span>6173 words</span>
+        <span>6863 words</span>
         <span>
           &bull;
         </span>
-        <span>29 min read</span>
+        <span>33 min read</span>
       </div>
       <div class="right">
         <span><time>published at 10-28-2019</time></span>
         <span>
           &bull;
         </span>
-        <span><time>last modified at 12-01-2019</time></span>
+        <span><time>last modified at 12-15-2019</time></span>
       </div>
     </div>
   </header>
@@ -117,6 +117,7 @@
 <li><a href="#miscs">Miscs</a>
 <ul>
 <li><a href="#xdg">Xdg</a></li>
+<li><a href="#easypg">EasyPG</a></li>
 <li><a href="#bookmark">Bookmark</a></li>
 <li><a href="#recentf">Recentf</a></li>
 <li><a href="#editorconfig">Editorconfig</a></li>
@@ -171,6 +172,7 @@
 <li><a href="#general-settings">general settings</a></li>
 <li><a href="#general-keybindings">general keybindings</a></li>
 <li><a href="#task-management">task management</a></li>
+<li><a href="#holidays-and-anniversaries">holidays and anniversaries</a></li>
 <li><a href="#babel">babel</a></li>
 <li><a href="#org-brain">org-brain</a></li>
 <li><a href="#org-board">org-board</a></li>
@@ -188,6 +190,7 @@
 <li><a href="#rust">rust</a></li>
 <li><a href="#beancount">beancount</a></li>
 <li><a href="#cmake">CMake</a></li>
+<li><a href="#textinfo">TextInfo</a></li>
 </ul>
 </li>
 <li><a href="#magit">Magit</a></li>
@@ -348,6 +351,27 @@ Then it will be reasonble to put those annoying but extremely helpful stuff into
           `((<span style="color:#a50">&#34;</span><span style="color:#a50">.</span><span style="color:#a50">&#34;</span> . ,<span style="color:#a00">backup-dir</span>)))
     (<span style="color:#0aa">setq</span> <span style="color:#a00">auto-save-file-name-transforms</span>
           `((<span style="color:#a50">&#34;</span><span style="color:#a50">.*</span><span style="color:#a50">&#34;</span> ,<span style="color:#a00">autosave-dir</span> <span style="color:#a00">t</span>)))))
+</code></pre></div><h3 id="easypg">EasyPG</h3>
+<p>From EmacsWiki:</p>
+<blockquote>
+<p><code>EasyPG</code> is an all-in-one GnuPG interface for Emacs.</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Note that easy-pg consists of two different kind of modules, one is a library (epg.el) and the others are applications (epa-*.el). Auto-encryption (epa-file.el) is a part of the latter. As the docs says “The EasyPG Library dares to disable passphrase caching”, that is intended behavior. Caveat user, if you start using the library directly. ;)</p>
+</blockquote>
+<p>Helpful references, including the Emacs Wiki page where the above quotes are from:</p>
+<ul>
+<li><a href="https://orgmode.org/worg/org-tutorials/encrypting-files.html">Encrypting org Files.</a> on Worg</li>
+<li><a href="https://emacs.stackexchange.com/questions/7230/how-to-automatically-encrypt-orgmode-files">How to automatically encrypt orgmode files?</a> on Emacs Stack Exchange</li>
+<li><a href="https://www.emacswiki.org/emacs/EasyPG">Easy PG</a> on Emacs Wiki</li>
+<li><a href="https://www.emacswiki.org/emacs/AutoEncryption">Auto Encryption</a> on Emacs Wiki</li>
+<li><a href="https://www.emacswiki.org/emacs/GnuPG">GnuPG</a> on Emacs Wiki</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#00a">&#39;epa-file</span>
+  <span style="color:#0aa">:config</span>
+  (<span style="color:#a00">epa-file-enable</span>))
 </code></pre></div><h3 id="bookmark">Bookmark</h3>
 <p>Emacs has its own <code>bookmark</code> system built-in:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">bookmark</span>
@@ -455,6 +479,8 @@ Kind of like =which-key=…</p>
     (<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">s-s</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">M-s</span><span style="color:#a50">&#34;</span>))
     (<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">s-x</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">M-x</span><span style="color:#a50">&#34;</span>)))
   (<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">SPC</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c</span><span style="color:#a50">&#34;</span>))
+  (<span style="color:#a00">my/leader-def</span> &#39;(<span style="color:#a00">normal</span> <span style="color:#a00">visual</span>)
+    <span style="color:#a50">&#34;</span><span style="color:#a50">SPC</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c C-c</span><span style="color:#a50">&#34;</span>))
   (<span style="color:#a00">my/leader-def</span> <span style="color:#00a">&#39;normal</span>
     <span style="color:#a50">&#34;</span><span style="color:#a50">o</span><span style="color:#a50">&#34;</span> &#39;(<span style="color:#a00">my/insert-line-below</span> <span style="color:#0aa">:which-key</span> <span style="color:#a00">t</span>)
     <span style="color:#a50">&#34;</span><span style="color:#a50">O</span><span style="color:#a50">&#34;</span> &#39;(<span style="color:#a00">my/insert-line-above</span> <span style="color:#0aa">:which-key</span> <span style="color:#a00">t</span>))
@@ -477,10 +503,10 @@ Kind of like =which-key=…</p>
 (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-h</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-window-left</span>)
 (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-l</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-window-right</span>)
 </code></pre></div><p>It's okay to rebind <code>C-h</code> because <code>&lt;F1&gt;</code> basically does the same thing.</p>
-<p><code>swiper</code> has a nice evil integration such that <code>/` `?</code> can be replaced with <code>'swiper` </code>'swiper-backward` respectively:</p>
+<p><code>swiper</code> has a nice evil integration such that <code>/</code> <code>?</code> can be replaced with <code>'swiper</code> <code>'swiper-backward</code> respectively:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">([<span style="color:#a00">remap</span> <span style="color:#a00">evil-ex-search-forward</span>] <span style="color:#00a">&#39;swiper</span>)
 ([<span style="color:#a00">remap</span> <span style="color:#a00">evil-ex-search-backward</span>] <span style="color:#00a">&#39;swiper-backward</span>)
-</code></pre></div><p>My UHK's keybinding is designed for using with Vim, so my Alt is really far far away from where I would normally position my fingers. Since I did not bind <code>S-s` </code>S-x<code>in my</code>xmonad` config, it's reasonable to bind these to their Meta relatives:</p>
+</code></pre></div><p>My UHK's keybinding is designed for using with Vim, so my Alt is really far far away from where I would normally position my fingers. Since I did not bind <code>S-s</code> <code>S-x</code> in my <code>xmonad</code> config, it's reasonable to bind these to their Meta relatives:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">when</span> (<span style="color:#0a0">eq</span> <span style="color:#a00">system-type</span> <span style="color:#00a">&#39;gnu/linux</span>)
   (<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">s-s</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">M-s</span><span style="color:#a50">&#34;</span>))
   (<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">s-x</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">M-x</span><span style="color:#a50">&#34;</span>)))
@@ -494,6 +520,8 @@ Kind of like =which-key=…</p>
   <span style="color:#0aa">:prefix</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c</span><span style="color:#a50">&#34;</span>)
 </code></pre></div><p>This is a trick where I remap <code>SPC</code> to <code>C-c</code>, my leader key. In this way, I wrapped all the mode-defined <code>C-c</code> prefixed keybindings (they are not <!-- raw HTML omitted -->supposed<!-- raw HTML omitted --> to do so btw) as if they were my leader key prefixed, so that when I type <code>SPC</code>, <code>which-key</code> will show up all of them.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">SPC</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c</span><span style="color:#a50">&#34;</span>))
+(<span style="color:#a00">my/leader-def</span> &#39;(<span style="color:#a00">normal</span> <span style="color:#a00">visual</span>)
+  <span style="color:#a50">&#34;</span><span style="color:#a50">SPC</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c C-c</span><span style="color:#a50">&#34;</span>))
 </code></pre></div><p>Bring my two of my old vim keybindings back, which open newline above/below current line without entering insert state:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">defun</span> <span style="color:#a00">my/insert-line-below</span> ()
   <span style="color:#a50">&#34;</span><span style="color:#a50">Insert an empty line below the current line.</span><span style="color:#a50">&#34;</span>
@@ -617,7 +645,7 @@ This plugin actually works for native Evil's `f/F/t/T`, but I use it mainly for 
   (<span style="color:#a00">general-mmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">[,</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-backward-arg</span>)
   (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">go</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-jump-out-args</span>))
 </code></pre></div><h4 id="evil-visualstar">evil-visualstar</h4>
-<p><a href="https://github.com/bling/evil-visualstar">evil-visualstar</a> allow using <code>*` `#</code> on all visual selection.</p>
+<p><a href="https://github.com/bling/evil-visualstar">evil-visualstar</a> allow using <code>*</code> <code>#</code> on all visual selection.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">evil-visualstar</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:after</span> <span style="color:#a00">evil</span>
@@ -801,7 +829,7 @@ But, <a href="https://github.com/cosmicexplorer/helm-rg">helm-rg</a> is used by 
 <span style="color:#aaa;font-style:italic">;;   :config</span>
 <span style="color:#aaa;font-style:italic">;;   (ivy-rich-mode 1))</span>
 </code></pre></div><h4 id="swiper">swiper</h4>
-<p><a href="https://github.com/swiper#swiper">swiper</a> is an alternative to Emacs&rsquo; builtin [isearch](emacs#Basic Isearch). I use this over other alternatives because it has better integration by default with Evil's (or Vim's) search/substitution system.</p>
+<p><a href="https://github.com/swiper#swiper">swiper</a> is an alternative to Emacs&rsquo; builtin <a href="emacs#Basic%20Isearch">isearch</a>. I use this over other alternatives because it has better integration by default with Evil's (or Vim's) search/substitution system.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">swiper</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:demand</span> <span style="color:#a00">t</span>
@@ -1076,6 +1104,8 @@ NOTE: I'm using <code>yankpad</code> now instead of directly using <code>yasnipp
 <p><a href="https://github.com/flycheck/flycheck">flycheck</a> is a async syntax checking framework for Emacs, as <code>ALE</code> for Vim.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">flycheck</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
+  <span style="color:#0aa">:custom</span>
+  (<span style="color:#a00">flycheck-keymap-prefix</span> (<span style="color:#a00">kbd</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c *</span><span style="color:#a50">&#34;</span>))
   <span style="color:#0aa">:config</span>
   (<span style="color:#a00">global-flycheck-mode</span> <span style="color:#099">+1</span>))
 </code></pre></div><h3 id="lsp-mode">lsp-mode</h3>
@@ -1138,18 +1168,65 @@ NOTE: I'm using <code>yankpad</code> now instead of directly using <code>yasnipp
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-log-into-drawer</span> <span style="color:#a00">t</span>)
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-log-refile</span> <span style="color:#a00">t</span>)
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-directory</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-file-regexp</span> <span style="color:#a50">&#34;</span><span style="color:#a50">\\</span><span style="color:#a50">`</span><span style="color:#a50">[^.].*</span><span style="color:#a50">\\</span><span style="color:#a50">.org</span><span style="color:#a50">\\</span><span style="color:#a50">(</span><span style="color:#a50">\\</span><span style="color:#a50">.gpg</span><span style="color:#a50">\\</span><span style="color:#a50">)?</span><span style="color:#a50">\\</span><span style="color:#a50">&#39;</span><span style="color:#a50">&#34;</span>)
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-files</span> (<span style="color:#0aa">quote</span> (<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>)))
-  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-default-notes-file</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/inbox.org</span><span style="color:#a50">&#34;</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-default-notes-file</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/inbox.org.gpg</span><span style="color:#a50">&#34;</span>)
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-archive-location</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/archive/%s_archive::* Archived</span><span style="color:#a50">&#34;</span>)
-  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-refile-targets</span> (<span style="color:#0aa">quote</span> ((<span style="color:#a50">&#34;</span><span style="color:#a50">maybe.org</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:maxlevel</span> . <span style="color:#099">2</span>)
-                                           (<span style="color:#a50">&#34;</span><span style="color:#a50">tasks.org</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:level</span> . <span style="color:#099">1</span>))))
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-refile-targets</span> (<span style="color:#0aa">quote</span> ((<span style="color:#a50">&#34;</span><span style="color:#a50">maybe.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:level</span> . <span style="color:#099">1</span>)
+                                           (<span style="color:#a50">&#34;</span><span style="color:#a50">tasks.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:level</span> . <span style="color:#099">1</span>))))
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-capture-templates</span>
-                &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">t</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todo</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todos</span><span style="color:#a50">&#34;</span>)
+                &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">t</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todo</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todos</span><span style="color:#a50">&#34;</span>)
                    <span style="color:#a50">&#34;</span><span style="color:#a50">* TODO %?</span><span style="color:#a50">\n</span><span style="color:#a50">:LOGBOOK:</span><span style="color:#a50">\n</span><span style="color:#a50">- with context %a at %U</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">&#34;</span>)
                   (<span style="color:#a50">&#34;</span><span style="color:#a50">b</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Board</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/board/board.org</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Uncategorized</span><span style="color:#a50">&#34;</span>)
                    <span style="color:#a50">&#34;</span><span style="color:#a50">* %?</span><span style="color:#a50">\n</span><span style="color:#a50">:PROPERTIES:</span><span style="color:#a50">\n</span><span style="color:#a50">:URL: %^C</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">:LOGBOOK:</span><span style="color:#a50">\n</span><span style="color:#a50">- Entered at %U</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">&#34;</span>)
-                  (<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Note</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Notes</span><span style="color:#a50">&#34;</span>)
+                  (<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Note</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Notes</span><span style="color:#a50">&#34;</span>)
                    <span style="color:#a50">&#34;</span><span style="color:#a50">* %?</span><span style="color:#a50">\n</span><span style="color:#a50">:LOGBOOK:</span><span style="color:#a50">\n</span><span style="color:#a50">- Entered at %U</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">%x</span><span style="color:#a50">&#34;</span>)))
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-compact-blocks</span> <span style="color:#a00">t</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-todo-ignore-scheduled</span> <span style="color:#00a">&#39;future</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-custom-commands</span>
+        &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Getting things done!</span><span style="color:#a50">&#34;</span>
+           ((<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">ENGAGE</span><span style="color:#a50">&#34;</span>)
+            (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">current week</span><span style="color:#a50">&#34;</span>
+             ((<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>))
+              (<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>))))
+            (<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">TODO</span><span style="color:#a50">&#34;</span>)
+            (<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">WAIT</span><span style="color:#a50">&#34;</span>))
+           ((<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/tasks.org.gpg</span><span style="color:#a50">&#34;</span>))))
+          (<span style="color:#a50">&#34;</span><span style="color:#a50">i</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Inbox &amp; Maybe</span><span style="color:#a50">&#34;</span>
+           ((<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">TODO|WAIT</span><span style="color:#a50">&#34;</span>
+                  ((<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/inbox.org.gpg</span><span style="color:#a50">&#34;</span>))))
+            (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                    ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>)))
+            (<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">TODO|WAIT</span><span style="color:#a50">&#34;</span>
+                  ((<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/maybe.org.gpg</span><span style="color:#a50">&#34;</span>)))))
+           ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+            (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))
+          (<span style="color:#a50">&#34;</span><span style="color:#a50">g</span><span style="color:#a50">&#34;</span> . <span style="color:#a50">&#34;</span><span style="color:#a50">Todolist</span><span style="color:#a50">&#34;</span>)
+          (<span style="color:#a50">&#34;</span><span style="color:#a50">gt</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todos</span><span style="color:#a50">&#34;</span>
+           ((<span style="color:#a00">tags-todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">+CATEGORY=</span><span style="color:#a50">\&#34;</span><span style="color:#a50">Todo</span><span style="color:#a50">\&#34;</span><span style="color:#a50">&#34;</span>)
+            (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                    ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>))))
+           ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+            (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))
+          (<span style="color:#a50">&#34;</span><span style="color:#a50">gl</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Learn</span><span style="color:#a50">&#34;</span>
+           ((<span style="color:#a00">tags-todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">+CATEGORY=</span><span style="color:#a50">\&#34;</span><span style="color:#a50">Learn</span><span style="color:#a50">\&#34;</span><span style="color:#a50">&#34;</span>)
+            (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                    ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>))))
+           ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+            (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))
+          (<span style="color:#a50">&#34;</span><span style="color:#a50">ge</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Entertainments</span><span style="color:#a50">&#34;</span>
+           ((<span style="color:#a00">tags-todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">+CATEGORY=</span><span style="color:#a50">\&#34;</span><span style="color:#a50">Entertain</span><span style="color:#a50">\&#34;</span><span style="color:#a50">&#34;</span>)
+            (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                    ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>))))
+           ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+            (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))))
+  (<span style="color:#0aa">use-package</span> <span style="color:#a00">calendar</span>
+    <span style="color:#0aa">:init</span>
+    (<span style="color:#a00">general-setq</span> <span style="color:#a00">calendar-chinese-all-holidays-flag</span> <span style="color:#a00">t</span>)
+    (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-hebrew-holidays</span> <span style="color:#a00">nil</span>)
+    (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-islamic-holidays</span> <span style="color:#a00">nil</span>)
+    (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-solar-holidays</span> <span style="color:#a00">nil</span>)
+    (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-bahai-holidays</span> <span style="color:#a00">nil</span>))
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-hide-emphasis-markers</span> <span style="color:#a00">t</span>)
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-src-fontify-natively</span> <span style="color:#a00">t</span>)
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-tags-column</span> <span style="color:#099">0</span>)
@@ -1198,6 +1275,7 @@ NOTE: I'm using <code>yankpad</code> now instead of directly using <code>yasnipp
   (<span style="color:#a00">org-block-begin-line</span>      ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> <span style="color:#a00">fixed-pitch</span> <span style="color:#0aa">:weight</span> <span style="color:#a00">bold</span>))))
   (<span style="color:#a00">org-block-end-line</span>        ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> <span style="color:#a00">fixed-pitch</span> <span style="color:#0aa">:weight</span> <span style="color:#a00">bold</span>))))
   (<span style="color:#a00">org-special-keyword</span>       ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">font-lock-comment-face</span> <span style="color:#a00">fixed-pitch</span>)))))
+  (<span style="color:#a00">org-drawer</span>                ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">font-lock-comment-face</span> <span style="color:#a00">fixed-pitch</span>)))))
   (<span style="color:#a00">org-tag</span>                   ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">shadow</span> <span style="color:#a00">fixed-pitch</span>) <span style="color:#0aa">:weight</span> <span style="color:#a00">bold</span> <span style="color:#0aa">:height</span> <span style="color:#099">0.8</span>))))
   (<span style="color:#a00">org-verbatim</span>              ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">shadow</span> <span style="color:#a00">fixed-pitch</span>)))))
   (<span style="color:#a00">org-code</span>                  ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">shadow</span> <span style="color:#a00">fixed-pitch</span>)))))
@@ -1261,22 +1339,81 @@ reference:</p>
 </code></pre></div><p>Now finally, <code>org-directory</code> that will be used to look for capture templates:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-directory</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>)
 </code></pre></div><p>And the list of files/directories I want my agenda to track:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-files</span> (<span style="color:#0aa">quote</span> (<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>)))
-</code></pre></div><p>And a default note file for templates that does not specify a target file:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-default-notes-file</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/inbox.org</span><span style="color:#a50">&#34;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-file-regexp</span> <span style="color:#a50">&#34;</span><span style="color:#a50">\\</span><span style="color:#a50">`</span><span style="color:#a50">[^.].*</span><span style="color:#a50">\\</span><span style="color:#a50">.org</span><span style="color:#a50">\\</span><span style="color:#a50">(</span><span style="color:#a50">\\</span><span style="color:#a50">.gpg</span><span style="color:#a50">\\</span><span style="color:#a50">)?</span><span style="color:#a50">\\</span><span style="color:#a50">&#39;</span><span style="color:#a50">&#34;</span>)
+(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-files</span> (<span style="color:#0aa">quote</span> (<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>)))
+</code></pre></div><p>Notice that I also includes all <code>*.org.gpg</code> files, because I'd like to sync my GTD files around, encrypted.</p>
+<p>And a default note file for templates that does not specify a target file:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-default-notes-file</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/inbox.org.gpg</span><span style="color:#a50">&#34;</span>)
 </code></pre></div><p>Archive things into an archive directory:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-archive-location</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/archive/%s_archive::* Archived</span><span style="color:#a50">&#34;</span>)
 </code></pre></div><p>As GTD requires, I want to refile elements to maybe list or next action list:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-refile-targets</span> (<span style="color:#0aa">quote</span> ((<span style="color:#a50">&#34;</span><span style="color:#a50">maybe.org</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:maxlevel</span> . <span style="color:#099">2</span>)
-                                         (<span style="color:#a50">&#34;</span><span style="color:#a50">tasks.org</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:level</span> . <span style="color:#099">1</span>))))
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-refile-targets</span> (<span style="color:#0aa">quote</span> ((<span style="color:#a50">&#34;</span><span style="color:#a50">maybe.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:level</span> . <span style="color:#099">1</span>)
+                                         (<span style="color:#a50">&#34;</span><span style="color:#a50">tasks.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#0aa">:level</span> . <span style="color:#099">1</span>))))
 </code></pre></div><p>Caputre templates that helps reduce boilerplate:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-capture-templates</span>
-              &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">t</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todo</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todos</span><span style="color:#a50">&#34;</span>)
+              &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">t</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todo</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todos</span><span style="color:#a50">&#34;</span>)
                  <span style="color:#a50">&#34;</span><span style="color:#a50">* TODO %?</span><span style="color:#a50">\n</span><span style="color:#a50">:LOGBOOK:</span><span style="color:#a50">\n</span><span style="color:#a50">- with context %a at %U</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">&#34;</span>)
                 (<span style="color:#a50">&#34;</span><span style="color:#a50">b</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Board</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/board/board.org</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Uncategorized</span><span style="color:#a50">&#34;</span>)
                  <span style="color:#a50">&#34;</span><span style="color:#a50">* %?</span><span style="color:#a50">\n</span><span style="color:#a50">:PROPERTIES:</span><span style="color:#a50">\n</span><span style="color:#a50">:URL: %^C</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">:LOGBOOK:</span><span style="color:#a50">\n</span><span style="color:#a50">- Entered at %U</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">&#34;</span>)
-                (<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Note</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Notes</span><span style="color:#a50">&#34;</span>)
+                (<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Note</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Notes</span><span style="color:#a50">&#34;</span>)
                  <span style="color:#a50">&#34;</span><span style="color:#a50">* %?</span><span style="color:#a50">\n</span><span style="color:#a50">:LOGBOOK:</span><span style="color:#a50">\n</span><span style="color:#a50">- Entered at %U</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">%x</span><span style="color:#a50">&#34;</span>)))
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-compact-blocks</span> <span style="color:#a00">t</span>)
+</code></pre></div><p>I schedule things in a sense that I don't want to think about it until that time. If something is &ldquo;going to happen&rdquo; at some time and I need to prepare for it, I directly use angle-braced timestamp. Thus this setting help me fulfill this need:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-todo-ignore-scheduled</span> <span style="color:#00a">&#39;future</span>)
+</code></pre></div><p>To use GTD styles in my org-mode workflow, it's necessary to have those agenda views:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-custom-commands</span>
+      &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Getting things done!</span><span style="color:#a50">&#34;</span>
+         ((<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">ENGAGE</span><span style="color:#a50">&#34;</span>)
+          (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">current week</span><span style="color:#a50">&#34;</span>
+           ((<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>))
+            (<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>))))
+          (<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">TODO</span><span style="color:#a50">&#34;</span>)
+          (<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">WAIT</span><span style="color:#a50">&#34;</span>))
+         ((<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/tasks.org.gpg</span><span style="color:#a50">&#34;</span>))))
+        (<span style="color:#a50">&#34;</span><span style="color:#a50">i</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Inbox &amp; Maybe</span><span style="color:#a50">&#34;</span>
+         ((<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">TODO|WAIT</span><span style="color:#a50">&#34;</span>
+                ((<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/inbox.org.gpg</span><span style="color:#a50">&#34;</span>))))
+          (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                  ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>)))
+          (<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">TODO|WAIT</span><span style="color:#a50">&#34;</span>
+                ((<span style="color:#a00">org-agenda-files</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/maybe.org.gpg</span><span style="color:#a50">&#34;</span>)))))
+         ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+          (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))
+        (<span style="color:#a50">&#34;</span><span style="color:#a50">g</span><span style="color:#a50">&#34;</span> . <span style="color:#a50">&#34;</span><span style="color:#a50">Todolist</span><span style="color:#a50">&#34;</span>)
+        (<span style="color:#a50">&#34;</span><span style="color:#a50">gt</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Todos</span><span style="color:#a50">&#34;</span>
+         ((<span style="color:#a00">tags-todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">+CATEGORY=</span><span style="color:#a50">\&#34;</span><span style="color:#a50">Todo</span><span style="color:#a50">\&#34;</span><span style="color:#a50">&#34;</span>)
+          (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                  ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>))))
+         ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+          (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))
+        (<span style="color:#a50">&#34;</span><span style="color:#a50">gl</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Learn</span><span style="color:#a50">&#34;</span>
+         ((<span style="color:#a00">tags-todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">+CATEGORY=</span><span style="color:#a50">\&#34;</span><span style="color:#a50">Learn</span><span style="color:#a50">\&#34;</span><span style="color:#a50">&#34;</span>)
+          (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                  ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>))))
+         ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+          (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))
+        (<span style="color:#a50">&#34;</span><span style="color:#a50">ge</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Entertainments</span><span style="color:#a50">&#34;</span>
+         ((<span style="color:#a00">tags-todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">+CATEGORY=</span><span style="color:#a50">\&#34;</span><span style="color:#a50">Entertain</span><span style="color:#a50">\&#34;</span><span style="color:#a50">&#34;</span>)
+          (<span style="color:#a00">agenda</span> <span style="color:#a50">&#34;</span><span style="color:#a50">this two week</span><span style="color:#a50">&#34;</span>
+                  ((<span style="color:#a00">org-agenda-span</span> <span style="color:#099">14</span>))))
+         ((<span style="color:#a00">org-agenda-sorting-strategy</span> &#39;(<span style="color:#a00">tag-up</span> <span style="color:#a00">priority-down</span>))
+          (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))))
+</code></pre></div><h3 id="holidays-and-anniversaries">holidays and anniversaries</h3>
+<p>Given that org-mode show a day/month/year agenda view depending on my choice, why not also show those important days on the view?</p>
+<p>Emacs has built-in <code>calendar</code> mode and <code>diary</code> mode, according to <a href="https://orgmode.org/manual/Weekly%5F002fdaily-agenda.html#Weekly%5F002fdaily-agenda">Org mode manual</a>, it's good enough to add this snippet to my GTD org file:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Holidays</span>
+<span style="color:#aaa;font-style:italic">  :PROPERTIES:
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#00a;font-style:italic">  :CATEGORY: Holiday
+</span><span style="color:#00a;font-style:italic"></span><span style="color:#aaa;font-style:italic">  :END:</span>
+%%(org-calendar-holiday)   ; special function for holiday names
+</code></pre></div><p><code>calendar</code> mode needs some configuration to fit my needs:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">calendar</span>
+  <span style="color:#0aa">:init</span>
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">calendar-chinese-all-holidays-flag</span> <span style="color:#a00">t</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-hebrew-holidays</span> <span style="color:#a00">nil</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-islamic-holidays</span> <span style="color:#a00">nil</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-solar-holidays</span> <span style="color:#a00">nil</span>)
+  (<span style="color:#a00">general-setq</span> <span style="color:#a00">holiday-bahai-holidays</span> <span style="color:#a00">nil</span>))
 </code></pre></div><h3 id="babel">babel</h3>
 <p>References:</p>
 <ul>
@@ -1309,6 +1446,31 @@ reference:</p>
     (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-plantuml-jar-path</span> <span style="color:#a50">&#34;</span><span style="color:#a50">/usr/share/java/plantuml/plantuml.jar</span><span style="color:#a50">&#34;</span>))
   (<span style="color:#a00">add-to-list</span>
    <span style="color:#00a">&#39;org-src-lang-modes</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">plantuml</span><span style="color:#a50">&#34;</span> . <span style="color:#a00">plantuml</span>)))
+</code></pre></div><h4 id="ob-ditaa">ob-ditaa</h4>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">ob-ditaa</span>
+  <span style="color:#0aa">:after</span> <span style="color:#a00">org</span>
+  <span style="color:#0aa">:init</span>
+  (<span style="color:#0aa">when</span> (<span style="color:#0a0">eq</span> <span style="color:#a00">system-type</span> <span style="color:#00a">&#39;gnu/linux</span>)
+    (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-ditaa-jar-path</span> <span style="color:#a50">&#34;</span><span style="color:#a50">/usr/share/java/ditaa/ditaa-0.11.jar</span><span style="color:#a50">&#34;</span>)))
+</code></pre></div><p>Ditaa basically use the built-in <code>artist</code> mode, which behave strangely in Evil insert/normal state. I don't want to be in Emacs state all the time, thus I have the following configuration to make it more usable:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">artist</span>
+  <span style="color:#0aa">:demand</span> <span style="color:#a00">t</span>
+  <span style="color:#0aa">:init</span>
+  (<span style="color:#0aa">defmacro</span> <span style="color:#a00">my/artist-move</span> (<span style="color:#a00">move-active</span> <span style="color:#a00">move-inactive</span>)
+    `(<span style="color:#0aa">lambda</span> (<span style="color:#00a">&amp;optional</span> <span style="color:#a00">n</span>)
+       (<span style="color:#0aa">interactive</span> <span style="color:#a50">&#34;</span><span style="color:#a50">p</span><span style="color:#a50">&#34;</span>)
+       (<span style="color:#0aa">if</span> <span style="color:#a00">artist-key-is-drawing</span>
+           (,<span style="color:#a00">move-active</span> <span style="color:#a00">n</span>)
+         (,<span style="color:#a00">move-inactive</span> <span style="color:#a00">n</span>))))
+  <span style="color:#0aa">:general</span>
+  (<span style="color:#a00">general-nmap</span> <span style="color:#a00">artist-mode-map</span>
+    <span style="color:#a50">&#34;</span><span style="color:#a50">RET</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;artist-key-set-point</span>
+    <span style="color:#a50">&#34;</span><span style="color:#a50">j</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">my/artist-move</span> <span style="color:#a00">artist-next-line</span>     <span style="color:#a00">picture-move-down</span>)
+    <span style="color:#a50">&#34;</span><span style="color:#a50">k</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">my/artist-move</span> <span style="color:#a00">artist-previous-line</span> <span style="color:#a00">picture-move-up</span>)
+    <span style="color:#a50">&#34;</span><span style="color:#a50">h</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">my/artist-move</span> <span style="color:#a00">artist-backward-char</span> <span style="color:#a00">picture-backward-column</span>)
+    <span style="color:#a50">&#34;</span><span style="color:#a50">l</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">my/artist-move</span> <span style="color:#a00">artist-forward-char</span>  <span style="color:#a00">picture-forward-column</span>))
+  (<span style="color:#a00">my/leader-def</span> <span style="color:#00a">&#39;normal</span> <span style="color:#00a">&#39;artist-mode-map</span>
+    <span style="color:#a50">&#34;</span><span style="color:#a50">SPC</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c C-a</span><span style="color:#a50">&#34;</span>)))
 </code></pre></div><h3 id="org-brain">org-brain</h3>
 <p><a href="https://github.com/Kungsgeten/org-brain">org-brain</a> implements concept mapping for org mode, and is also a tool to build my own personal wiki.</p>
 <p>Enable tracking org heading links using globally unique uids. This is a must-have even without <code>org-brain</code>, because org mode won't fix the broken links when you refile/archive some subtrees to a different file.</p>
@@ -1403,6 +1565,7 @@ reference:</p>
 (<span style="color:#a00">org-block-begin-line</span>      ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> <span style="color:#a00">fixed-pitch</span> <span style="color:#0aa">:weight</span> <span style="color:#a00">bold</span>))))
 (<span style="color:#a00">org-block-end-line</span>        ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> <span style="color:#a00">fixed-pitch</span> <span style="color:#0aa">:weight</span> <span style="color:#a00">bold</span>))))
 (<span style="color:#a00">org-special-keyword</span>       ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">font-lock-comment-face</span> <span style="color:#a00">fixed-pitch</span>)))))
+(<span style="color:#a00">org-drawer</span>                ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">font-lock-comment-face</span> <span style="color:#a00">fixed-pitch</span>)))))
 (<span style="color:#a00">org-tag</span>                   ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">shadow</span> <span style="color:#a00">fixed-pitch</span>) <span style="color:#0aa">:weight</span> <span style="color:#a00">bold</span> <span style="color:#0aa">:height</span> <span style="color:#099">0.8</span>))))
 (<span style="color:#a00">org-verbatim</span>              ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">shadow</span> <span style="color:#a00">fixed-pitch</span>)))))
 (<span style="color:#a00">org-code</span>                  ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> (<span style="color:#a00">shadow</span> <span style="color:#a00">fixed-pitch</span>)))))
@@ -1481,7 +1644,7 @@ reference:</p>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>)
 </code></pre></div><h3 id="beancount">beancount</h3>
 <p><a href="http://furius.ca/beancount/">beancount</a> is a plain-text double-entry counting tool.
-as of this <a href="https://bitbucket.org/blais/beancount/pull-requests/115">PR</a> and discussion <a href="https://groups.google.com/forum/#!searchin/beancount/major$20mode%7Csort:date/beancount/zLtd9XF3ALQ/f3BCurRqCQAJ">here</a> and <a href="https://groups.google.com/d/topic/beancount/B1YA2n7r8SE/discussion">here</a>, <code>beancount</code> is no longer compatible with <code>org-mode</code>, because it runs its own major mode.</p>
+as of this <a href="https://bitbucket.org/blais/beancount/pull-requests/115">PR</a> and discussion <a href="https://groups.google.com/forum/#!searchin/beancount/major$20mode%257Csort:date/beancount/zLtd9XF3ALQ/f3BCurRqCQAJ">here</a> and <a href="https://groups.google.com/d/topic/beancount/B1YA2n7r8SE/discussion">here</a>, <code>beancount</code> is no longer compatible with <code>org-mode</code>, because it runs its own major mode.</p>
 <p>reference:</p>
 <ul>
 <li><a href="https://lwn.net/Articles/751874/">Counting beans—and more—with Beancount</a> by Jake Edge</li>
@@ -1501,6 +1664,10 @@ as of this <a href="https://bitbucket.org/blais/beancount/pull-requests/115">PR<
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">cmake-mode</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:mode</span> (<span style="color:#a50">&#34;</span><span style="color:#a50">\\</span><span style="color:#a50">&#39;CMakeLists</span><span style="color:#a50">\\</span><span style="color:#a50">.txt</span><span style="color:#a50">\\</span><span style="color:#a50">&#39;</span><span style="color:#a50">&#34;</span> . <span style="color:#a00">cmake-mode</span>))
+</code></pre></div><h3 id="textinfo">TextInfo</h3>
+<p><a href="https://www.emacswiki.org/emacs/InfoPlus">Info+</a> provides enhanced features for Info Mode. Stuff viewable in Info Mode including documentation of <code>glibc</code> , of Gnu coreutils, and of course of Emacs.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">info+</span>
+  <span style="color:#0aa">:load-path</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/.emacs.d/elisp/</span><span style="color:#a50">&#34;</span>)
 </code></pre></div><h2 id="magit">Magit</h2>
 <p><a href="https://github.com/magit/magit">magit</a> is an Emacs interface to git, which provides not only commands to call but also a full GUI-like wrapper around git.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">magit</span>

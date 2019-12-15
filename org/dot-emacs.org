@@ -40,6 +40,7 @@ This file might be out of sync. The newest version is available [[https://github
   - [[#paradox][Paradox]]
 - [[#miscs][Miscs]]
   - [[#xdg][Xdg]]
+  - [[#easypg][EasyPG]]
   - [[#bookmark][Bookmark]]
   - [[#recentf][Recentf]]
   - [[#editorconfig][Editorconfig]]
@@ -76,6 +77,7 @@ This file might be out of sync. The newest version is available [[https://github
   - [[#general-settings-1][general settings]]
   - [[#general-keybindings][general keybindings]]
   - [[#task-management][task management]]
+  - [[#holidays-and-anniversaries][holidays and anniversaries]]
   - [[#babel][babel]]
   - [[#org-brain][org-brain]]
   - [[#org-board][org-board]]
@@ -90,6 +92,7 @@ This file might be out of sync. The newest version is available [[https://github
   - [[#rust][rust]]
   - [[#beancount][beancount]]
   - [[#cmake][CMake]]
+  - [[#textinfo][TextInfo]]
 - [[#magit][Magit]]
 
 * General Settings
@@ -351,6 +354,29 @@ Then it will be reasonble to put those annoying but extremely helpful stuff into
             `((".*" ,autosave-dir t)))))
 #+end_src
 
+** EasyPG
+:PROPERTIES:
+:ID:       a8f1b34a-3392-4307-896b-0c9161a9e9d9
+:END:
+From EmacsWiki:
+#+begin_quote
+=EasyPG= is an all-in-one GnuPG interface for Emacs.
+#+end_quote
+#+begin_quote
+Note that easy-pg consists of two different kind of modules, one is a library (epg.el) and the others are applications (epa-*.el). Auto-encryption (epa-file.el) is a part of the latter. As the docs says “The EasyPG Library dares to disable passphrase caching”, that is intended behavior. Caveat user, if you start using the library directly. ;)
+#+end_quote
+Helpful references, including the Emacs Wiki page where the above quotes are from:
+- [[https://orgmode.org/worg/org-tutorials/encrypting-files.html][Encrypting org Files.]] on Worg
+- [[https://emacs.stackexchange.com/questions/7230/how-to-automatically-encrypt-orgmode-files][How to automatically encrypt orgmode files?]] on Emacs Stack Exchange
+- [[https://www.emacswiki.org/emacs/EasyPG][Easy PG]] on Emacs Wiki
+- [[https://www.emacswiki.org/emacs/AutoEncryption][Auto Encryption]] on Emacs Wiki
+- [[https://www.emacswiki.org/emacs/GnuPG][GnuPG]] on Emacs Wiki
+#+begin_src emacs-lisp
+  (use-package 'epa-file
+    :config
+    (epa-file-enable))
+#+end_src
+
 ** Bookmark
 :PROPERTIES:
 :ID:       502a93ca-e951-4997-a852-adfdd7ec1ef8
@@ -542,6 +568,8 @@ I use =C-c= as my =leader=:
 This is a trick where I remap =SPC= to =C-c=, my leader key. In this way, I wrapped all the mode-defined =C-c= prefixed keybindings (they are not _supposed_ to do so btw) as if they were my leader key prefixed, so that when I type =SPC=, =which-key= will show up all of them.
 #+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-general
   (general-nvmap "SPC" (general-simulate-key "C-c"))
+  (my/leader-def '(normal visual)
+    "SPC" (general-simulate-key "C-c C-c"))
 #+end_src
 
 Bring my two of my old vim keybindings back, which open newline above/below current line without entering insert state:
@@ -1356,6 +1384,8 @@ Its =treemacs= integration that provides a helper function to add =projectile= p
 #+begin_src emacs-lisp
   (use-package flycheck
     :ensure t
+    :custom
+    (flycheck-keymap-prefix (kbd "C-c *"))
     :config
     (global-flycheck-mode +1))
 #+end_src
@@ -1541,12 +1571,14 @@ Now finally, =org-directory= that will be used to look for capture templates:
 
 And the list of files/directories I want my agenda to track:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
   (general-setq org-agenda-files (quote ("~/documents/tracking")))
 #+end_src
+Notice that I also includes all =*.org.gpg= files, because I'd like to sync my GTD files around, encrypted.
 
 And a default note file for templates that does not specify a target file:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
-  (general-setq org-default-notes-file "~/documents/tracking/inbox.org")
+  (general-setq org-default-notes-file "~/documents/tracking/inbox.org.gpg")
 #+end_src
 
 Archive things into an archive directory:
@@ -1556,19 +1588,90 @@ Archive things into an archive directory:
 
 As GTD requires, I want to refile elements to maybe list or next action list:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
-  (general-setq org-refile-targets (quote (("maybe.org" :maxlevel . 2)
-                                           ("tasks.org" :level . 1))))
+  (general-setq org-refile-targets (quote (("maybe.org.gpg" :level . 1)
+                                           ("tasks.org.gpg" :level . 1))))
 #+end_src
 
 Caputre templates that helps reduce boilerplate:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
   (general-setq org-capture-templates
-                '(("t" "Todo" entry (file+headline "inbox.org" "Todos")
+                '(("t" "Todo" entry (file+headline "inbox.org.gpg" "Todos")
                    "* TODO %?\n:LOGBOOK:\n- with context %a at %U\n:END:\n")
                   ("b" "Board" entry (file+headline "~/documents/board/board.org" "Uncategorized")
                    "* %?\n:PROPERTIES:\n:URL: %^C\n:END:\n:LOGBOOK:\n- Entered at %U\n:END:\n")
-                  ("n" "Note" entry (file+headline "inbox.org" "Notes")
+                  ("n" "Note" entry (file+headline "inbox.org.gpg" "Notes")
                    "* %?\n:LOGBOOK:\n- Entered at %U\n:END:\n%x")))
+#+end_src
+
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-agenda-compact-blocks t)
+#+end_src
+
+I schedule things in a sense that I don't want to think about it until that time. If something is "going to happen" at some time and I need to prepare for it, I directly use angle-braced timestamp. Thus this setting help me fulfill this need:
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-agenda-todo-ignore-scheduled 'future)
+#+end_src
+
+To use GTD styles in my org-mode workflow, it's necessary to have those agenda views:
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+    (general-setq org-agenda-custom-commands
+          '(("n" "Getting things done!"
+             ((todo "ENGAGE")
+              (agenda "current week"
+               ((org-agenda-entry-types '(:deadline :timestamp :sexp))
+                (org-agenda-files '("~/documents/tracking"))))
+              (todo "TODO")
+              (todo "WAIT"))
+             ((org-agenda-files '("~/documents/tracking/tasks.org.gpg"))))
+            ("i" "Inbox & Maybe"
+             ((todo "TODO|WAIT"
+                    ((org-agenda-files '("~/documents/tracking/inbox.org.gpg"))))
+              (agenda "this two week"
+                      ((org-agenda-span 14)))
+              (todo "TODO|WAIT"
+                    ((org-agenda-files '("~/documents/tracking/maybe.org.gpg")))))
+             ((org-agenda-sorting-strategy '(tag-up priority-down))
+              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
+            ("g" . "Todolist")
+            ("gt" "Todos"
+             ((tags-todo "+CATEGORY=\"Todo\"")
+              (agenda "this two week"
+                      ((org-agenda-span 14))))
+             ((org-agenda-sorting-strategy '(tag-up priority-down))
+              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
+            ("gl" "Learn"
+             ((tags-todo "+CATEGORY=\"Learn\"")
+              (agenda "this two week"
+                      ((org-agenda-span 14))))
+             ((org-agenda-sorting-strategy '(tag-up priority-down))
+              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
+            ("ge" "Entertainments"
+             ((tags-todo "+CATEGORY=\"Entertain\"")
+              (agenda "this two week"
+                      ((org-agenda-span 14))))
+             ((org-agenda-sorting-strategy '(tag-up priority-down))
+              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))))
+#+end_src
+** holidays and anniversaries
+Given that org-mode show a day/month/year agenda view depending on my choice, why not also show those important days on the view?
+
+Emacs has built-in =calendar= mode and =diary= mode, according to [[https://orgmode.org/manual/Weekly_002fdaily-agenda.html#Weekly_002fdaily-agenda][Org mode manual]], it's good enough to add this snippet to my GTD org file:
+#+begin_src org
+  * Holidays
+    :PROPERTIES:
+    :CATEGORY: Holiday
+    :END:
+  %%(org-calendar-holiday)   ; special function for holiday names
+#+end_src
+=calendar= mode needs some configuration to fit my needs:
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (use-package calendar
+    :init
+    (general-setq calendar-chinese-all-holidays-flag t)
+    (general-setq holiday-hebrew-holidays nil)
+    (general-setq holiday-islamic-holidays nil)
+    (general-setq holiday-solar-holidays nil)
+    (general-setq holiday-bahai-holidays nil))
 #+end_src
 
 ** babel
@@ -1616,6 +1719,39 @@ I declared a hydra for =org-babel= to make things easier:
      'org-src-lang-modes '("plantuml" . plantuml)))
 #+end_src
 
+*** ob-ditaa
+:PROPERTIES:
+:ID:       91162b94-9993-42ac-9884-0e07e221d410
+:END:
+#+begin_src emacs-lisp
+  (use-package ob-ditaa
+    :after org
+    :init
+    (when (eq system-type 'gnu/linux)
+      (general-setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar")))
+#+end_src
+
+Ditaa basically use the built-in =artist= mode, which behave strangely in Evil insert/normal state. I don't want to be in Emacs state all the time, thus I have the following configuration to make it more usable:
+#+begin_src emacs-lisp
+  (use-package artist
+    :demand t
+    :init
+    (defmacro my/artist-move (move-active move-inactive)
+      `(lambda (&optional n)
+         (interactive "p")
+         (if artist-key-is-drawing
+             (,move-active n)
+           (,move-inactive n))))
+    :general
+    (general-nmap artist-mode-map
+      "RET" 'artist-key-set-point
+      "j" (my/artist-move artist-next-line     picture-move-down)
+      "k" (my/artist-move artist-previous-line picture-move-up)
+      "h" (my/artist-move artist-backward-char picture-backward-column)
+      "l" (my/artist-move artist-forward-char  picture-forward-column))
+    (my/leader-def 'normal 'artist-mode-map
+      "SPC" (general-simulate-key "C-c C-a")))
+#+end_src
 ** org-brain
 :PROPERTIES:
 :ID:       b42b471f-b82d-4190-bd90-0c2dadcc5e05
@@ -1763,6 +1899,7 @@ Use different font-size for headers, use sans-serif for non-code-like parts (pow
   (org-block-begin-line      ((t (:inherit fixed-pitch :weight bold))))
   (org-block-end-line        ((t (:inherit fixed-pitch :weight bold))))
   (org-special-keyword       ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  (org-drawer                ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-tag                   ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
   (org-verbatim              ((t (:inherit (shadow fixed-pitch)))))
   (org-code                  ((t (:inherit (shadow fixed-pitch)))))
@@ -1917,6 +2054,16 @@ reference:
   (use-package cmake-mode
     :ensure t
     :mode ("\\'CMakeLists\\.txt\\'" . cmake-mode))
+#+end_src
+
+** TextInfo
+:PROPERTIES:
+:ID:       4e24aac9-492b-427a-bbde-4bf158c077b0
+:END:
+[[https://www.emacswiki.org/emacs/InfoPlus][Info+]] provides enhanced features for Info Mode. Stuff viewable in Info Mode including documentation of =glibc= , of Gnu coreutils, and of course of Emacs.
+#+begin_src emacs-lisp
+  (use-package info+
+    :load-path "~/.emacs.d/elisp/")
 #+end_src
 
 * Magit

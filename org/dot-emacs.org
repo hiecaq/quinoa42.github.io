@@ -60,6 +60,7 @@ This file might be out of sync. The newest version is available [[https://github
   - [[#treemacs][Treemacs]]
   - [[#telephone-line][Telephone-line]]
   - [[#with-editor][with-editor]]
+  - [[#origami][Origami]]
 - [[#completion][Completion]]
   - [[#company][Company]]
   - [[#company-quickhelp][Company-quickhelp]]
@@ -81,6 +82,7 @@ This file might be out of sync. The newest version is available [[https://github
   - [[#babel][babel]]
   - [[#org-brain][org-brain]]
   - [[#org-board][org-board]]
+  - [[#org-noter][org-noter]]
   - [[#deft][deft]]
   - [[#toc-org][toc-org]]
   - [[#ox-hugo][ox-hugo]]
@@ -92,8 +94,13 @@ This file might be out of sync. The newest version is available [[https://github
   - [[#rust][rust]]
   - [[#beancount][beancount]]
   - [[#cmake][CMake]]
+  - [[#latex][Latex]]
   - [[#textinfo][TextInfo]]
-- [[#magit][Magit]]
+  - [[#yaml][Yaml]]
+- [[#tools][Tools]]
+  - [[#magit][Magit]]
+  - [[#pdf-tools][Pdf Tools]]
+  - [[#vterm][Vterm]]
 
 * General Settings
 ** Coding and Languages
@@ -184,6 +191,15 @@ A helper function that create a filename from basename and extension:
         (`(,b ,e) (format "%s.%s" b e)))))
 #+end_src
 
+Ignore more boring files/directories:
+#+begin_src emacs-lisp
+  (push ".ccls-cache/" completion-ignored-extensions)
+  (push "tags" completion-ignored-extensions)
+  (push "GPATH" completion-ignored-extensions)
+  (push "GRTAGS" completion-ignored-extensions)
+  (push "GTAGS" completion-ignored-extensions)
+#+end_src
+
 * Emacs as a server
 :PROPERTIES:
 :ID:       61824a41-57c9-48ac-bae6-cedbc44da756
@@ -217,6 +233,12 @@ Also, the default font for Chinese slow down Emacs terribly on Windows:
   (when (eq window-system 'w32)
     (dolist (charset '(kana han cjk-misc bopomofo))
       (set-fontset-font t charset (font-spec :family "Microsoft Yahei"))))
+#+end_src
+
+Always prefer msys2 libraries:
+#+begin_src emacs-lisp
+  (when (eq window-system 'w32)
+    (setenv "PATH" (concat "C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
 #+end_src
 
 ** Linux
@@ -372,7 +394,7 @@ Helpful references, including the Emacs Wiki page where the above quotes are fro
 - [[https://www.emacswiki.org/emacs/AutoEncryption][Auto Encryption]] on Emacs Wiki
 - [[https://www.emacswiki.org/emacs/GnuPG][GnuPG]] on Emacs Wiki
 #+begin_src emacs-lisp
-  (use-package 'epa-file
+  (use-package epa-file
     :config
     (epa-file-enable))
 #+end_src
@@ -559,6 +581,11 @@ When =visual-line-mode= is set (especially in =org-mode=), I want Vim to behave 
   (general-setq evil-search-module 'evil-search)
 #+end_src
 
+Wrapped search is terrible when you want to go through all instances.
+#+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-init
+  (general-setq evil-search-wrap nil)
+#+end_src
+
 I use =C-c= as my =leader=:
 #+begin_src emacs-lisp :tangle no :noweb-ref general-config
   (general-create-definer my/leader-def
@@ -606,6 +633,36 @@ Use =C-d= as frame key, mimics =C-w= as window key. =d= stands for =display=. Ho
   (general-nmap "C-x 5 g d" 'xref-find-definitions-other-frame)
 #+end_src
 
+Run =.= on all selected lines in visual mode:
+#+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-general
+  (general-vmap "." (general-simulate-key ":normal . RET"))
+#+end_src
+
+Run =@q= on all selected lines in visual mode:
+#+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-general
+  (general-vmap "Q" (general-simulate-key ":normal @q RET"))
+#+end_src
+
+Get =]p= and =[p= back, which basically paste stuff while making them indented with current lines. I missed them so much!
+Also, add the common =gp= binding which visually select the last pasted content.
+I have a macro for this:
+#+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-init
+  (defmacro my/indented-paste (paste-func)
+    `(lambda (count &optional register yank-handler)
+       (interactive "*P<x>")
+       (evil-with-single-undo
+         (,paste-func count register yank-handler)
+         (evil-indent (alist-get ?\[ evil-markers-alist)
+                      (alist-get ?\] evil-markers-alist)))))
+#+end_src
+
+Their bindings:
+#+begin_src emacs-lisp :tangle no :noweb-ref evil-mode-general
+  (general-nmap "gp" (general-simulate-key "`[v`]"))
+  (general-nmap "[p" (my/indented-paste evil-paste-before))
+  (general-nmap "]p" (my/indented-paste evil-paste-after))
+#+end_src
+
 *** evil-collection
 :PROPERTIES:
 :ID:       d27d2449-c4b8-402f-9cc7-14d841c8310f
@@ -618,6 +675,7 @@ Use =C-d= as frame key, mimics =C-w= as window key. =d= stands for =display=. Ho
     :custom
     (evil-collection-setup-minibuffer t)
     :config
+    (evil-collection-init 'compile)
     (evil-collection-init 'info)
     (evil-collection-init 'custom)
     (evil-collection-init 'dired)
@@ -753,6 +811,7 @@ This plugin actually works for native Evil's =f/F/t/T=, but I use it mainly for 
     :config
     (global-evil-matchit-mode 1))
 #+end_src
+
 *** evil-lion
 :PROPERTIES:
 :ID:       8528dc9d-6b90-45ce-9106-f593088550f1
@@ -914,7 +973,9 @@ References:
     ([remap imenu]                    'helm-imenu)
     (general-nmap "gO" 'helm-semantic-or-imenu)
     :init
+    (general-setq helm-display-function #'helm-display-buffer-in-own-frame)
     (general-setq helm-command-prefix-key "C-c h")
+    (general-setq helm-ff-skip-boring-files t)
     (unless (boundp 'completion-in-region-function)
       (general-def lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
       (general-def emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
@@ -1101,6 +1162,11 @@ gtags --gtagslabel=new-ctags
       "t b" 'treemacs-bookmark
       "t f" 'treemacs-find-file
       "t t" 'treemacs-find-tag)
+    (evil-treemacs-state-map
+      "C-j" 'evil-window-down
+      "C-k" 'evil-window-up
+      "C-h" 'evil-window-left
+      "C-l" 'evil-window-right)
     :init
     (general-setq treemacs-persist-file (expand-file-name "emacs/treemacs-persist" (xdg-data-home)))
     (general-setq treemacs-last-error-persist-file (expand-file-name "emacs/treemacs-persist-at-last-error" (xdg-cache-home)))
@@ -1177,6 +1243,17 @@ Reference:
     (shell-mode . with-editor-export-editor)
     (term-exec  . with-editor-export-editor)
     (eshell-mode . with-editor-export-editor))
+#+end_src
+
+** Origami
+:PROPERTIES:
+:ID:       33d8fc1a-c433-41fc-b9e5-a2b4571dc68b
+:END:
+[[https://github.com/gregsexton/origami.el][origami]] provides code folding for Emacs, and is also an optional dependencies for Evil's =zo=-ish family.
+#+begin_src emacs-lisp
+  (use-package origami
+    :ensure t
+    :hook (prog-mode . origami-mode))
 #+end_src
 
 * Completion
@@ -1356,6 +1433,7 @@ This file provides a somewhat generic infrastructure for cross referencing comma
     :init
     (general-setq projectile-cache-file (expand-file-name "emacs/projectile.cache" (xdg-cache-home)))
     (general-setq projectile-known-projects-file (expand-file-name "emacs/projectile-bookmarks.eld" (xdg-data-home)))
+    (general-setq projectile-globally-ignored-directories (append '(".ccls-cache") projectile-globally-ignored-directories))
     :config
     (projectile-mode +1))
 #+end_src
@@ -1403,6 +1481,8 @@ Its =treemacs= integration that provides a helper function to add =projectile= p
     ((python-mode rust-mode) . lsp-deferred)
     :commands (lsp lsp-deferred)
     :init
+    (general-setq lsp-enable-indentation nil)
+    (general-setq lsp-keymap-prefix "C-c L")
     (general-setq lsp-prefer-flymake nil)
     (general-setq lsp-session-file (expand-file-name "emacs/lsp-session-v1" (xdg-cache-home)))
     (general-setq lsp-keep-workspace-alive nil)
@@ -1419,7 +1499,12 @@ Based on [[https://github.com/emacs-lsp/lsp-ui/pull/208][this]] PR, there is no 
 #+begin_src emacs-lisp
   (use-package lsp-ui
     :ensure t
-    :commands lsp-ui-mode)
+    :commands lsp-ui-mode
+    :init
+    (general-setq lsp-ui-doc-enable nil)
+    (add-hook 'lsp-ui-mode-hook
+              (lambda ()
+                (general-setq-local evil-lookup-func #'lsp-ui-doc-glance))))
 #+end_src
 
 *** company-lsp
@@ -1455,6 +1540,19 @@ Based on [[https://github.com/emacs-lsp/lsp-ui/pull/208][this]] PR, there is no 
   (use-package helm-lsp
     :ensure t
     :after lsp-mode)
+#+end_src
+
+*** lsp-origami
+:PROPERTIES:
+:ID:       a8723ecd-3fc5-4170-90d4-b1995825ccd9
+:END:
+#+begin_quote
+[[https://github.com/emacs-lsp/lsp-origami][lsp-origami]] provides support for [[id:33d8fc1a-c433-41fc-b9e5-a2b4571dc68b][origami]] using language server protocol’s =textDocument/foldingRange= functionality.
+#+end_quote
+#+begin_src emacs-lisp
+  (use-package lsp-origami
+    :ensure t
+    :hook ((c-mode c++-mode asm-mode) . lsp-origami-mode))
 #+end_src
 
 * Org Mode
@@ -1546,6 +1644,7 @@ I generally follow the GTD way as my task management system.
 reference:
 + [[https://hamberg.no/gtd/][GTD in 15 minutes – A Pragmatic Guide to Getting Things Done]] by Erlend Hamberg
 + [[http://www.members.optusnet.com.au/~charles57/GTD/][Emacs, org-mode and Getting Things Done (GTD)]] by Charles Cave
++ [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]] by Bernt Hansen
 
 Todo state keywords. The todo state is simple:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
@@ -1723,6 +1822,7 @@ I declared a hydra for =org-babel= to make things easier:
 :PROPERTIES:
 :ID:       91162b94-9993-42ac-9884-0e07e221d410
 :END:
+[[http://ditaa.sourceforge.net/][ditaa]] basically turns your ascii art into the corresponding fancy diagrams, especially those that cannot be expressed using plantuml.
 #+begin_src emacs-lisp
   (use-package ob-ditaa
     :after org
@@ -1752,6 +1852,7 @@ Ditaa basically use the built-in =artist= mode, which behave strangely in Evil i
     (my/leader-def 'normal 'artist-mode-map
       "SPC" (general-simulate-key "C-c C-a")))
 #+end_src
+
 ** org-brain
 :PROPERTIES:
 :ID:       b42b471f-b82d-4190-bd90-0c2dadcc5e05
@@ -1809,6 +1910,28 @@ Inherit ~org-brain-title~ face from inner-most org-mode heading (so that it won'
     :ensure t)
 #+end_src
 
+** org-noter
+:PROPERTIES:
+:ID:       2e92f199-a9f3-459e-8ca7-cb41e09f3686
+:END:
+[[https://github.com/weirdNox/org-noter][org-noter]] is a synchronized document annotator, in Org mode.
+#+begin_src emacs-lisp
+  (use-package org-noter
+    :ensure t
+    :demand t
+    :general
+    (general-nmap org-noter-doc-mode-map
+      "i" 'org-noter-insert-note
+      "I" 'org-noter-insert-precise-note
+      "C-c q" 'org-noter-kill-session
+      "gp" 'org-noter-sync-current-page-or-chapter
+      "gn" 'org-noter-sync-current-note)
+    (general-nmap org-noter-notes-mode-map
+      "C-c q" 'org-noter-kill-session
+      "gn" 'org-noter-sync-current-note
+      "gp" 'org-noter-sync-current-page-or-chapter))
+#+end_src
+
 ** deft
 :PROPERTIES:
 :ID:       f7e7fd0f-9577-40d4-a716-f018cc4b2036
@@ -1850,6 +1973,7 @@ Inherit ~org-brain-title~ face from inner-most org-mode heading (so that it won'
     :ensure t
     :after ox)
 #+end_src
+
 ** style and faces
 :PROPERTIES:
 :ID:       036849c5-9cf8-407a-a65f-dfa103a0b826
@@ -1863,9 +1987,14 @@ Hide ===, =~= and other emphasis markers, and fontify src block natively:
   (general-setq org-tags-column 0)
 #+end_src
 
-Display =\lambda= etc as their unicode symbols (this works pretty well with embeded LaTeX symbol:
+Display =\lambda= etc as their unicode symbols (this works pretty well with embeded LaTeX symbol). I turned this feature off because subscript =_= is annoying and I don't need pretty-entries most of the time, plus it's easy to toggle it just in time using ~org-toggle-pretty-entries~.
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
-  (general-setq org-pretty-entities t)
+  (general-setq org-pretty-entities nil)
+#+end_src
+
+Latex Preview is too small under hidpi, so
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 #+end_src
 
 Use =org-bullets= to replace =*= with some cool unicode symbol. This seems super slow on Windows.
@@ -1901,6 +2030,7 @@ Use different font-size for headers, use sans-serif for non-code-like parts (pow
   (org-special-keyword       ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-drawer                ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-tag                   ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+  (org-checkbox              ((t (:inherit fixed-pitch :weight bold))))
   (org-verbatim              ((t (:inherit (shadow fixed-pitch)))))
   (org-code                  ((t (:inherit (shadow fixed-pitch)))))
   (org-indent                ((t (:inherit (org-hide fixed-pitch)))))
@@ -2021,7 +2151,9 @@ A helper function that get a =c/cpp= file's corresponding conventional header fi
 :END:
 #+begin_src emacs-lisp
   (use-package rust-mode
-    :ensure t)
+    :ensure t
+    :init
+    (general-setq lsp-rust-server 'lsp))
 #+end_src
 
 ** beancount
@@ -2056,6 +2188,23 @@ reference:
     :mode ("\\'CMakeLists\\.txt\\'" . cmake-mode))
 #+end_src
 
+** Latex
+:PROPERTIES:
+:ID:       033cdaea-4576-44c6-870e-e5c2460beb92
+:END:
+#+begin_quote
+[[https://www.gnu.org/software/auctex/][AUCTeX]] is an extensible package for writing and formatting TeX files in GNU Emacs.
+#+end_quote
+#+begin_src emacs-lisp
+  (use-package tex
+    :ensure auctex
+    :init
+    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+    (general-setq TeX-auto-save t)
+    (general-setq TeX-parse-self t)
+    (general-setq preview-scale-function 3.0))
+#+end_src
+
 ** TextInfo
 :PROPERTIES:
 :ID:       4e24aac9-492b-427a-bbde-4bf158c077b0
@@ -2066,7 +2215,18 @@ reference:
     :load-path "~/.emacs.d/elisp/")
 #+end_src
 
-* Magit
+** Yaml
+:PROPERTIES:
+:ID:       19693f2a-8a15-4032-992a-1eee32fb4e40
+:END:
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :mode "\\.yml\\'")
+#+end_src
+
+* Tools
+** Magit
 :PROPERTIES:
 :ID:       be8f32a7-b990-4a66-9a88-fc5d3f6c4c74
 :END:
@@ -2088,4 +2248,44 @@ Its =treemacs= integration that notifies =treemacs=' =filewatch-mode= of status 
   (use-package treemacs-magit
     :ensure t
     :after (treemacs magit))
+#+end_src
+
+** Pdf Tools
+:PROPERTIES:
+:ID:       e3611754-5851-4110-8d1f-83bb580c6322
+:END:
+[[https://github.com/politza/pdf-tools][pdf-tools]] is basically a front-end of poppler for Emacs, turning Emacs into a sane Pdf viewer.
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :config
+    (pdf-loader-install)
+    (evil-collection-pdf-setup))
+#+end_src
+
+** Vterm
+:PROPERTIES:
+:ID:       1fce06ec-3a63-4c68-9e3d-9510e096a279
+:END:
+[[https://github.com/akermu/emacs-libvterm][emacs-libvterm]] is, guess what, a [[https://github.com/neovim/libvterm][libvterm]] binding for Emacs!
+#+begin_src emacs-lisp
+  (use-package vterm
+    :ensure t
+    :init
+    (general-setq vterm-term-environment-variable "xterm-256color-italic")
+    :config
+    (evil-collection-vterm-setup))
+#+end_src
+
+[[https://github.com/jixiuf/vterm-toggle][vterm-toggle]] provides handy commands to toggle between vterm buffers and previous buffers.
+#+begin_src emacs-lisp
+  (use-package vterm-toggle
+    :ensure t
+    :init
+    (general-setq vterm-toggle-fullscreen-p nil)
+    (add-to-list 'display-buffer-alist
+                 '((lambda(bufname _) (with-current-buffer bufname (equal major-mode 'vterm-mode)))
+                   (display-buffer-reuse-window display-buffer-same-window)))
+    :general
+    (my/leader-def 'normal "v" 'vterm-toggle))
 #+end_src

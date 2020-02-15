@@ -16,7 +16,7 @@
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</guid>
-      <description>&lt;p&gt;Now that I have tons of time during this break, I decided to &lt;a href=&#34;http://learnyouahaskell.com/&#34;&gt;learn myself a haskell&lt;/a&gt; and as a way to apply what I&#39;ve learned, I&#39;ve planed to switch from &lt;a href=&#34;https://awesomewm.org&#34;&gt;awesomeWM&lt;/a&gt; to &lt;a href=&#34;https://xmonad.org&#34;&gt;xmonad&lt;/a&gt;. Besides, I&#39;ve being troubled with my awesome config&#39;s memory leak, which I haven&#39;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Now that I have tons of time during this break, I decided to &lt;a href=&#34;http://learnyouahaskell.com/&#34;&gt;learn myself a haskell&lt;/a&gt; and as a way to apply what I&amp;rsquo;ve learned, I&amp;rsquo;ve planed to switch from &lt;a href=&#34;https://awesomewm.org&#34;&gt;awesomeWM&lt;/a&gt; to &lt;a href=&#34;https://xmonad.org&#34;&gt;xmonad&lt;/a&gt;. Besides, I&amp;rsquo;ve being troubled with my awesome config&amp;rsquo;s memory leak, which I haven&amp;rsquo;t got the chance to look deeply into, so this might be a good chance to give xmonad a try. However, it spent me a while figuring out how to set the dev environment for xmonad.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@
       <pubDate>Tue, 22 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/vim8-package-opt-after/</guid>
-      <description>&lt;p&gt;Since I started to use Arch Linux, I&#39;ve also switched from using plugins such as &lt;a href=&#34;https://github.com/junegunn/vim-plug&#34;&gt;vim-plug&lt;/a&gt; to using the native Vim8 packages utility. However, I encountered the problem where if we do &lt;code&gt;packadd SOMEPACKAGE&lt;/code&gt; after (Neo)vim has initialized, and unfortunately if this plugin comes with an &lt;code&gt;after&lt;/code&gt; directory, for example in an &lt;code&gt;autocmd&lt;/code&gt; such as &lt;code&gt;autocmd FileType python vim-textobj-python&lt;/code&gt;, the plugin will not work correctly due to the way Vim8 packages utility handles &lt;code&gt;after&lt;/code&gt; directories.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Since I started to use Arch Linux, I&amp;rsquo;ve also switched from using plugins such as &lt;a href=&#34;https://github.com/junegunn/vim-plug&#34;&gt;vim-plug&lt;/a&gt; to using the native Vim8 packages utility. However, I encountered the problem where if we do &lt;code&gt;packadd SOMEPACKAGE&lt;/code&gt; after (Neo)vim has initialized, and unfortunately if this plugin comes with an &lt;code&gt;after&lt;/code&gt; directory, for example in an &lt;code&gt;autocmd&lt;/code&gt; such as &lt;code&gt;autocmd FileType python vim-textobj-python&lt;/code&gt;, the plugin will not work correctly due to the way Vim8 packages utility handles &lt;code&gt;after&lt;/code&gt; directories.&lt;/p&gt;</description>
     </item>
     
     <item>

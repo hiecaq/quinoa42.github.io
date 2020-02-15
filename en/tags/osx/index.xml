@@ -34,7 +34,7 @@
       <pubDate>Sun, 06 Nov 2016 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/oceanus/mac-foobar2000/</guid>
-      <description>&lt;p&gt;Today I realized that iTunes does not support &lt;code&gt;*.flac&lt;/code&gt; files at all. Stubborn user as I am, &lt;strong&gt;NO ONE&lt;/strong&gt; can force me to get used to their way of doing things. It&#39;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.&lt;/p&gt;
+      <description>&lt;p&gt;Today I realized that iTunes does not support &lt;code&gt;*.flac&lt;/code&gt; files at all. Stubborn user as I am, &lt;strong&gt;NO ONE&lt;/strong&gt; can force me to get used to their way of doing things. It&amp;rsquo;s okay for iTunes to only support its own format of lossless music, but I just choose to not use it.&lt;/p&gt;
 &lt;p&gt;So here is how I tried to get my favorite Foobar2000 to work in osx by using wineskin:&lt;/p&gt;</description>
     </item>
     

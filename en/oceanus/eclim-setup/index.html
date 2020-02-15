@@ -82,7 +82,7 @@
 <code>brew cask</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew cask install eclipse-java
 </code></pre></div><p>Then, download the <code>eclim.jar</code> from the github repo <a href="https://github.com/ervandew/eclim/releases/">releases page</a>.</p>
-<p>At this step, assume Eclipse and (neo)vim should all be installed on your computer; it's the time to install eclim. This could be done by just typing <code>java -jar eclim_2.7.0.jar</code> and use the GUI tool to finish the installing process. But for me I'd written a tiny lovely piece of code to help me do it automatically by using the provided <a href="http://eclim.org/install.html#unattended-automated-install">Automated install</a> feature (this is also useful when you want to uninstall it):</p>
+<p>At this step, assume Eclipse and (neo)vim should all be installed on your computer; it&rsquo;s the time to install eclim. This could be done by just typing <code>java -jar eclim_2.7.0.jar</code> and use the GUI tool to finish the installing process. But for me I&rsquo;d written a tiny lovely piece of code to help me do it automatically by using the provided <a href="http://eclim.org/install.html#unattended-automated-install">Automated install</a> feature (this is also useful when you want to uninstall it):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#4c8317">#!/usr/bin/env bash
 </span><span style="color:#4c8317"></span>
 <span style="color:#a00">VIMPLUGIN_PATH</span>=<span style="color:#a50">&#34;</span><span style="color:#a00">$HOME</span><span style="color:#a50">/.config/eclim</span><span style="color:#a50">&#34;</span>
@@ -108,7 +108,7 @@
 </span><span style="color:#f00;background-color:#faa"></span>    <span style="color:#00a">let</span> g:EclimCompletionMethod = <span style="color:#a50">&#39;omnifunc&#39;</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">endif</span><span style="color:#f00;background-color:#faa">
 </span></code></pre></div><h2 id="compatible-with-javacomplete2">compatible with javacomplete2</h2>
-<p>It's not a good idea to have both Eclim and <code>javacomplete2</code> filling up the candidates for deoplete.</p>
+<p>It&rsquo;s not a good idea to have both Eclim and <code>javacomplete2</code> filling up the candidates for deoplete.</p>
 <p>So there is a workaround on <a href="http://blog.csdn.net/Listener%5Fri/article/details/50452572">CSDN</a>, which basically tests the return value of <code>eclim#project#util#GetCurrentProjectName()</code> to determine if the java file is in a project (and thus should use the completion provided by Eclim). Here is my version of code for my personal use:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#00a">function</span>! Java_autocomplete()<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    <span style="color:#00a">if</span> eclim#project#util#GetCurrentProjectName() == <span style="color:#a50">&#39;&#39;</span><span style="color:#f00;background-color:#faa">

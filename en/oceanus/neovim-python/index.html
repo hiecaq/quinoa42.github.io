@@ -78,7 +78,7 @@
   </header>
   <p>Today I managed to set up the Python environment for Neovim, which is a little bit tricky, so I decide to write down the problems I overcame so that someone could be helped to configure these easily.</p>
 <h2 id="install-pyenv">install pyenv</h2>
-<p>The installing process is similar to <a href="/en/oceanus/ruby-setup/">Ruby Setup</a> here, just install <a href="https://github.com/pyenv/pyenv">pyenv</a> instead. Don't forget to also install <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a>, which is a handy tool in addition to <code>pyenv</code> that is capable of conveniently managing <code>virtualenv</code>.</p>
+<p>The installing process is similar to <a href="/en/oceanus/ruby-setup/">Ruby Setup</a> here, just install <a href="https://github.com/pyenv/pyenv">pyenv</a> instead. Don&rsquo;t forget to also install <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a>, which is a handy tool in addition to <code>pyenv</code> that is capable of conveniently managing <code>virtualenv</code>.</p>
 <h2 id="set-up-virtualenv">set up virtualenv</h2>
 <p>See <a href="https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim">here</a> for more details.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv install --list <span style="color:#aaa;font-style:italic"># list all the available versions</span>
@@ -112,7 +112,7 @@ pip install jedi
 pip install yapf
 pip install isort
 pyenv deactivate
-</code></pre></div><p>Install the plugins via <code>vim-plug</code> for Neovim if you haven't (you can use something else if you want):</p>
+</code></pre></div><p>Install the plugins via <code>vim-plug</code> for Neovim if you haven&rsquo;t (you can use something else if you want):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vimrc" data-lang="vimrc"><span style="color:#00a">if</span> has(<span style="color:#a50">&#34;nvim&#34;</span>)<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    Plug <span style="color:#a50">&#39;w0rp/ale&#39;</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    Plug <span style="color:#a50">&#39;Shougo/deoplete.nvim&#39;</span>, { <span style="color:#a50">&#39;do&#39;</span> : <span style="color:#a50">&#39;:UpdateRemotePlugins&#39;</span> }<span style="color:#f00;background-color:#faa">
@@ -141,7 +141,7 @@ pyenv deactivate
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_isort_executable = $HOME . <span style="color:#a50">&#34;/.pyenv/versions/neovim3/bin/isort&#34;</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">let</span> g:ale_python_isort_use_global = <span style="color:#099">1</span><span style="color:#f00;background-color:#faa">
 </span></code></pre></div><p>As a problem I encountered, the intended global config file for <code>YAPF</code>, located at <code>~/.config/yapf/style</code>, is not used when called from <code>ale</code>. Put the file at <code>~/.style.yapf</code> would fix this problem.</p>
-<p>One last thing about fixers and linters is that the preceding result will be overwrited by the following ones. For example, when calling <code>ALEFix</code>, my configuration will cause <code>isort</code> to run after <code>YAPF</code>, which will potentially generate some blank lines. I don't have perfect solution for this yet, but run <code>ALEFix</code> again could fix these empty lines.</p>
+<p>One last thing about fixers and linters is that the preceding result will be overwrited by the following ones. For example, when calling <code>ALEFix</code>, my configuration will cause <code>isort</code> to run after <code>YAPF</code>, which will potentially generate some blank lines. I don&rsquo;t have perfect solution for this yet, but run <code>ALEFix</code> again could fix these empty lines.</p>
 <p>There are many other settings for the plugins. You can check out my <a href="https://github.com/quinoa42/dotfiles/blob/master/applications/nvim/init.vim#L288">dotfiles repo</a> if you are interested.</p>
 <p>Note that there are some useful plugins for Python that worth having a look:</p>
 <ul>

@@ -16,8 +16,8 @@
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0800</pubDate>
       
       <guid>https://quinoa42.github.io/en/dot-emacs/</guid>
-      <description>Here is a list of blogs / configurations that I&#39;ve grabbed code from or absorbed ideas from. All of them worth reading.
- zzamboni&#39;s Emacs config file Rafa’s Emacs settings file Ladicle&#39;s Emacs Configuration Jamie Collinson&#39;s Emacs Config munen&#39;s Emacs configuration Karl Voit&#39;s Emacs Configuration In Org-mode and the repo  This file might be out of sync. The newest version is available here.
+      <description>Here is a list of blogs / configurations that I&amp;rsquo;ve grabbed code from or absorbed ideas from. All of them worth reading.
+ zzamboni&amp;rsquo;s Emacs config file Rafa’s Emacs settings file Ladicle&amp;rsquo;s Emacs Configuration Jamie Collinson&amp;rsquo;s Emacs Config munen&amp;rsquo;s Emacs configuration Karl Voit&amp;rsquo;s Emacs Configuration In Org-mode and the repo  This file might be out of sync. The newest version is available here.
  General Settings  Coding and Languages Tangle init.</description>
     </item>
     

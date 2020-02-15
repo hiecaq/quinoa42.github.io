@@ -76,14 +76,14 @@
       </div>
     </div>
   </header>
-  <p>Here is a list of blogs / configurations that I've grabbed code from or absorbed ideas from. All of them worth reading.</p>
+  <p>Here is a list of blogs / configurations that I&rsquo;ve grabbed code from or absorbed ideas from. All of them worth reading.</p>
 <ul>
-<li><a href="https://github.com/zzamboni/dot-emacs/blob/master/init.org">zzamboni's Emacs config file</a></li>
+<li><a href="https://github.com/zzamboni/dot-emacs/blob/master/init.org">zzamboni&rsquo;s Emacs config file</a></li>
 <li><a href="https://github.com/rafadc/emacs.d/blob/master/settings.org">Rafa’s Emacs settings file</a></li>
-<li><a href="https://ladicle.com/post/config/">Ladicle's Emacs Configuration</a></li>
-<li><a href="https://jamiecollinson.com/blog/my-emacs-config/">Jamie Collinson's Emacs Config</a></li>
-<li><a href="https://github.com/munen/emacs.d/blob/master/configuration.org">munen's Emacs configuration</a></li>
-<li><a href="https://karl-voit.at/2017/06/03/emacs-org/">Karl Voit's Emacs Configuration In Org-mode</a> and the <a href="https://github.com/novoid/dot-emacs">repo</a></li>
+<li><a href="https://ladicle.com/post/config/">Ladicle&rsquo;s Emacs Configuration</a></li>
+<li><a href="https://jamiecollinson.com/blog/my-emacs-config/">Jamie Collinson&rsquo;s Emacs Config</a></li>
+<li><a href="https://github.com/munen/emacs.d/blob/master/configuration.org">munen&rsquo;s Emacs configuration</a></li>
+<li><a href="https://karl-voit.at/2017/06/03/emacs-org/">Karl Voit&rsquo;s Emacs Configuration In Org-mode</a> and the <a href="https://github.com/novoid/dot-emacs">repo</a></li>
 </ul>
 <p>This file might be out of sync. The newest version is available <a href="https://github.com/quinoa42/dotfiles/tree/master/applications/emacs">here</a>.</p>
 <!-- raw HTML omitted -->
@@ -217,7 +217,7 @@
 <p>It is reasonable to just turn off menu bar because I want to go mouse-less.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">menu-bar-mode</span> <span style="color:#099">-1</span>)
 (<span style="color:#a00">column-number-mode</span> <span style="color:#099">1</span>)
-</code></pre></div><p>I don't know if there is any who would like the wierd tab-space-hybird indent mode.</p>
+</code></pre></div><p>I don&rsquo;t know if there is any who would like the wierd tab-space-hybird indent mode.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">setq-default</span> <span style="color:#a00">indent-tabs-mode</span> <span style="color:#a00">nil</span>)
 </code></pre></div><p>If this is set to <code>nil</code>, hard link to the edited file will point to the backup file after backup process.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">setq</span> <span style="color:#a00">backup-by-copying</span> <span style="color:#a00">t</span>)
@@ -234,7 +234,7 @@
           (<span style="color:#0aa">lambda</span> ()
             (<span style="color:#0aa">setq</span> <span style="color:#a00">truncate-lines</span> <span style="color:#a00">t</span>)
             (<span style="color:#a00">display-line-numbers-mode</span> <span style="color:#099">1</span>)))
-</code></pre></div><p>Turn off lockfiles. They cannot be moved to a different directory, and they consistently screw up with file watchers and version control systems, so it'd be just easier to turn this feature off.</p>
+</code></pre></div><p>Turn off lockfiles. They cannot be moved to a different directory, and they consistently screw up with file watchers and version control systems, so it&rsquo;d be just easier to turn this feature off.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">setq</span> <span style="color:#a00">create-lockfiles</span> <span style="color:#a00">nil</span>)
 </code></pre></div><p>A helper function that create a filename from basename and extension:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">defun</span> <span style="color:#a00">my/filename-with-extension</span> (<span style="color:#a00">base</span> <span style="color:#a00">ext</span>)
@@ -254,7 +254,7 @@
 </code></pre></div><h2 id="platform-specific">Platform Specific</h2>
 <p>This part contains code specific to platforms, usually UI or PATH related.</p>
 <h3 id="macos">MacOS</h3>
-<p>I don't have specific code for Mac yet.</p>
+<p>I don&rsquo;t have specific code for Mac yet.</p>
 <h3 id="windows">Windows</h3>
 <p>Said to be a way to make Emacs faster on windows (by running GC less often)</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">when</span> (<span style="color:#0a0">eq</span> <span style="color:#a00">system-type</span> <span style="color:#00a">&#39;windows-nt</span>)
@@ -266,7 +266,7 @@
   (<span style="color:#0aa">dolist</span> (<span style="color:#a00">charset</span> &#39;(<span style="color:#a00">kana</span> <span style="color:#a00">han</span> <span style="color:#a00">cjk-misc</span> <span style="color:#a00">bopomofo</span>))
     (<span style="color:#0a0">set-fontset-font</span> <span style="color:#a00">t</span> <span style="color:#a00">charset</span> (<span style="color:#0a0">font-spec</span> <span style="color:#0aa">:family</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Microsoft Yahei</span><span style="color:#a50">&#34;</span>))))
 </code></pre></div><h3 id="linux">Linux</h3>
-<p>I don't have specific code for Linux yet.</p>
+<p>I don&rsquo;t have specific code for Linux yet.</p>
 <h3 id="gui">GUI</h3>
 <p>Turn off blink cursor, scroll bar and tool bar:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">ignore-errors</span>
@@ -298,14 +298,14 @@
       (<span style="color:#a00">set-face-attribute</span> <span style="color:#00a">&#39;variable-pitch</span> <span style="color:#a00">nil</span> <span style="color:#0aa">:family</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Microsoft Yahei</span><span style="color:#a50">&#34;</span>))))
 (<span style="color:#a00">set-face-attribute</span> <span style="color:#00a">&#39;fixed-pitch</span> <span style="color:#a00">nil</span> <span style="color:#0aa">:inherit</span> <span style="color:#00a">&#39;default</span>)
 </code></pre></div><h3 id="tui">TUI</h3>
-<p>I don't have specific code for TUI yet.</p>
+<p>I don&rsquo;t have specific code for TUI yet.</p>
 <h2 id="package-management">Package Management</h2>
 <h3 id="proxy-archives-and-mirrors">Proxy, Archives and Mirrors</h3>
 <p>I use my local proxy to speed up paradox:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">setq</span> <span style="color:#a00">url-proxy-services</span> &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">no_proxy</span><span style="color:#a50">&#34;</span> . <span style="color:#a50">&#34;</span><span style="color:#a50">^</span><span style="color:#a50">\\</span><span style="color:#a50">(localhost</span><span style="color:#a50">\\</span><span style="color:#a50">|10</span><span style="color:#a50">\\</span><span style="color:#a50">..*</span><span style="color:#a50">\\</span><span style="color:#a50">|192</span><span style="color:#a50">\\</span><span style="color:#a50">.168</span><span style="color:#a50">\\</span><span style="color:#a50">..*</span><span style="color:#a50">\\</span><span style="color:#a50">)</span><span style="color:#a50">&#34;</span>)
                            (<span style="color:#a50">&#34;</span><span style="color:#a50">http</span><span style="color:#a50">&#34;</span> . <span style="color:#a50">&#34;</span><span style="color:#a50">127.0.0.1:8118</span><span style="color:#a50">&#34;</span>)
                            (<span style="color:#a50">&#34;</span><span style="color:#a50">https</span><span style="color:#a50">&#34;</span> . <span style="color:#a50">&#34;</span><span style="color:#a50">127.0.0.1:8118</span><span style="color:#a50">&#34;</span>)))
-</code></pre></div><p>And also, set package archive to include ELPA, MELPA and org's, with TUNA's mirror:</p>
+</code></pre></div><p>And also, set package archive to include ELPA, MELPA and org&rsquo;s, with TUNA&rsquo;s mirror:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">setq</span> <span style="color:#a00">package-archives</span> &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">gnu</span><span style="color:#a50">&#34;</span>   . <span style="color:#a50">&#34;</span><span style="color:#a50">http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/</span><span style="color:#a50">&#34;</span>)
                          (<span style="color:#a50">&#34;</span><span style="color:#a50">melpa</span><span style="color:#a50">&#34;</span> . <span style="color:#a50">&#34;</span><span style="color:#a50">http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/</span><span style="color:#a50">&#34;</span>)
                          (<span style="color:#a50">&#34;</span><span style="color:#a50">org</span><span style="color:#a50">&#34;</span> . <span style="color:#a50">&#34;</span><span style="color:#a50">http://mirrors.tuna.tsinghua.edu.cn/elpa/org/</span><span style="color:#a50">&#34;</span>)))
@@ -324,11 +324,11 @@ packages twice.</p>
 <p>Now load <code>use-package</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">eval-when-compile</span>
   (<span style="color:#0aa">require</span> <span style="color:#00a">&#39;use-package</span>))
-</code></pre></div><p>Also, I'd like to turn on <code>use-package</code>'s statistic recording to see if my config is correctly set up:</p>
+</code></pre></div><p>Also, I&rsquo;d like to turn on <code>use-package</code>'s statistic recording to see if my config is correctly set up:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">setq</span> <span style="color:#a00">use-package-compute-statistics</span> <span style="color:#a00">t</span>)
 </code></pre></div><h3 id="paradox">Paradox</h3>
 <p><a href="https://github.com/Malabarba/paradox">Paradox</a> is a modernized Emacs&rsquo; package menu that supports displaying GitHub stars along the entries, filtering and sorting, async installation, etc.</p>
-<p>I disabled the GitHub integration because it doesn't seem to work on my machines.</p>
+<p>I disabled the GitHub integration because it doesn&rsquo;t seem to work on my machines.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">paradox</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:commands</span> <span style="color:#a00">paradox-list-packages</span>
@@ -386,13 +386,13 @@ Then it will be reasonble to put those annoying but extremely helpful stuff into
   (<span style="color:#0aa">setq</span> <span style="color:#a00">recentf-save-file</span> (<span style="color:#0a0">expand-file-name</span> <span style="color:#a50">&#34;</span><span style="color:#a50">emacs/recentf</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">xdg-cache-home</span>))))
 </code></pre></div><h3 id="editorconfig">Editorconfig</h3>
 <p><a href="https://editorconfig.org/">editorconfig</a> is a very handy tool that standardize how different editors should behave according to different language, including tab width, trailing space and so on. It is not only helpful for team to maintain a codestyle standard, but also a handful tool for people use several different editors / computers, like I do.</p>
-<p><a href="https://github.com/editorconfig/editorconfig-emacs">editorconfig-emacs</a> implements its own <code>editorconfig</code> core, so It's logical to assume that it works on any platform.</p>
+<p><a href="https://github.com/editorconfig/editorconfig-emacs">editorconfig-emacs</a> implements its own <code>editorconfig</code> core, so It&rsquo;s logical to assume that it works on any platform.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">editorconfig</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:config</span>
   (<span style="color:#a00">editorconfig-mode</span> <span style="color:#099">1</span>))
 </code></pre></div><h2 id="colors">Colors</h2>
-<p>I'm currently using the emacs port of my vim era favorite, gruvbox:</p>
+<p>I&rsquo;m currently using the emacs port of my vim era favorite, gruvbox:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">gruvbox-theme</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:config</span>
@@ -452,7 +452,7 @@ Kind of like =which-key=…</p>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:after</span> <span style="color:#a00">general</span>)
 </code></pre></div><h3 id="evil">Evil</h3>
-<p>It's name tells everything: the Extensible Vi Layer for Emacs, <a href="https://github.com/emacs-evil/evil">Evil</a>. It works pretty well as a Vim simulation, much better than VsCode's or Intellij's. Besides, it is charming combination of Vim's model-based editing with Emacs&rsquo; keymap system, to some extent, as a personal opinion, better than the native Vim on the model-based editing system.</p>
+<p>It&rsquo;s name tells everything: the Extensible Vi Layer for Emacs, <a href="https://github.com/emacs-evil/evil">Evil</a>. It works pretty well as a Vim simulation, much better than VsCode&rsquo;s or Intellij&rsquo;s. Besides, it is charming combination of Vim&rsquo;s model-based editing with Emacs&rsquo; keymap system, to some extent, as a personal opinion, better than the native Vim on the model-based editing system.</p>
 <p>References:</p>
 <ul>
 <li><a href="https://github.com/noctuid/evil-guide">evil-guide</a> by noctuid</li>
@@ -493,20 +493,20 @@ Kind of like =which-key=…</p>
   (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-x 5 g d</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;xref-find-definitions-other-frame</span>)
   <span style="color:#0aa">:config</span>
   (<span style="color:#a00">evil-mode</span> <span style="color:#099">1</span>))
-</code></pre></div><p>I don't want to use Vim's insert mode bindings in insert state:</p>
+</code></pre></div><p>I don&rsquo;t want to use Vim&rsquo;s insert mode bindings in insert state:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">evil-disable-insert-state-bindings</span> <span style="color:#a00">t</span>)
-</code></pre></div><p>Then, given that I'm using emacs&rsquo; bindings in insert state, there is no point to use the emacs state which is so hard to escape from:</p>
+</code></pre></div><p>Then, given that I&rsquo;m using emacs&rsquo; bindings in insert state, there is no point to use the emacs state which is so hard to escape from:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">([<span style="color:#a00">remap</span> <span style="color:#a00">evil-emacs-state</span>] <span style="color:#00a">&#39;evil-normal-state</span>)
 </code></pre></div><p><a href="https://github.com/christoomey/vim-tmux-navigator">vim-tmux-navigator</a>-like window control:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-j</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-window-down</span>)
 (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-k</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-window-up</span>)
 (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-h</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-window-left</span>)
 (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-l</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;evil-window-right</span>)
-</code></pre></div><p>It's okay to rebind <code>C-h</code> because <code>&lt;F1&gt;</code> basically does the same thing.</p>
+</code></pre></div><p>It&rsquo;s okay to rebind <code>C-h</code> because <code>&lt;F1&gt;</code> basically does the same thing.</p>
 <p><code>swiper</code> has a nice evil integration such that <code>/</code> <code>?</code> can be replaced with <code>'swiper</code> <code>'swiper-backward</code> respectively:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">([<span style="color:#a00">remap</span> <span style="color:#a00">evil-ex-search-forward</span>] <span style="color:#00a">&#39;swiper</span>)
 ([<span style="color:#a00">remap</span> <span style="color:#a00">evil-ex-search-backward</span>] <span style="color:#00a">&#39;swiper-backward</span>)
-</code></pre></div><p>My UHK's keybinding is designed for using with Vim, so my Alt is really far far away from where I would normally position my fingers. Since I did not bind <code>S-s</code> <code>S-x</code> in my <code>xmonad</code> config, it's reasonable to bind these to their Meta relatives:</p>
+</code></pre></div><p>My UHK&rsquo;s keybinding is designed for using with Vim, so my Alt is really far far away from where I would normally position my fingers. Since I did not bind <code>S-s</code> <code>S-x</code> in my <code>xmonad</code> config, it&rsquo;s reasonable to bind these to their Meta relatives:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">when</span> (<span style="color:#0a0">eq</span> <span style="color:#a00">system-type</span> <span style="color:#00a">&#39;gnu/linux</span>)
   (<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">s-s</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">M-s</span><span style="color:#a50">&#34;</span>))
   (<span style="color:#a00">general-nvmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">s-x</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">M-x</span><span style="color:#a50">&#34;</span>)))
@@ -540,7 +540,7 @@ Kind of like =which-key=…</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">my/leader-def</span> <span style="color:#00a">&#39;normal</span>
   <span style="color:#a50">&#34;</span><span style="color:#a50">o</span><span style="color:#a50">&#34;</span> &#39;(<span style="color:#a00">my/insert-line-below</span> <span style="color:#0aa">:which-key</span> <span style="color:#a00">t</span>)
   <span style="color:#a50">&#34;</span><span style="color:#a50">O</span><span style="color:#a50">&#34;</span> &#39;(<span style="color:#a00">my/insert-line-above</span> <span style="color:#0aa">:which-key</span> <span style="color:#a00">t</span>))
-</code></pre></div><p>Use <code>C-d</code> as frame key, mimics <code>C-w</code> as window key. <code>d</code> stands for <code>display</code>. Hope this could persuade people and myself. I choose <code>C-d</code> because <code>C-u</code> is (heavily) used by Emacs itself by default and Evil as a result did not bind <code>C-u</code> by default, so it's reasonable to not have Vim's <code>C-d</code> functionality alone.</p>
+</code></pre></div><p>Use <code>C-d</code> as frame key, mimics <code>C-w</code> as window key. <code>d</code> stands for <code>display</code>. Hope this could persuade people and myself. I choose <code>C-d</code> because <code>C-u</code> is (heavily) used by Emacs itself by default and Evil as a result did not bind <code>C-u</code> by default, so it&rsquo;s reasonable to not have Vim&rsquo;s <code>C-d</code> functionality alone.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-d</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-x 5</span><span style="color:#a50">&#34;</span>))
 (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-x 5 q</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;delete-frame</span>)
 (<span style="color:#a00">general-nmap</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-x 5 o</span><span style="color:#a50">&#34;</span> <span style="color:#00a">&#39;delete-other-frames</span>)
@@ -571,7 +571,7 @@ Kind of like =which-key=…</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">evil-want-integration</span> <span style="color:#a00">t</span>)
 (<span style="color:#a00">general-setq</span> <span style="color:#a00">evil-want-keybinding</span> <span style="color:#a00">nil</span>)
 </code></pre></div><h4 id="evil-easymotion">evil-easymotion</h4>
-<p><a href="https://github.com/PythonNut/evil-easymotion">evil-easymotion</a> is a Evil port of Vim's, well, <code>easymotion</code>, which basically works in a way that instead of numbering how many jumps needed, by prefixing motions with a leader key, we use visual hint to go to the place we want. I hadn't tried <code>easymotion</code> during my Vim era though, but I like it now. It also provides integration with <a href="#evil-snipe">evil-snipe</a>.</p>
+<p><a href="https://github.com/PythonNut/evil-easymotion">evil-easymotion</a> is a Evil port of Vim&rsquo;s, well, <code>easymotion</code>, which basically works in a way that instead of numbering how many jumps needed, by prefixing motions with a leader key, we use visual hint to go to the place we want. I hadn&rsquo;t tried <code>easymotion</code> during my Vim era though, but I like it now. It also provides integration with <a href="#evil-snipe">evil-snipe</a>.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">evil-easymotion</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:demand</span> <span style="color:#a00">t</span>
@@ -600,7 +600,7 @@ Kind of like =which-key=…</p>
     <span style="color:#a50">&#34;</span><span style="color:#a50">N</span><span style="color:#a50">&#34;</span> &#39;(<span style="color:#a00">evilem-motion-search-previous</span> <span style="color:#0aa">:which-key</span> <span style="color:#a00">t</span>)
     <span style="color:#a50">&#34;</span><span style="color:#a50">g</span><span style="color:#a50">&#34;</span> &#39;(<span style="color:#0aa">:ignore</span> <span style="color:#a00">t</span> <span style="color:#0aa">:which-key</span> <span style="color:#a00">t</span>)))
 </code></pre></div><h4 id="evil-snipe">evil-snipe</h4>
-<p><a href="https://github.com/hlissner/evil-snipe">evil-snipe</a> is a Evil port of Vim's <code>clever-f</code> and <code>vim-sneak</code>. It currently does not support separating the scope for <code>f/F/t/T</code> from for <code>s/S</code>, which is a little bit annoying.</p>
+<p><a href="https://github.com/hlissner/evil-snipe">evil-snipe</a> is a Evil port of Vim&rsquo;s <code>clever-f</code> and <code>vim-sneak</code>. It currently does not support separating the scope for <code>f/F/t/T</code> from for <code>s/S</code>, which is a little bit annoying.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">evil-snipe</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:demand</span> <span style="color:#a00">t</span>
@@ -739,15 +739,15 @@ This plugin actually works for native Evil's `f/F/t/T`, but I use it mainly for 
 </blockquote>
 <p>For me Helm fits me better because:</p>
 <ol>
-<li>I'm new to Emacs anyway, there is no such Emacs UI that I'm used to.</li>
-<li>During my Vim era I use Shougo's wonderful plugins Unite/Denite, which mimics the logic of Helm, so switching to Emacs with Helm mostly does not require switching my mind model for how to find things.</li>
+<li>I&rsquo;m new to Emacs anyway, there is no such Emacs UI that I&rsquo;m used to.</li>
+<li>During my Vim era I use Shougo&rsquo;s wonderful plugins Unite/Denite, which mimics the logic of Helm, so switching to Emacs with Helm mostly does not require switching my mind model for how to find things.</li>
 <li>Ivy is new compared with Helm, so it does not have as many add-ons available as Helm.</li>
 </ol>
 <h3 id="helm">Helm</h3>
 <p><a href="https://github.com/emacs-helm/helm">Helm</a> is a generic incremental completion and selection narrowing framework for Emacs, as what Denite is for [Neo]vim. I currently does not set Helm to be auto-installed, so just install it with <code>M-x package-install RET helm RET</code>.</p>
 <p>References:</p>
 <ul>
-<li><a href="https://github.com/thierryvolpiatto/emacs-tv-config/blob/master/init-helm.el">thierryvolpiatto's helm config</a>.</li>
+<li><a href="https://github.com/thierryvolpiatto/emacs-tv-config/blob/master/init-helm.el">thierryvolpiatto&rsquo;s helm config</a>.</li>
 <li><a href="https://tuhdo.github.io/helm-intro.html">A Package in a league of its own: <code>Helm</code></a> by Tu Do (tuhdo)</li>
 </ul>
 <!-- raw HTML omitted -->
@@ -809,7 +809,7 @@ But, <a href="https://github.com/cosmicexplorer/helm-rg">helm-rg</a> is used by 
     (<span style="color:#a00">general-setq</span> <span style="color:#a00">helm-grep-ag-pipe-cmd-switches</span> &#39;(<span style="color:#a50">&#34;</span><span style="color:#a50">--color-match &#39;31;43&#39;</span><span style="color:#a50">&#34;</span>))))
 </code></pre></div><h3 id="ivy">Ivy</h3>
 <p><a href="https://github.com/abo-abo/swiper#ivy">ivy</a> is yet another generic incremental completion for Emacs.</p>
-<p>I don't use heavily on ivy anymore, but I still have it because its the dependency of swiper:</p>
+<p>I don&rsquo;t use heavily on ivy anymore, but I still have it because its the dependency of swiper:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">ivy</span>
   <span style="color:#0aa">:custom</span>
   (<span style="color:#a00">ivy-count-format</span> <span style="color:#a50">&#34;</span><span style="color:#a50">(%d/%d) </span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">the style for displaying current candidate count</span><span style="color:#a50">&#34;</span>)
@@ -829,7 +829,7 @@ But, <a href="https://github.com/cosmicexplorer/helm-rg">helm-rg</a> is used by 
 <span style="color:#aaa;font-style:italic">;;   :config</span>
 <span style="color:#aaa;font-style:italic">;;   (ivy-rich-mode 1))</span>
 </code></pre></div><h4 id="swiper">swiper</h4>
-<p><a href="https://github.com/swiper#swiper">swiper</a> is an alternative to Emacs&rsquo; builtin <a href="emacs#Basic%20Isearch">isearch</a>. I use this over other alternatives because it has better integration by default with Evil's (or Vim's) search/substitution system.</p>
+<p><a href="https://github.com/swiper#swiper">swiper</a> is an alternative to Emacs&rsquo; builtin <a href="emacs#Basic%20Isearch">isearch</a>. I use this over other alternatives because it has better integration by default with Evil&rsquo;s (or Vim&rsquo;s) search/substitution system.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">swiper</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:demand</span> <span style="color:#a00">t</span>
@@ -952,7 +952,7 @@ Using <code>universal ctags</code>, it would be like this:</p>
   (<span style="color:#a00">term-exec</span>  . <span style="color:#a00">with-editor-export-editor</span>)
   (<span style="color:#a00">eshell-mode</span> . <span style="color:#a00">with-editor-export-editor</span>))
 </code></pre></div><h2 id="completion">Completion</h2>
-<p>By completion I mean general text/code autocompletion, as Vim's <code>deoplete</code>.</p>
+<p>By completion I mean general text/code autocompletion, as Vim&rsquo;s <code>deoplete</code>.</p>
 <h3 id="company">Company</h3>
 <p><a href="https://company-mode.github.io/">company</a> seems the most widely-used text completion framework among the Emacs ecosystem.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">company</span>
@@ -987,7 +987,7 @@ Using <code>universal ctags</code>, it would be like this:</p>
   <span style="color:#0aa">:config</span>
   (<span style="color:#a00">company-quickhelp-mode</span>))
 </code></pre></div><h3 id="company-box">Company-box</h3>
-<p><a href="https://github.com/sebastiencs/company-box">company-box</a> is a frontend for <code>company</code> that does not use popup (thus it doesn't screw up with different font size) and show icons for each candidate.</p>
+<p><a href="https://github.com/sebastiencs/company-box">company-box</a> is a frontend for <code>company</code> that does not use popup (thus it doesn&rsquo;t screw up with different font size) and show icons for each candidate.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">company-box</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:after</span> <span style="color:#a00">company</span>
@@ -1017,8 +1017,8 @@ Reference:
   <span style="color:#aaa;font-style:italic">;;   &#34;y v&#34; &#39;yas-visit-snippet-file)</span>
   <span style="color:#0aa">:config</span>
   (<span style="color:#a00">yas-global-mode</span> <span style="color:#099">+1</span>))
-</code></pre></div><p>I don't want the default <code>yas-minor-mode-map</code>'s <code>C-c &amp;</code> bindings because they conflict with <code>org-marking-goto</code>. Thus I unbind &amp; rebind them into <code>&lt;leader&gt; y</code>.
-NOTE: I'm using <code>yankpad</code> now instead of directly using <code>yasnippet</code>, so I commented these bindings out.</p>
+</code></pre></div><p>I don&rsquo;t want the default <code>yas-minor-mode-map</code>'s <code>C-c &amp;</code> bindings because they conflict with <code>org-marking-goto</code>. Thus I unbind &amp; rebind them into <code>&lt;leader&gt; y</code>.
+NOTE: I&rsquo;m using <code>yankpad</code> now instead of directly using <code>yasnippet</code>, so I commented these bindings out.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-unbind</span> <span style="color:#a00">yas-minor-mode-map</span>
   <span style="color:#a50">&#34;</span><span style="color:#a50">C-c &amp; C-n</span><span style="color:#a50">&#34;</span>
   <span style="color:#a50">&#34;</span><span style="color:#a50">C-c &amp; C-s</span><span style="color:#a50">&#34;</span>
@@ -1149,7 +1149,7 @@ NOTE: I'm using <code>yankpad</code> now instead of directly using <code>yasnipp
 <p>Org mode is for keeping notes, maintaining TODO lists, planning projects, and authoring documents with a fast and effective plain-text system.</p>
 </blockquote>
 <p>this is only a facial overall summary of what <a href="https://orgmode.org">org-mode</a> is usually used for. It is so powerful that It is one of the reasons I switched from Neovim to Emacs.</p>
-<p>Emacs shipped with a relatively old version of <code>org-mode</code>, but many MELPA packages depends on the nightly version, thus I'll usually get the newest one from its own archive via <code>package-install</code>.</p>
+<p>Emacs shipped with a relatively old version of <code>org-mode</code>, but many MELPA packages depends on the nightly version, thus I&rsquo;ll usually get the newest one from its own archive via <code>package-install</code>.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">org</span>
   <span style="color:#0aa">:pin</span> <span style="color:#a00">org</span>
   <span style="color:#0aa">:ensure</span> <span style="color:#a00">t</span>
@@ -1295,7 +1295,7 @@ NOTE: I'm using <code>yankpad</code> now instead of directly using <code>yasnipp
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-startup-indented</span> <span style="color:#a00">t</span>)
 </code></pre></div><p>Enforce to-do dependencies (i.e. children block their parent)</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-enforce-todo-dependencies</span> <span style="color:#a00">t</span>)
-</code></pre></div><p>I found that usually I have something to say when I closing a task, for example a link to the reproduction note. Thus I'd like to have closing note by default.</p>
+</code></pre></div><p>I found that usually I have something to say when I closing a task, for example a link to the reproduction note. Thus I&rsquo;d like to have closing note by default.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-log-done</span> <span style="color:#00a">&#39;note</span>)
 </code></pre></div><p>Put newer note at the top:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-reverse-note-order</span> <span style="color:#a00">t</span>)
@@ -1341,7 +1341,7 @@ reference:</p>
 </code></pre></div><p>And the list of files/directories I want my agenda to track:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-file-regexp</span> <span style="color:#a50">&#34;</span><span style="color:#a50">\\</span><span style="color:#a50">`</span><span style="color:#a50">[^.].*</span><span style="color:#a50">\\</span><span style="color:#a50">.org</span><span style="color:#a50">\\</span><span style="color:#a50">(</span><span style="color:#a50">\\</span><span style="color:#a50">.gpg</span><span style="color:#a50">\\</span><span style="color:#a50">)?</span><span style="color:#a50">\\</span><span style="color:#a50">&#39;</span><span style="color:#a50">&#34;</span>)
 (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-files</span> (<span style="color:#0aa">quote</span> (<span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking</span><span style="color:#a50">&#34;</span>)))
-</code></pre></div><p>Notice that I also includes all <code>*.org.gpg</code> files, because I'd like to sync my GTD files around, encrypted.</p>
+</code></pre></div><p>Notice that I also includes all <code>*.org.gpg</code> files, because I&rsquo;d like to sync my GTD files around, encrypted.</p>
 <p>And a default note file for templates that does not specify a target file:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-default-notes-file</span> <span style="color:#a50">&#34;</span><span style="color:#a50">~/documents/tracking/inbox.org.gpg</span><span style="color:#a50">&#34;</span>)
 </code></pre></div><p>Archive things into an archive directory:</p>
@@ -1358,9 +1358,9 @@ reference:</p>
                 (<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Note</span><span style="color:#a50">&#34;</span> <span style="color:#a00">entry</span> (<span style="color:#a00">file+headline</span> <span style="color:#a50">&#34;</span><span style="color:#a50">inbox.org.gpg</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Notes</span><span style="color:#a50">&#34;</span>)
                  <span style="color:#a50">&#34;</span><span style="color:#a50">* %?</span><span style="color:#a50">\n</span><span style="color:#a50">:LOGBOOK:</span><span style="color:#a50">\n</span><span style="color:#a50">- Entered at %U</span><span style="color:#a50">\n</span><span style="color:#a50">:END:</span><span style="color:#a50">\n</span><span style="color:#a50">%x</span><span style="color:#a50">&#34;</span>)))
 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-compact-blocks</span> <span style="color:#a00">t</span>)
-</code></pre></div><p>I schedule things in a sense that I don't want to think about it until that time. If something is &ldquo;going to happen&rdquo; at some time and I need to prepare for it, I directly use angle-braced timestamp. Thus this setting help me fulfill this need:</p>
+</code></pre></div><p>I schedule things in a sense that I don&rsquo;t want to think about it until that time. If something is &ldquo;going to happen&rdquo; at some time and I need to prepare for it, I directly use angle-braced timestamp. Thus this setting help me fulfill this need:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-todo-ignore-scheduled</span> <span style="color:#00a">&#39;future</span>)
-</code></pre></div><p>To use GTD styles in my org-mode workflow, it's necessary to have those agenda views:</p>
+</code></pre></div><p>To use GTD styles in my org-mode workflow, it&rsquo;s necessary to have those agenda views:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-agenda-custom-commands</span>
       &#39;((<span style="color:#a50">&#34;</span><span style="color:#a50">n</span><span style="color:#a50">&#34;</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Getting things done!</span><span style="color:#a50">&#34;</span>
          ((<span style="color:#a00">todo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">ENGAGE</span><span style="color:#a50">&#34;</span>)
@@ -1400,7 +1400,7 @@ reference:</p>
           (<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#a00">org-agenda-entry-types</span> &#39;(<span style="color:#0aa">:deadline</span> <span style="color:#0aa">:timestamp</span> <span style="color:#0aa">:sexp</span>)))))))
 </code></pre></div><h3 id="holidays-and-anniversaries">holidays and anniversaries</h3>
 <p>Given that org-mode show a day/month/year agenda view depending on my choice, why not also show those important days on the view?</p>
-<p>Emacs has built-in <code>calendar</code> mode and <code>diary</code> mode, according to <a href="https://orgmode.org/manual/Weekly%5F002fdaily-agenda.html#Weekly%5F002fdaily-agenda">Org mode manual</a>, it's good enough to add this snippet to my GTD org file:</p>
+<p>Emacs has built-in <code>calendar</code> mode and <code>diary</code> mode, according to <a href="https://orgmode.org/manual/Weekly%5F002fdaily-agenda.html#Weekly%5F002fdaily-agenda">Org mode manual</a>, it&rsquo;s good enough to add this snippet to my GTD org file:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Holidays</span>
 <span style="color:#aaa;font-style:italic">  :PROPERTIES:
 </span><span style="color:#aaa;font-style:italic"></span><span style="color:#00a;font-style:italic">  :CATEGORY: Holiday
@@ -1452,7 +1452,7 @@ reference:</p>
   <span style="color:#0aa">:init</span>
   (<span style="color:#0aa">when</span> (<span style="color:#0a0">eq</span> <span style="color:#a00">system-type</span> <span style="color:#00a">&#39;gnu/linux</span>)
     (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-ditaa-jar-path</span> <span style="color:#a50">&#34;</span><span style="color:#a50">/usr/share/java/ditaa/ditaa-0.11.jar</span><span style="color:#a50">&#34;</span>)))
-</code></pre></div><p>Ditaa basically use the built-in <code>artist</code> mode, which behave strangely in Evil insert/normal state. I don't want to be in Emacs state all the time, thus I have the following configuration to make it more usable:</p>
+</code></pre></div><p>Ditaa basically use the built-in <code>artist</code> mode, which behave strangely in Evil insert/normal state. I don&rsquo;t want to be in Emacs state all the time, thus I have the following configuration to make it more usable:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">artist</span>
   <span style="color:#0aa">:demand</span> <span style="color:#a00">t</span>
   <span style="color:#0aa">:init</span>
@@ -1473,7 +1473,7 @@ reference:</p>
     <span style="color:#a50">&#34;</span><span style="color:#a50">SPC</span><span style="color:#a50">&#34;</span> (<span style="color:#a00">general-simulate-key</span> <span style="color:#a50">&#34;</span><span style="color:#a50">C-c C-a</span><span style="color:#a50">&#34;</span>)))
 </code></pre></div><h3 id="org-brain">org-brain</h3>
 <p><a href="https://github.com/Kungsgeten/org-brain">org-brain</a> implements concept mapping for org mode, and is also a tool to build my own personal wiki.</p>
-<p>Enable tracking org heading links using globally unique uids. This is a must-have even without <code>org-brain</code>, because org mode won't fix the broken links when you refile/archive some subtrees to a different file.</p>
+<p>Enable tracking org heading links using globally unique uids. This is a must-have even without <code>org-brain</code>, because org mode won&rsquo;t fix the broken links when you refile/archive some subtrees to a different file.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">use-package</span> <span style="color:#a00">org-id</span>
   <span style="color:#0aa">:init</span>
   (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-id-track-globally</span> <span style="color:#a00">t</span>)
@@ -1492,9 +1492,9 @@ reference:</p>
   <span style="color:#0aa">:custom-face</span>
   (<span style="color:#a00">org-brain-title</span> ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> <span style="color:#a00">org-level-8</span>))))
   )
-</code></pre></div><p><code>org-brain</code>'s keymap conflicts with evil's normal state, so before manually setting the keymaps it might worth simply using emacs-state by default:</p>
+</code></pre></div><p><code>org-brain</code>'s keymap conflicts with evil&rsquo;s normal state, so before manually setting the keymaps it might worth simply using emacs-state by default:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">evil-set-initial-state</span> <span style="color:#00a">&#39;org-brain-visualize-mode</span> <span style="color:#00a">&#39;emacs</span>)
-</code></pre></div><p>Inherit <code>org-brain-title</code> face from inner-most org-mode heading (so that it won't be over-sized):</p>
+</code></pre></div><p>Inherit <code>org-brain-title</code> face from inner-most org-mode heading (so that it won&rsquo;t be over-sized):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">org-brain-title</span> ((<span style="color:#a00">t</span> (<span style="color:#0aa">:inherit</span> <span style="color:#a00">org-level-8</span>))))
 </code></pre></div><h3 id="org-board">org-board</h3>
 <p><a href="https://github.com/scallywag/org-board">org-board</a> is a helper package that archives web pages locally via <code>wget</code>. It enable my personal wiki to save web content so that I can review / grab things later.</p>
@@ -1589,7 +1589,7 @@ reference:</p>
       <span style="color:#0aa">:group</span> <span style="color:#00a">&#39;org-faces</span>)
 (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-level-faces</span> (<span style="color:#0a0">append</span> <span style="color:#a00">org-level-faces</span> (<span style="color:#0a0">list</span> <span style="color:#00a">&#39;org-level-9</span> <span style="color:#00a">&#39;org-level-10</span> <span style="color:#00a">&#39;org-level-11</span> <span style="color:#00a">&#39;org-level-12</span>)))
 (<span style="color:#a00">general-setq</span> <span style="color:#a00">org-n-level-faces</span> (<span style="color:#0a0">length</span> <span style="color:#a00">org-level-faces</span>))
-</code></pre></div><p>The main reason I add more level faces is that I don't want the large first levels to show up again at level more than 8. Thus it is also reasonable to turn of level cycling:</p>
+</code></pre></div><p>The main reason I add more level faces is that I don&rsquo;t want the large first levels to show up again at level more than 8. Thus it is also reasonable to turn of level cycling:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">general-setq</span> <span style="color:#a00">org-cycle-level-faces</span> <span style="color:#a00">nil</span>)
 </code></pre></div><h2 id="language-specific">Language specific</h2>
 <h3 id="dot">dot</h3>
@@ -1610,14 +1610,14 @@ reference:</p>
   (<span style="color:#a00">c-set-offset</span> <span style="color:#00a">&#39;inextern-lang</span> <span style="color:#099">0</span>)
   (<span style="color:#a00">c-set-offset</span> <span style="color:#00a">&#39;arglist-close</span> <span style="color:#099">0</span>))
 (<span style="color:#a00">add-hook</span> <span style="color:#00a">&#39;c-mode-hook</span> <span style="color:#00a">&#39;my/c-mode</span>)
-</code></pre></div><p>A helper function that convert a header file's name to a <code>_HEADER_H_</code> macro:</p>
+</code></pre></div><p>A helper function that convert a header file&rsquo;s name to a <code>_HEADER_H_</code> macro:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">defun</span> <span style="color:#a00">my/c-header-filename-macro</span> ()
     <span style="color:#a50">&#34;</span><span style="color:#a50">convert header filename.h to __FILENAME_H__</span><span style="color:#a50">&#34;</span>
   (<span style="color:#0aa">let*</span> ((<span style="color:#a00">filename</span>  (<span style="color:#0a0">file-name-nondirectory</span> (<span style="color:#0a0">buffer-file-name</span>)))
          (<span style="color:#a00">basename</span>  (<span style="color:#a00">file-name-sans-extension</span> <span style="color:#a00">filename</span>))
          (<span style="color:#a00">extension</span> (<span style="color:#a00">file-name-extension</span> <span style="color:#a00">filename</span>)))
     (<span style="color:#0a0">format</span> <span style="color:#a50">&#34;</span><span style="color:#a50">_%s_%s_</span><span style="color:#a50">&#34;</span> (<span style="color:#0a0">upcase</span> <span style="color:#a00">basename</span>) (<span style="color:#0a0">upcase</span> <span style="color:#a00">extension</span>))))
-</code></pre></div><p>A helper function that get a <code>c/cpp</code> file's corresponding conventional header file name:</p>
+</code></pre></div><p>A helper function that get a <code>c/cpp</code> file&rsquo;s corresponding conventional header file name:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">defun</span> <span style="color:#a00">my/c-header-filename-to-this</span> ()
     <span style="color:#a50">&#34;</span><span style="color:#a50">convert header filename.{c,cpp} to filename.h</span><span style="color:#a50">&#34;</span>
   (<span style="color:#0aa">let*</span> ((<span style="color:#a00">filename</span>  (<span style="color:#0a0">file-name-nondirectory</span> (<span style="color:#0a0">buffer-file-name</span>)))

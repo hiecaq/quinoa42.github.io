@@ -76,7 +76,7 @@
       </div>
     </div>
   </header>
-  <p>One thing that I do really miss after switching from Mac OS to Arch Linux is <a href="https://www.alfredapp.com/">Alfred</a>. I heard there is an alternative for Linux called <a href="https://github.com/albertlauncher/albert">Albert</a> but I haven't tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don't feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn't fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.</p>
+  <p>One thing that I do really miss after switching from Mac OS to Arch Linux is <a href="https://www.alfredapp.com/">Alfred</a>. I heard there is an alternative for Linux called <a href="https://github.com/albertlauncher/albert">Albert</a> but I haven&rsquo;t tried it out. I mean, on Linux everything related to command line is much easier than on Mac, and I don&rsquo;t feel it really necessary to use an app launcher as complicated as Alfred. However, there are times you do need to access and launch something directly. Considering that the default dmenu doesn&rsquo;t fit my need, I decide to implement a simple fuzzy app launcher with fzf and other tools.</p>
 <h2 id="tools-used">Tools used</h2>
 <ol>
 <li><a href="https://i3wm.org/">i3</a>: I set the keyboard shortcuts and default window layout for the simple launcher in my i3 config. Any other window manager or desktop environment should work too.</li>
@@ -85,7 +85,7 @@
 <li><a href="https://github.com/junegunn/fzf">fzf</a></li>
 </ol>
 <h2 id="notable-details">Notable details</h2>
-<p>First, to make the launcher looks nicer, we need to specify window layout and opacity of the launcher window. We can do this by using alacritty's <code>--class</code> flag to set the window class, and run the command we want (i.e. fzf), for example,</p>
+<p>First, to make the launcher looks nicer, we need to specify window layout and opacity of the launcher window. We can do this by using alacritty&rsquo;s <code>--class</code> flag to set the window class, and run the command we want (i.e. fzf), for example,</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">alacritty --class <span style="color:#a50">&#34;fzfmenu&#34;</span> -e fzf
 </code></pre></div><p>With this flag, alacritty will set the first value in <code>WM_CLASS</code> to the given name. We can check this by using <code>xprop</code> (thanks for the explanation on this from <a href="https://i3wm.org/docs/userguide.html">i3 User Guide</a>):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ xprop WM_CLASS
@@ -106,17 +106,17 @@ WM_CLASS(STRING)=<span style="color:#a50">&#34;fzfmenu&#34;</span>, <span style=
 <p>This is also a thing I do quite often. I named it <code>fzf_dotfiles</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#4c8317">#!/usr/bin/env zsh
 </span><span style="color:#4c8317"></span>fd --max-depth=<span style="color:#099">4</span> -t f . ~/.dotfiles | fzf | xargs -I{} tmux new-window -n launcher nvim -f <span style="color:#a50">&#34;{}&#34;</span>
-</code></pre></div><p>Note that for this one we don't have to use <code>nohup &amp;</code> because <code>tmux new-window</code> is non-blocking.</p>
+</code></pre></div><p>Note that for this one we don&rsquo;t have to use <code>nohup &amp;</code> because <code>tmux new-window</code> is non-blocking.</p>
 <h2 id="setting-launching-shortcuts">Setting launching shortcuts</h2>
-<p>Now we handle launching alacritty that runs the scripts in i3's config file:</p>
+<p>Now we handle launching alacritty that runs the scripts in i3&rsquo;s config file:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">bindsym $mod+space exec alacritty --class &#34;fzfmenu&#34; -e fzf_run
 bindsym $mod+z exec alacritty --class &#34;fzfmenu&#34; -e fzf_zathura
 bindsym $mod+v exec alacritty -d 120 24 --class &#34;fzfmenu&#34; -e fzf_dotfiles
 </code></pre></div><h2 id="setting-default-window-layout">Setting default window layout</h2>
-<p>Also in i3's config file, add</p>
+<p>Also in i3&rsquo;s config file, add</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">for_window [instance=&#34;fzfmenu&#34;] floating enable
 </code></pre></div><h2 id="make-it-transparent">Make it transparent</h2>
-<p>Add this to compton's config file:</p>
+<p>Add this to compton&rsquo;s config file:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">opacity-rule = [
     &#34;90:class_i = &#39;fzfmenu&#39;&#34;
 ]

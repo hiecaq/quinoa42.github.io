@@ -61,7 +61,7 @@
     <h1>LeetCode 8: String to Integer (atoi)</h1>
     <div class="reading-info">
       <div class="left">
-        <span>535 words</span>
+        <span>538 words</span>
         <span>
           &bull;
         </span>
@@ -118,30 +118,30 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#4c8317">#</span><span style="color:#4c8317">include</span> <span style="color:#4c8317">&lt;stdint.h&gt;</span><span style="color:#4c8317">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#4c8317">#include</span> <span style="color:#4c8317">&lt;stdint.h&gt;</span><span style="color:#4c8317">
 </span><span style="color:#4c8317"></span>
 <span style="color:#0aa">int</span> <span style="color:#0a0">myAtoi</span>(<span style="color:#0aa">char</span> *str) {
-    <span style="color:#00a">while</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50"> </span><span style="color:#a50">&#39;</span> &amp;&amp; *str != <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">\0</span><span style="color:#a50">&#39;</span>) {
+    <span style="color:#00a">while</span> (*str == <span style="color:#a50">&#39; &#39;</span> &amp;&amp; *str != <span style="color:#a50">&#39;\0&#39;</span>) {
         str++;
     }
-    <span style="color:#00a">if</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">\0</span><span style="color:#a50">&#39;</span>) {
+    <span style="color:#00a">if</span> (*str == <span style="color:#a50">&#39;\0&#39;</span>) {
         <span style="color:#00a">return</span> <span style="color:#099">0</span>;
     }
-    <span style="color:#00a">if</span> ((*str &lt; <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">0</span><span style="color:#a50">&#39;</span> || *str &gt; <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">9</span><span style="color:#a50">&#39;</span>) &amp;&amp; (*str != <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">+</span><span style="color:#a50">&#39;</span> &amp;&amp; *str !=<span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">-</span><span style="color:#a50">&#39;</span>)) {
+    <span style="color:#00a">if</span> ((*str &lt; <span style="color:#a50">&#39;0&#39;</span> || *str &gt; <span style="color:#a50">&#39;9&#39;</span>) &amp;&amp; (*str != <span style="color:#a50">&#39;+&#39;</span> &amp;&amp; *str !=<span style="color:#a50">&#39;-&#39;</span>)) {
         <span style="color:#00a">return</span> <span style="color:#099">0</span>;
     }
 
     int64_t sign = <span style="color:#099">1</span>;
-    <span style="color:#00a">if</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">-</span><span style="color:#a50">&#39;</span>) {
+    <span style="color:#00a">if</span> (*str == <span style="color:#a50">&#39;-&#39;</span>) {
         sign = -<span style="color:#099">1</span>;
         str++;
-    } <span style="color:#00a">else</span> <span style="color:#00a">if</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">+</span><span style="color:#a50">&#39;</span>) {
+    } <span style="color:#00a">else</span> <span style="color:#00a">if</span> (*str == <span style="color:#a50">&#39;+&#39;</span>) {
         str++;
     }
 
     int64_t n = <span style="color:#099">0</span>;
-    <span style="color:#00a">while</span> (*str &gt;= <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">0</span><span style="color:#a50">&#39;</span> &amp;&amp; *str &lt;= <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">9</span><span style="color:#a50">&#39;</span>) {
-        int64_t digit = *str - <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">0</span><span style="color:#a50">&#39;</span>;
+    <span style="color:#00a">while</span> (*str &gt;= <span style="color:#a50">&#39;0&#39;</span> &amp;&amp; *str &lt;= <span style="color:#a50">&#39;9&#39;</span>) {
+        int64_t digit = *str - <span style="color:#a50">&#39;0&#39;</span>;
         n = n * <span style="color:#099">10</span> + sign * digit;
         <span style="color:#00a">if</span> (n &gt;= INT32_MAX) {
             <span style="color:#00a">return</span> INT32_MAX;
@@ -170,13 +170,13 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#00a">while</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50"> </span><span style="color:#a50">&#39;</span> &amp;&amp; *str != <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">\0</span><span style="color:#a50">&#39;</span>) {
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#00a">while</span> (*str == <span style="color:#a50">&#39; &#39;</span> &amp;&amp; *str != <span style="color:#a50">&#39;\0&#39;</span>) {
     str++;
 }
-<span style="color:#00a">if</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">\0</span><span style="color:#a50">&#39;</span>) {
+<span style="color:#00a">if</span> (*str == <span style="color:#a50">&#39;\0&#39;</span>) {
     <span style="color:#00a">return</span> <span style="color:#099">0</span>;
 }
-<span style="color:#00a">if</span> ((*str &lt; <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">0</span><span style="color:#a50">&#39;</span> || *str &gt; <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">9</span><span style="color:#a50">&#39;</span>) &amp;&amp; (*str != <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">+</span><span style="color:#a50">&#39;</span> &amp;&amp; *str !=<span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">-</span><span style="color:#a50">&#39;</span>)) {
+<span style="color:#00a">if</span> ((*str &lt; <span style="color:#a50">&#39;0&#39;</span> || *str &gt; <span style="color:#a50">&#39;9&#39;</span>) &amp;&amp; (*str != <span style="color:#a50">&#39;+&#39;</span> &amp;&amp; *str !=<span style="color:#a50">&#39;-&#39;</span>)) {
     <span style="color:#00a">return</span> <span style="color:#099">0</span>;
 }</code></pre></td></tr></table>
 </div>
@@ -195,10 +195,10 @@
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">int64_t sign = <span style="color:#099">1</span>;
-<span style="color:#00a">if</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">-</span><span style="color:#a50">&#39;</span>) {
+<span style="color:#00a">if</span> (*str == <span style="color:#a50">&#39;-&#39;</span>) {
     sign = -<span style="color:#099">1</span>;
     str++;
-} <span style="color:#00a">else</span> <span style="color:#00a">if</span> (*str == <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">+</span><span style="color:#a50">&#39;</span>) {
+} <span style="color:#00a">else</span> <span style="color:#00a">if</span> (*str == <span style="color:#a50">&#39;+&#39;</span>) {
     str++;
 }</code></pre></td></tr></table>
 </div>
@@ -222,8 +222,8 @@
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">int64_t n = <span style="color:#099">0</span>;
-<span style="color:#00a">while</span> (*str &gt;= <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">0</span><span style="color:#a50">&#39;</span> &amp;&amp; *str &lt;= <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">9</span><span style="color:#a50">&#39;</span>) {
-    int64_t digit = *str - <span style="color:#a50"></span><span style="color:#a50">&#39;</span><span style="color:#a50">0</span><span style="color:#a50">&#39;</span>;
+<span style="color:#00a">while</span> (*str &gt;= <span style="color:#a50">&#39;0&#39;</span> &amp;&amp; *str &lt;= <span style="color:#a50">&#39;9&#39;</span>) {
+    int64_t digit = *str - <span style="color:#a50">&#39;0&#39;</span>;
     n = n * <span style="color:#099">10</span> + sign * digit;
     <span style="color:#00a">if</span> (n &gt;= INT32_MAX) {
         <span style="color:#00a">return</span> INT32_MAX;
@@ -238,29 +238,29 @@
 <h2 id="tests">tests</h2>
 <p>Example testcase 1:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">
-printf(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">%d == %d</span><span style="color:#a50">&#34;</span>, myAtoi(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">42</span><span style="color:#a50">&#34;</span>), <span style="color:#099">42</span>);
+printf(<span style="color:#a50">&#34;%d == %d&#34;</span>, myAtoi(<span style="color:#a50">&#34;42&#34;</span>), <span style="color:#099">42</span>);
 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">42 == 42
 </code></pre></div><p>Example testcase 2:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">
-printf(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">%d == %d</span><span style="color:#a50">&#34;</span>, myAtoi(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">   -42</span><span style="color:#a50">&#34;</span>), -<span style="color:#099">42</span>);
+printf(<span style="color:#a50">&#34;%d == %d&#34;</span>, myAtoi(<span style="color:#a50">&#34;   -42&#34;</span>), -<span style="color:#099">42</span>);
 </code></pre></div><p>Example testcase 3:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">-42 == -42
 </code></pre></div><p>Example testcase 4:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">
-printf(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">%d == %d</span><span style="color:#a50">&#34;</span>, myAtoi(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">4193 with words</span><span style="color:#a50">&#34;</span>), <span style="color:#099">4193</span>);
+printf(<span style="color:#a50">&#34;%d == %d&#34;</span>, myAtoi(<span style="color:#a50">&#34;4193 with words&#34;</span>), <span style="color:#099">4193</span>);
 </code></pre></div><p>Example testcase 5:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">4193 == 4193
 </code></pre></div><p>Example testcase 6:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">
-printf(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">%d == %d</span><span style="color:#a50">&#34;</span>, myAtoi(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">words and 987</span><span style="color:#a50">&#34;</span>), <span style="color:#099">0</span>);
+printf(<span style="color:#a50">&#34;%d == %d&#34;</span>, myAtoi(<span style="color:#a50">&#34;words and 987&#34;</span>), <span style="color:#099">0</span>);
 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">0 == 0
 </code></pre></div><p>Example testcase 7:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">
-printf(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">%d == %d</span><span style="color:#a50">&#34;</span>, myAtoi(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">-9128347233</span><span style="color:#a50">&#34;</span>), -<span style="color:#099">2147483648</span>);
+printf(<span style="color:#a50">&#34;%d == %d&#34;</span>, myAtoi(<span style="color:#a50">&#34;-9128347233&#34;</span>), -<span style="color:#099">2147483648</span>);
 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">-2147483648 == -2147483648
 </code></pre></div><p>Another edge case:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">
-printf(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">%d == %d</span><span style="color:#a50">&#34;</span>, myAtoi(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">2147483648</span><span style="color:#a50">&#34;</span>), <span style="color:#099">2147483647</span>);
+printf(<span style="color:#a50">&#34;%d == %d&#34;</span>, myAtoi(<span style="color:#a50">&#34;2147483648&#34;</span>), <span style="color:#099">2147483647</span>);
 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">2147483647 == 2147483647
 </code></pre></div>
   <footer class="reading-info">

@@ -85,7 +85,7 @@
 <p>At this step, assume Eclipse and (neo)vim should all be installed on your computer; it&rsquo;s the time to install eclim. This could be done by just typing <code>java -jar eclim_2.7.0.jar</code> and use the GUI tool to finish the installing process. But for me I&rsquo;d written a tiny lovely piece of code to help me do it automatically by using the provided <a href="http://eclim.org/install.html#unattended-automated-install">Automated install</a> feature (this is also useful when you want to uninstall it):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#4c8317">#!/usr/bin/env bash
 </span><span style="color:#4c8317"></span>
-<span style="color:#a00">VIMPLUGIN_PATH</span>=<span style="color:#a50">&#34;</span><span style="color:#a00">$HOME</span><span style="color:#a50">/.config/eclim</span><span style="color:#a50">&#34;</span>
+<span style="color:#a00">VIMPLUGIN_PATH</span>=<span style="color:#a50">&#34;</span><span style="color:#a00">$HOME</span><span style="color:#a50">/.config/eclim&#34;</span>
 
 <span style="color:#a00">ECLIPSE_PATH</span>=<span style="color:#a50">&#34;/Applications/Eclipse Java.app/Contents/Eclipse&#34;</span>
 
@@ -95,7 +95,7 @@
 </span><span style="color:#a50"></span>        -Declipse.home=<span style="color:#a50">&#34;</span><span style="color:#a00">$ECLIPSE_PATH</span><span style="color:#a50">&#34;</span> <span style="color:#a50">\
 </span><span style="color:#a50"></span>        -jar <span style="color:#a50">&#34;</span><span style="color:#a00">$2</span><span style="color:#a50">&#34;</span> <span style="color:#a00">$1</span>
 <span style="color:#00a">else</span>
-    <span style="color:#0aa">echo</span> <span style="color:#a50">&#34;</span><span style="color:#a50">Usage: </span><span style="color:#a00">$0</span><span style="color:#a50"> [install|uninstall] [eclim.jar]</span><span style="color:#a50">&#34;</span>
+    <span style="color:#0aa">echo</span> <span style="color:#a50">&#34;Usage: </span><span style="color:#a00">$0</span><span style="color:#a50"> [install|uninstall] [eclim.jar]&#34;</span>
     <span style="color:#0aa">exit</span> <span style="color:#099">1</span>
 <span style="color:#00a">fi</span>
 </code></pre></div><h2 id="set-it-up-with--neo--vim">Set it up with (neo)vim</h2>
@@ -121,7 +121,7 @@
 </span><span style="color:#f00;background-color:#faa"></span>                    \]<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    <span style="color:#00a">endif</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span><span style="color:#00a">endfunction</span><span style="color:#f00;background-color:#faa">
-</span><span style="color:#f00;background-color:#faa"></span><span style="color:#f00;background-color:#faa">
+</span><span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>augroup Java_deoplete<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    au!<span style="color:#f00;background-color:#faa">
 </span><span style="color:#f00;background-color:#faa"></span>    autocmd FileType java call Java_autocomplete()<span style="color:#f00;background-color:#faa">

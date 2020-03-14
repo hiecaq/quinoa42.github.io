@@ -33,26 +33,6 @@
   </url>
   
   <url>
-    <loc>https://quinoa42.github.io/en/</loc>
-    <lastmod>2020-02-15T17:11:10+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://quinoa42.github.io/zh/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp"
-                href="https://quinoa42.github.io/jp/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://quinoa42.github.io/en/"
-                />
-  </url>
-  
-  <url>
     <loc>https://quinoa42.github.io/en/oceanus/leetcode-8/</loc>
     <lastmod>2019-11-06T21:54:29+08:00</lastmod>
   </url>
@@ -99,6 +79,26 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://quinoa42.github.io/en/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/en/</loc>
+    <lastmod>2020-02-15T17:11:10+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/"
                 />
   </url>
   

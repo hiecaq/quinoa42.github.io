@@ -178,6 +178,7 @@ Turn off lockfiles. They cannot be moved to a different directory, and they cons
   (setq create-lockfiles nil)
 #+end_src
 
+hello
 A helper function that create a filename from basename and extension:
 #+begin_src emacs-lisp
   (defun my/filename-with-extension (base ext)
@@ -420,7 +421,8 @@ Emacs has its own =bookmark= system built-in:
   (use-package recentf
     :defer t
     :init
-    (setq recentf-save-file (expand-file-name "emacs/recentf" (xdg-cache-home))))
+    (setq recentf-save-file (expand-file-name "emacs/recentf" (xdg-cache-home)))
+    (recentf-mode 1))
 #+end_src
 
 ** Editorconfig
@@ -681,6 +683,7 @@ Their bindings:
     (evil-collection-init 'dired)
     (evil-collection-init 'minibuffer)
     (evil-collection-init 'helm)
+    (evil-collection-init 'help)
     (evil-collection-init 'flycheck)
     (evil-collection-init 'xref)
     (evil-collection-init 'magit)
@@ -861,6 +864,12 @@ This plugin actually works for native Evil's =f/F/t/T=, but I use it mainly for 
   (use-package evil-surround
     :ensure t
     :after evil
+    :init
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (general-setq-local evil-surround-pairs-alist
+                                    (append '((?= "=" . "="))
+                                            evil-surround-pairs-alist))))
     :config
     (global-evil-surround-mode 1))
 #+end_src
@@ -965,17 +974,14 @@ References:
   (use-package helm-config
     :demand t
     :general
-    ([remap find-file]                'helm-find-files)
-    ([remap occur]                    'helm-occur)
-    ([remap list-buffers]             'helm-buffers-list)
-    ([remap dabbrev-expand]           'helm-dabbrev)
-    ([remap execute-extended-command] 'helm-M-x)
-    ([remap imenu]                    'helm-imenu)
-    (general-nmap "gO" 'helm-semantic-or-imenu)
     :init
     (general-setq helm-display-function #'helm-display-buffer-in-own-frame)
     (general-setq helm-command-prefix-key "C-c h")
+    (general-setq helm-apropos-fuzzy-match t)
     (general-setq helm-ff-skip-boring-files t)
+    (general-setq helm-recentf-fuzzy-match t)
+    (general-setq helm-imenu-fuzzy-match t)
+    (general-setq helm-buffers-fuzzy-matching t)
     (unless (boundp 'completion-in-region-function)
       (general-def lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
       (general-def emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
@@ -983,8 +989,21 @@ References:
 
 Turn on helm
 #+begin_src emacs-lisp
-  (use-package helm-mode
+  (use-package helm
+    :demand t
+    :general
+    ([remap find-file]                'helm-find-files)
+    ([remap occur]                    'helm-occur)
+    ([remap list-buffers]             'helm-buffers-list)
+    ([remap dabbrev-expand]           'helm-dabbrev)
+    ([remap execute-extended-command] 'helm-M-x)
+    ([remap imenu]                    'helm-imenu)
+    (my/leader-def '(normal insert) "h o" 'helm-occur)
+    (my/leader-def '(normal insert) "h M" 'helm-all-mark-rings)
+    (my/leader-def '(normal insert) "h P" 'helm-registers)
+    (general-nmap "gO" 'helm-semantic-or-imenu)
     :config
+    (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
     (helm-mode 1))
 #+end_src
 
@@ -1030,9 +1049,10 @@ But, [[https://github.com/cosmicexplorer/helm-rg][helm-rg]] is used by =helm-pro
     :if (executable-find "rg")
     :ensure t
     :init
-    (progn
-      (general-setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
-      (general-setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))))
+    (general-setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
+    (general-setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
+    (general-setq helm-grep-default-command         "rg --vimgrep --no-heading --color=always -z %p %f")
+    (general-setq helm-grep-default-recurse-command "rg --vimgrep --no-heading --color=always -z %p %f"))
 #+end_src
 
 and also fallback to [[https://github.com/syohex/emacs-helm-ag][helm-ag]] if =rg= is not available:
@@ -1041,9 +1061,10 @@ and also fallback to [[https://github.com/syohex/emacs-helm-ag][helm-ag]] if =rg
     :if (and (executable-find "ag") (not (executable-find "rg")))
     :ensure t
     :init
-    (progn
-      (general-setq helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s")
-      (general-setq helm-grep-ag-pipe-cmd-switches '("--color-match '31;43'"))))
+    (general-setq helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s")
+    (general-setq helm-grep-ag-pipe-cmd-switches '("--color-match '31;43'"))
+    (general-setq helm-grep-default-command         "ag --vimgrep --nogroup --nocolor -z %p %f")
+    (general-setq helm-grep-default-recurse-command "ag --vimgrep --nogroup --nocolor -z %p %f"))
 #+end_src
 ** Ivy
 :PROPERTIES:
@@ -1645,7 +1666,7 @@ reference:
 + [[https://hamberg.no/gtd/][GTD in 15 minutes – A Pragmatic Guide to Getting Things Done]] by Erlend Hamberg
 + [[http://www.members.optusnet.com.au/~charles57/GTD/][Emacs, org-mode and Getting Things Done (GTD)]] by Charles Cave
 + [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]] by Bernt Hansen
-
+*** Tasks and log
 Todo state keywords. The todo state is simple:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
   (general-setq org-todo-keywords
@@ -1706,51 +1727,84 @@ Caputre templates that helps reduce boilerplate:
   (general-setq org-agenda-compact-blocks t)
 #+end_src
 
+*** Agenda
 I schedule things in a sense that I don't want to think about it until that time. If something is "going to happen" at some time and I need to prepare for it, I directly use angle-braced timestamp. Thus this setting help me fulfill this need:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
   (general-setq org-agenda-todo-ignore-scheduled 'future)
+  (general-setq org-agenda-tags-todo-honor-ignore-options t)
 #+end_src
 
 To use GTD styles in my org-mode workflow, it's necessary to have those agenda views:
 #+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
-    (general-setq org-agenda-custom-commands
-          '(("n" "Getting things done!"
-             ((todo "ENGAGE")
-              (agenda "current week"
-               ((org-agenda-entry-types '(:deadline :timestamp :sexp))
-                (org-agenda-files '("~/documents/tracking"))))
-              (todo "TODO")
-              (todo "WAIT"))
-             ((org-agenda-files '("~/documents/tracking/tasks.org.gpg"))))
-            ("i" "Inbox & Maybe"
-             ((todo "TODO|WAIT"
-                    ((org-agenda-files '("~/documents/tracking/inbox.org.gpg"))))
-              (agenda "this two week"
-                      ((org-agenda-span 14)))
-              (todo "TODO|WAIT"
-                    ((org-agenda-files '("~/documents/tracking/maybe.org.gpg")))))
-             ((org-agenda-sorting-strategy '(tag-up priority-down))
-              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
-            ("g" . "Todolist")
-            ("gt" "Todos"
-             ((tags-todo "+CATEGORY=\"Todo\"")
-              (agenda "this two week"
-                      ((org-agenda-span 14))))
-             ((org-agenda-sorting-strategy '(tag-up priority-down))
-              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
-            ("gl" "Learn"
-             ((tags-todo "+CATEGORY=\"Learn\"")
-              (agenda "this two week"
-                      ((org-agenda-span 14))))
-             ((org-agenda-sorting-strategy '(tag-up priority-down))
-              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
-            ("ge" "Entertainments"
-             ((tags-todo "+CATEGORY=\"Entertain\"")
-              (agenda "this two week"
-                      ((org-agenda-span 14))))
-             ((org-agenda-sorting-strategy '(tag-up priority-down))
-              (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))))
+  (general-setq org-agenda-custom-commands
+        '(("g" "Getting things done!"
+           ((todo "ENGAGE")
+            (agenda "current week"
+             ((org-agenda-entry-types '(:deadline :timestamp :scheduled :sexp))
+              (org-agenda-files '("~/documents/tracking"))))
+            (todo "TODO")
+            (todo "WAIT"))
+           ((org-agenda-files '("~/documents/tracking/tasks.org.gpg"))))
+          ("i" "Inbox & Maybe"
+           ((todo "TODO|WAIT"
+                  ((org-agenda-files '("~/documents/tracking/inbox.org.gpg"))))
+            (agenda "this two week"
+                    ((org-agenda-span 14)))
+            (todo "TODO|WAIT"
+                  ((org-agenda-files '("~/documents/tracking/maybe.org.gpg")))))
+           ((org-agenda-sorting-strategy '(deadline-up todo-state-up priority-down tag-up))
+            (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
+          ("n" . "Todolist")
+          ("nt" "Todos"
+           ((tags-todo "+CATEGORY=\"Todo\"")
+            (agenda "this two week"
+                    ((org-agenda-span 14))))
+           ((org-agenda-sorting-strategy '(priority-down tag-up))
+            (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
+          ("nl" "Learn"
+           ((tags-todo "+CATEGORY=\"Learn\"")
+            (agenda "this two week"
+                    ((org-agenda-span 14))))
+           ((org-agenda-sorting-strategy '(priority-down tag-up))
+            (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))
+          ("ne" "Entertainments"
+           ((tags-todo "+CATEGORY=\"Entertain\"")
+            (agenda "this two week"
+                    ((org-agenda-span 14))))
+           ((org-agenda-sorting-strategy '(priority-down tag-up))
+            (org-agenda-entry-types '(org-agenda-entry-types '(:deadline :timestamp :sexp)))))))
 #+end_src
+
+*** Effort measurement / time cost estimates
+Org mode provides the feature to estimate effort and track time spent on a task.
+
+First, if something somehow has a 0:00 duration, don't count it.
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-clock-out-remove-zero-time-clocks t)
+#+end_src
+
+Clock into the =:LOGBOOK:= drawer
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-clock-into-drawer t)
+#+end_src
+
+Clock out when a task is =DONE= or =CANNCELED=
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-clock-out-when-done t)
+#+end_src
+
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-clock-out-when-done t)
+#+end_src
+
+Persistent clocking across Emacs sessions:
+#+begin_src emacs-lisp :tangle no :noweb-ref org-mode-init
+  (general-setq org-clock-persist t)
+  (org-clock-persistence-insinuate)
+  (general-setq org-clock-persist-file (expand-file-name "emacs/org-clock-save.el" (xdg-data-home)))
+#+end_src
+
+
 ** holidays and anniversaries
 Given that org-mode show a day/month/year agenda view depending on my choice, why not also show those important days on the view?
 

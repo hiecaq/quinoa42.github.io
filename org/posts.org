@@ -6,7 +6,98 @@
 :PROPERTIES:
 :EXPORT_HUGO_SECTION: Oceanus
 :END:
-** DONE LeetCode 8: String to Integer (atoi) :@algorithm:C:
+** DONE 当 org-roam 遇上 tridactyl :@algorithm:Emacs:Firefox:
+CLOSED: [2021-01-02 Sat 21:27]
+:PROPERTIES:
+:EXPORT_FILE_NAME: org-roam-tridactyl.zh.md
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-01-02 Sat 21:27]
+- State "TODO"       from              [2021-01-02 Sat 20:21]
+:END:
+[[https://www.orgroam.com/][org-roam]]是个最近越来越火的[[https://en.wikipedia.org/wiki/Zettelkasten][Zettelkasten]] Org Mode实现，具体有多好用我就不多吹了， 可以参考[[https://www.zmonster.me/2020/06/27/org-roam-introduction.html][这篇文章]] 。
+
+[[https://github.com/tridactyl/tridactyl][tridactyl]] 是 Firefox 的新型 vimperator-like 扩展，在 Firefox 自 50x 版本投奔 WebExtensions 阵营后，[[https://wiki.mozilla.org/WebExtensions/Future#Interesting_Add-ons][pentadactyl和vimerpator ]]入了土，但是和 WebExtensions 一起到来的同行的体验离 pentadactyl 差距甚远，一时间 Firefox 的自定义优势在这个维度上青黄不接。当然总会有人想着要折腾， 于是 tridactyl 这个后起之秀横空出世， 在 WebExtensions 的镣铐下跳舞，舞跳得还不错。
+
+tridactyl 支持通过 =composite ... | ...= 的语法来 pipe 各个子命令的输入输出, =js= 来执行 javascript，并且如果使用了 =-p=, 那么 =JS_ARG= 会被前一个 pipe 的输出替换。同时，它还提供了 =hint= 这个功能复杂的指令，被调用时会弹出 vimperator =f= 式的标记筛选， 其中比较有意思的是 =hint -pipe= ，能把筛选指定的内容传递到 =composite= 的下一个 pipe 中。当然啦还有 =bind=, 把某个指令绑定到某串键位上。
+
+org-roam 提供了 [[https://www.orgroam.com/manual.html#Roam-Protocol][org-protocol]] 的扩展， 支持通过HTTP GET =org-protocol://roam-ref?template=r...= 的方式把信息传递给它。
+
+背景介绍就到这里， 那么有了这分别来自 Firefox、Emacs 两个世界的神器，怎样把它们链接起来使用呢？
+#+hugo_more
+
+*** 简单用法: 收藏当前网页
+先来一个基本操作：当 =org-protocol= 收到 GET REQUESTS, 把参数里的 =title=, =ref= 填到相应的位置； =slug= 是把 =title= 转换成符合UNIX标准后的结果。很直白，没啥好多说的。这个 template 用 =m= 来标记。
+#+begin_src emacs-lisp
+  (add-to-list 'org-roam-capture-ref-templates
+               '("m" "mark" plain (function org-roam-capture--get-point)
+                 "\n%?\n"
+                 :file-name "${slug}"
+                 :head "#+title: ${title}\n#+date: %U\n#+roam_key: ${ref}\n#+roam_alias: \n#+roam_tags: \n"
+                 :unnarrowed t)))
+#+end_src
+
+tridactyl 侧：
+#+begin_src bash
+  bind gm composite js "org-protocol://roam-ref?template=m&ref=" + encodeURIComponent(document.location.href) + "&title=" + encodeURIComponent(document.title) + "&body=" | js -p document.location.href = JS_ARG
+#+end_src
+绑定到 =gm= 这串键位上如下功能： 先根据当前的页面， 计算出一个使用 =m= 对应 template, =title= 为 =document.title=, =ref= 为 =document.location.href= 的HTTP REQUEST， 然后让 =document.location.href= 等于这个 REQUEST 地址 （也就是发起请求啦）。source后， 在 Firefox 里按 gm 就会在 roam-directory 里新建 一个 包含了当前网页地址和标题的 org 文档了。
+
+*** 真正使用 hint: 抓取纯文字到 org-roam
+上面这个操作甚至还没有用上 =hint=,  现在我们实现一个很常用的功能： 从当前网页选择一块文字， (比如说 =<p>= 之类的），和当前网页的地址、标题一起发给 org-roam, 如果没有这个标题对应的文件则新建， 否则往后添加内容：
+#+begin_src emacs-lisp
+  (add-to-list 'org-roam-capture-ref-templates
+               '("p" "plain capture" plain (function org-roam-capture--get-point)
+                 "\n${body}\n"
+                 :file-name "${slug}"
+                 :head "#+title: ${title}\n#+date: %U\n#+roam_key: ${ref}\n#+roam_alias: \n#+roam_tags: \n"
+                 :unnarrowed t
+                 :immediate-finish t))
+#+end_src
+重复的部分就不多说了， 值得一提的是现在我们真的会放 =body= 对应的内容了。
+
+tridactyl 侧：
+#+begin_src bash
+  bind ;m composite hint -Jpipe * textContent | js -p "org-protocol://roam-ref?template=p&ref=" + encodeURIComponent(document.location.href) + "&title=" + encodeURIComponent(document.title) + "&body=" + encodeURIComponent(JS_ARG) | js -p document.location.href = JS_ARG
+#+end_src
+=-J= 表示 =hint= 不包括 javascript 的 hint。 =*= 表示匹配所有（可以换成cssSelector来屏蔽一些选项）， =textContext= 则是某个节点对应的纯文字内容。 这部分内容 pipe 给了组 REQUEST 的 =js -p= ， 填在了 =body= 的部分。 其他和上一条一样。现在， =;m= 可以选中一个节点， 然后把这节点中所有的文字信息喂给 =org-roam= 了， 简单粗暴但很有用, 相当于人眼识别有价值的文字片段， 省了 [[https://github.com/buriy/python-readability][readability]] 的步骤，而且可以灵活地摘抄。
+
+*** 更进一步： 摘取片段直接转成 org-mode 语法保存到 org-roam
+我们用的可是 org-roam, 用纯文字怎么行？首先我们写好 tridactyl 的部分：
+#+begin_src bash
+  bind ;c composite hint -Jpipe * innerHTML | js -p "org-protocol://roam-ref?template=c&ref=" + encodeURIComponent(document.location.href) + "&title=" + encodeURIComponent(document.title) + "&body=" + encodeURIComponent(JS_ARG) | js -p document.location.href = JS_ARG
+#+end_src
+=textContext= 变成了 =innerHTML=, 即直接返回HTML格式的被选节点的所有子树，其他部分与上一条没有什么差别，在此不再复述。
+
+那么问题来了： HTML 格式怎么转换成 org-mode格式呢？ 这里聪明的读者想必会选择手写一个 =html-org-transpiler=, 而我的选择则是利用 [[https://pandoc.org/][pandoc]]。首先我们写好一个把存在 string 里的 HTML 内容转换成存在 string 里的 org-mode 格式内容的函数：
+#+begin_src emacs-lisp
+  (defun my/command-line-pandoc-filter (content)
+    "take an input html string, return a org mode string via pandoc"
+    (with-temp-buffer
+      (insert content)
+      (if (not (zerop (call-process-region
+                       (point-min) (point-max)
+                       "pandoc" t t nil "-f" "html" "-t" "org" "--wrap" "none")))
+          (message "Pandoc failed: %s" (buffer-string))
+        (buffer-string))))
+#+end_src
+这段代码很直白， 看看就懂了。至于为什么需要用到 =temp-buffer=, 我没有找到直接基于 string 做上述操作的库函数， 如果有的话还请大家不苟赐教。
+
+现在定义 =c= 对应的 template:
+#+begin_src emacs-lisp
+  (add-to-list 'org-roam-capture-ref-templates
+               '("c" "Capture" plain (function org-roam-capture--get-point)
+                 "\n%(my/command-line-pandoc-filter (alist-get 'body org-roam-capture--info))\n"
+                 :file-name "${slug}"
+                 :head "#+title: ${title}\n#+date: %U\n#+roam_key: ${ref}\n#+roam_alias: \n#+roam_tags: \n"
+                 :unnarrowed t
+                 :immediate-finish t))
+#+end_src
+前面忘记说了， org-roam 复用了 org-mode 自己的 template 功能， 所以 =%(expression)= 这个功能也是可以使用的。 这里就利用了这个功能， 首先从 =body-org-roam-capture--info= 里面取出 =body= 对应的内容 （org-roam 会在解析 org-protocol GET REQUEST 时把内容都存到这个字典里），喂给上面这个函数， 然后这函数的输出会被实际在这个地方展开。
+
+这篇文章到这里就该结束了，作为课后习题， 留给读者各位一个思考题目： HTML 转换到 org-mode 会产生大量的空行， 那么怎么在最后的抓取结果中, 于每段空行只保留其中一个呢？
+
+** DONE COMMENT LeetCode 8: String to Integer (atoi) :@algorithm:C:
 CLOSED: [2019-11-06 Wed 00:25]
 :PROPERTIES:
 :EXPORT_FILE_NAME: leetcode-8.en.md

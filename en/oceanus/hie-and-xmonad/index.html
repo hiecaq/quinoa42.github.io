@@ -72,7 +72,7 @@
         <span>
           &bull;
         </span>
-        <span><time>last modified at 11-06-2019</time></span>
+        <span><time>last modified at 01-02-2021</time></span>
       </div>
     </div>
   </header>
@@ -82,7 +82,7 @@
 <p>Conceptually I end up with a separation of things I deal with that need a dev environment (<a href="https://github.com/commercialhaskell/stack">stack</a>, xmonad, and scripting) and things that I just &ldquo;use&rdquo; (<a href="https://pandoc.org/#">pandoc</a> and <a href="https://github.com/jaor/xmobar">xmobar</a>). The former is around <code>stack</code> and the static-linked environment it comes with, which I got by installing <a href="https://aur.archlinux.org/packages/stack-static/">stack-static</a> on AUR, and the latter is simply pacman-installed. This mimics the way I deal with Rust on Arch: my personal projects and other stuff are built around pacman-installed <code>rustup</code>, while <code>exa</code>, <code>ripgrep</code> and other tools are simply pacman managed.</p>
 <p>At this point after having a static-linked stack, <code>stack setup</code> will give you the static-linked ghc and ghci as <a href="https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/">Brian Buccola suggested</a>.</p>
 <p>Make sure stack&rsquo;s bin path is in your $PATH, which can be set in <code>~/.stack/config.yaml</code>, like this:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#00a">local-bin-path</span>:<span style="color:#bbb"> </span>/home/quinoa42/bin<span style="color:#bbb">
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#1e90ff;font-weight:bold">local-bin-path</span>:<span style="color:#bbb"> </span>/home/quinoa42/bin<span style="color:#bbb">
 </span></code></pre></div><p>Then you&rsquo;d want the <a href="https://github.com/haskell/haskell-ide-engine">haskell-ide-engine</a>, which is a lsp-compatible language server for Haskell, like <code>rls</code> for Rust. To install it simply do:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">stack install cabal-install <span style="color:#aaa;font-style:italic"># static-linked cabal-install, seems required</span>
 git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules

@@ -3,68 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://quinoa42.github.io/en/categories/algorithm/</loc>
-    <lastmod>2019-11-06T21:54:29+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quinoa42.github.io/en/tags/c/</loc>
-    <lastmod>2019-11-06T21:54:29+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quinoa42.github.io/en/categories/</loc>
-    <lastmod>2019-11-06T21:54:29+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://quinoa42.github.io/zh/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp"
-                href="https://quinoa42.github.io/jp/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://quinoa42.github.io/en/categories/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://quinoa42.github.io/en/oceanus/leetcode-8/</loc>
-    <lastmod>2019-11-06T21:54:29+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quinoa42.github.io/en/oceanus/</loc>
-    <lastmod>2019-11-06T21:54:29+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quinoa42.github.io/en/tags/</loc>
-    <lastmod>2020-02-15T17:11:10+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://quinoa42.github.io/zh/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp"
-                href="https://quinoa42.github.io/jp/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://quinoa42.github.io/en/tags/"
-                />
-  </url>
-  
-  <url>
     <loc>https://quinoa42.github.io/en/about/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -83,8 +23,28 @@
   </url>
   
   <url>
+    <loc>https://quinoa42.github.io/en/categories/</loc>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/categories/"
+                />
+  </url>
+  
+  <url>
     <loc>https://quinoa42.github.io/en/</loc>
-    <lastmod>2020-02-15T17:11:10+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -104,7 +64,7 @@
   
   <url>
     <loc>https://quinoa42.github.io/en/categories/meta/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -123,48 +83,63 @@
   </url>
   
   <url>
-    <loc>https://quinoa42.github.io/en/tags/emacs/</loc>
-    <lastmod>2020-02-15T17:11:10+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://quinoa42.github.io/zh/tags/emacs/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://quinoa42.github.io/en/tags/emacs/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://quinoa42.github.io/en/dot-emacs/</loc>
-    <lastmod>2020-02-15T17:11:10+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://quinoa42.github.io/en/tags/archlinux/</loc>
-    <lastmod>2019-11-06T00:34:25+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:53+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/haskell/</loc>
-    <lastmod>2019-11-06T00:34:25+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/en/oceanus/</loc>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/oceanus/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/oceanus/"
+                />
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/hie-and-xmonad/</loc>
-    <lastmod>2019-11-06T00:34:25+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:53+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/categories/software/</loc>
-    <lastmod>2019-11-06T00:34:25+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quinoa42.github.io/en/tags/</loc>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp"
+                href="https://quinoa42.github.io/jp/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/tags/"
+                />
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/vim/</loc>
-    <lastmod>2019-11-06T00:34:25+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -179,97 +154,107 @@
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/xmonad/</loc>
-    <lastmod>2019-11-06T00:34:25+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:53+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/vimtex-user-defined-completion/</loc>
-    <lastmod>2019-11-03T16:26:20+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:53+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/latex/</loc>
-    <lastmod>2019-11-03T16:26:20+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:53+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/alacritty/</loc>
-    <lastmod>2019-11-03T16:26:20+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/compton/</loc>
-    <lastmod>2019-11-03T16:26:20+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/fzf/</loc>
-    <lastmod>2019-11-03T16:26:20+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/i3wm/</loc>
-    <lastmod>2019-11-03T16:26:20+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</loc>
-    <lastmod>2019-11-03T16:26:20+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/vim8-package-opt-after/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/firefox/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://quinoa42.github.io/zh/tags/firefox/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://quinoa42.github.io/en/tags/firefox/"
+                />
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/tridactyl-editorcmd-with-tmux/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/tmux/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/osx/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/ruby/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/eclim/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/eclim-setup/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/whimsia/move-to-fx57/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/whimsia/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -284,72 +269,72 @@
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/python/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/neovim-python/</loc>
-    <lastmod>2019-11-03T16:26:21+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/bash/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/process-substitution-and-redirection-without-command/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/shell/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/zsh/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/tmux-force-utf8/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/ssh/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:54+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/terminal/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/terminfo-truecolor/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/mac-foobar2000/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/tags/wine/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/whimsia/hello-world/</loc>
-    <lastmod>2019-11-03T16:26:23+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quinoa42.github.io/en/oceanus/ruby-setup/</loc>
-    <lastmod>2019-11-03T16:26:22+08:00</lastmod>
+    <lastmod>2021-01-02T21:32:55+08:00</lastmod>
   </url>
   
 </urlset>

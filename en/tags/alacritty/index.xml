@@ -5,11 +5,7 @@
     <link>https://quinoa42.github.io/en/tags/alacritty/</link>
     <description>Recent content in alacritty on Emain Ablach</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 27 Jan 2019 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://quinoa42.github.io/en/tags/alacritty/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 27 Jan 2019 00:00:00 +0800</lastBuildDate><atom:link href="https://quinoa42.github.io/en/tags/alacritty/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Implement a simple fuzzy app launcher with fzf</title>
       <link>https://quinoa42.github.io/en/oceanus/replace-dmenu-with-fzf/</link>

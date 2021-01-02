@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="stylesheet" href="https://quinoa42.github.io/style/site.min.css">
+    <title>
+  当 org-roam 遇上 tridactyl &ndash; Emain Ablach
+</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="heading left">
+        
+        <a class="logo" href="/zh/" title="">Emain Ablach</a>
+        
+        
+        <a class="lang-op" href="/en/" title="">en</a>
+        
+        <a class="lang-op" href="/jp/" title="">jp</a>
+        
+        <a class="lang-op" href="/zh/" title="">zh</a>
+        
+      </div>
+      <div class="right">
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/zh/oceanus/" title="">Oceanus</a>
+            </li>
+            
+            <li>
+              <a href="/zh/whimsia/" title="">Whimsia</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <nav class="jumplist">
+          <ul>
+            
+            
+            <li>
+              <a href="/zh/about" title="">About</a>
+            </li>
+            
+            <li>
+              <a href="/en/dot-emacs" title="">init.el</a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+    
+<article>
+  <header>
+    <h1>当 org-roam 遇上 tridactyl</h1>
+    <div class="reading-info">
+      <div class="left">
+        <span>1559 words</span>
+        <span>
+          &bull;
+        </span>
+        <span>4 min read</span>
+      </div>
+      <div class="right">
+        <span><time>published at 01-02-2021</time></span>
+        <span>
+          &bull;
+        </span>
+        <span><time>last modified at 01-02-2021</time></span>
+      </div>
+    </div>
+  </header>
+  <p><a href="https://www.orgroam.com/">org-roam</a>是个最近越来越火的<a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten</a> Org Mode实现，具体有多好用我就不多吹了， 可以参考<a href="https://www.zmonster.me/2020/06/27/org-roam-introduction.html">这篇文章</a> 。</p>
+<p><a href="https://github.com/tridactyl/tridactyl">tridactyl</a> 是 Firefox 的新型 vimperator-like 扩展，在 Firefox 自 50x 版本投奔 WebExtensions 阵营后，<a href="https://wiki.mozilla.org/WebExtensions/Future#Interesting%5FAdd-ons">pentadactyl和vimerpator </a>入了土，但是和 WebExtensions 一起到来的同行的体验离 pentadactyl 差距甚远，一时间 Firefox 的自定义优势在这个维度上青黄不接。当然总会有人想着要折腾， 于是 tridactyl 这个后起之秀横空出世， 在 WebExtensions 的镣铐下跳舞，舞跳得还不错。</p>
+<p>tridactyl 支持通过 <code>composite ... | ...</code> 的语法来 pipe 各个子命令的输入输出, <code>js</code> 来执行 javascript，并且如果使用了 <code>-p</code>, 那么 <code>JS_ARG</code> 会被前一个 pipe 的输出替换。同时，它还提供了 <code>hint</code> 这个功能复杂的指令，被调用时会弹出 vimperator <code>f</code> 式的标记筛选， 其中比较有意思的是 <code>hint -pipe</code> ，能把筛选指定的内容传递到 <code>composite</code> 的下一个 pipe 中。当然啦还有 <code>bind</code>, 把某个指令绑定到某串键位上。</p>
+<p>org-roam 提供了 <a href="https://www.orgroam.com/manual.html#Roam-Protocol">org-protocol</a> 的扩展， 支持通过HTTP GET <code>org-protocol://roam-ref?template=r...</code> 的方式把信息传递给它。</p>
+<p>背景介绍就到这里， 那么有了这分别来自 Firefox、Emacs 两个世界的神器，怎样把它们链接起来使用呢？
+#+hugo_more</p>
+<h2 id="简单用法-收藏当前网页">简单用法: 收藏当前网页</h2>
+<p>先来一个基本操作：当 <code>org-protocol</code> 收到 GET REQUESTS, 把参数里的 <code>title</code>, <code>ref</code> 填到相应的位置； <code>slug</code> 是把 <code>title</code> 转换成符合UNIX标准后的结果。很直白，没啥好多说的。这个 template 用 <code>m</code> 来标记。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">add-to-list</span> <span style="color:#00a">&#39;org-roam-capture-ref-templates</span>
+             &#39;(<span style="color:#a50">&#34;m&#34;</span> <span style="color:#a50">&#34;mark&#34;</span> <span style="color:#a00">plain</span> (<span style="color:#0aa">function</span> <span style="color:#a00">org-roam-capture--get-point</span>)
+               <span style="color:#a50">&#34;\n%?\n&#34;</span>
+               <span style="color:#0aa">:file-name</span> <span style="color:#a50">&#34;${slug}&#34;</span>
+               <span style="color:#0aa">:head</span> <span style="color:#a50">&#34;#+title: ${title}\n#+date: %U\n#+roam_key: ${ref}\n#+roam_alias: \n#+roam_tags: \n&#34;</span>
+               <span style="color:#0aa">:unnarrowed</span> <span style="color:#a00">t</span>)))
+</code></pre></div><p>tridactyl 侧：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0aa">bind</span> gm composite js <span style="color:#a50">&#34;org-protocol://roam-ref?template=m&amp;ref=&#34;</span> + encodeURIComponent(document.location.href) + <span style="color:#a50">&#34;&amp;title=&#34;</span> + encodeURIComponent(document.title) + <span style="color:#a50">&#34;&amp;body=&#34;</span> | js -p document.location.href = JS_ARG
+</code></pre></div><p>绑定到 <code>gm</code> 这串键位上如下功能： 先根据当前的页面， 计算出一个使用 <code>m</code> 对应 template, <code>title</code> 为 <code>document.title</code>, <code>ref</code> 为 <code>document.location.href</code> 的HTTP REQUEST， 然后让 <code>document.location.href</code> 等于这个 REQUEST 地址 （也就是发起请求啦）。source后， 在 Firefox 里按 gm 就会在 roam-directory 里新建 一个 包含了当前网页地址和标题的 org 文档了。</p>
+<h2 id="真正使用-hint-抓取纯文字到-org-roam">真正使用 hint: 抓取纯文字到 org-roam</h2>
+<p>上面这个操作甚至还没有用上 <code>hint</code>,  现在我们实现一个很常用的功能： 从当前网页选择一块文字， (比如说 <code>&lt;p&gt;</code> 之类的），和当前网页的地址、标题一起发给 org-roam, 如果没有这个标题对应的文件则新建， 否则往后添加内容：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">add-to-list</span> <span style="color:#00a">&#39;org-roam-capture-ref-templates</span>
+             &#39;(<span style="color:#a50">&#34;p&#34;</span> <span style="color:#a50">&#34;plain capture&#34;</span> <span style="color:#a00">plain</span> (<span style="color:#0aa">function</span> <span style="color:#a00">org-roam-capture--get-point</span>)
+               <span style="color:#a50">&#34;\n${body}\n&#34;</span>
+               <span style="color:#0aa">:file-name</span> <span style="color:#a50">&#34;${slug}&#34;</span>
+               <span style="color:#0aa">:head</span> <span style="color:#a50">&#34;#+title: ${title}\n#+date: %U\n#+roam_key: ${ref}\n#+roam_alias: \n#+roam_tags: \n&#34;</span>
+               <span style="color:#0aa">:unnarrowed</span> <span style="color:#a00">t</span>
+               <span style="color:#0aa">:immediate-finish</span> <span style="color:#a00">t</span>))
+</code></pre></div><p>重复的部分就不多说了， 值得一提的是现在我们真的会放 <code>body</code> 对应的内容了。</p>
+<p>tridactyl 侧：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0aa">bind</span> ;m composite hint -Jpipe * textContent | js -p <span style="color:#a50">&#34;org-protocol://roam-ref?template=p&amp;ref=&#34;</span> + encodeURIComponent(document.location.href) + <span style="color:#a50">&#34;&amp;title=&#34;</span> + encodeURIComponent(document.title) + <span style="color:#a50">&#34;&amp;body=&#34;</span> + encodeURIComponent(JS_ARG) | js -p document.location.href = JS_ARG
+</code></pre></div><p><code>-J</code> 表示 <code>hint</code> 不包括 javascript 的 hint。 <code>*</code> 表示匹配所有（可以换成cssSelector来屏蔽一些选项）， <code>textContext</code> 则是某个节点对应的纯文字内容。 这部分内容 pipe 给了组 REQUEST 的 <code>js -p</code> ， 填在了 <code>body</code> 的部分。 其他和上一条一样。现在， <code>;m</code> 可以选中一个节点， 然后把这节点中所有的文字信息喂给 <code>org-roam</code> 了， 简单粗暴但很有用, 相当于人眼识别有价值的文字片段， 省了 <a href="https://github.com/buriy/python-readability">readability</a> 的步骤，而且可以灵活地摘抄。</p>
+<h2 id="更进一步-摘取片段直接转成-org-mode-语法保存到-org-roam">更进一步： 摘取片段直接转成 org-mode 语法保存到 org-roam</h2>
+<p>我们用的可是 org-roam, 用纯文字怎么行？首先我们写好 tridactyl 的部分：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0aa">bind</span> ;c composite hint -Jpipe * innerHTML | js -p <span style="color:#a50">&#34;org-protocol://roam-ref?template=c&amp;ref=&#34;</span> + encodeURIComponent(document.location.href) + <span style="color:#a50">&#34;&amp;title=&#34;</span> + encodeURIComponent(document.title) + <span style="color:#a50">&#34;&amp;body=&#34;</span> + encodeURIComponent(JS_ARG) | js -p document.location.href = JS_ARG
+</code></pre></div><p><code>textContext</code> 变成了 <code>innerHTML</code>, 即直接返回HTML格式的被选节点的所有子树，其他部分与上一条没有什么差别，在此不再复述。</p>
+<p>那么问题来了： HTML 格式怎么转换成 org-mode格式呢？ 这里聪明的读者想必会选择手写一个 <code>html-org-transpiler</code>, 而我的选择则是利用 <a href="https://pandoc.org/">pandoc</a>。首先我们写好一个把存在 string 里的 HTML 内容转换成存在 string 里的 org-mode 格式内容的函数：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#0aa">defun</span> <span style="color:#a00">my/command-line-pandoc-filter</span> (<span style="color:#a00">content</span>)
+  <span style="color:#a50">&#34;take an input html string, return a org mode string via pandoc&#34;</span>
+  (<span style="color:#0aa">with-temp-buffer</span>
+    (<span style="color:#0a0">insert</span> <span style="color:#a00">content</span>)
+    (<span style="color:#0aa">if</span> (<span style="color:#a00">not</span> (<span style="color:#a00">zerop</span> (<span style="color:#0a0">call-process-region</span>
+                     (<span style="color:#0a0">point-min</span>) (<span style="color:#0a0">point-max</span>)
+                     <span style="color:#a50">&#34;pandoc&#34;</span> <span style="color:#a00">t</span> <span style="color:#a00">t</span> <span style="color:#a00">nil</span> <span style="color:#a50">&#34;-f&#34;</span> <span style="color:#a50">&#34;html&#34;</span> <span style="color:#a50">&#34;-t&#34;</span> <span style="color:#a50">&#34;org&#34;</span> <span style="color:#a50">&#34;--wrap&#34;</span> <span style="color:#a50">&#34;none&#34;</span>)))
+        (<span style="color:#0a0">message</span> <span style="color:#a50">&#34;Pandoc failed: %s&#34;</span> (<span style="color:#0a0">buffer-string</span>))
+      (<span style="color:#0a0">buffer-string</span>))))
+</code></pre></div><p>这段代码很直白， 看看就懂了。至于为什么需要用到 <code>temp-buffer</code>, 我没有找到直接基于 string 做上述操作的库函数， 如果有的话还请大家不苟赐教。</p>
+<p>现在定义 <code>c</code> 对应的 template:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a00">add-to-list</span> <span style="color:#00a">&#39;org-roam-capture-ref-templates</span>
+             &#39;(<span style="color:#a50">&#34;c&#34;</span> <span style="color:#a50">&#34;Capture&#34;</span> <span style="color:#a00">plain</span> (<span style="color:#0aa">function</span> <span style="color:#a00">org-roam-capture--get-point</span>)
+               <span style="color:#a50">&#34;\n%(my/command-line-pandoc-filter (alist-get &#39;body org-roam-capture--info))\n&#34;</span>
+               <span style="color:#0aa">:file-name</span> <span style="color:#a50">&#34;${slug}&#34;</span>
+               <span style="color:#0aa">:head</span> <span style="color:#a50">&#34;#+title: ${title}\n#+date: %U\n#+roam_key: ${ref}\n#+roam_alias: \n#+roam_tags: \n&#34;</span>
+               <span style="color:#0aa">:unnarrowed</span> <span style="color:#a00">t</span>
+               <span style="color:#0aa">:immediate-finish</span> <span style="color:#a00">t</span>))
+</code></pre></div><p>前面忘记说了， org-roam 复用了 org-mode 自己的 template 功能， 所以 <code>%(expression)</code> 这个功能也是可以使用的。 这里就利用了这个功能， 首先从 <code>body-org-roam-capture--info</code> 里面取出 <code>body</code> 对应的内容 （org-roam 会在解析 org-protocol GET REQUEST 时把内容都存到这个字典里），喂给上面这个函数， 然后这函数的输出会被实际在这个地方展开。</p>
+<p>这篇文章到这里就该结束了，作为课后习题， 留给读者各位一个思考题目： HTML 转换到 org-mode 会产生大量的空行， 那么怎么在最后的抓取结果中, 于每段空行只保留其中一个呢？</p>
+
+  <footer class="reading-info">
+    <div class="left">
+       <div class="tags">
+    &#x1f3f7;
+    <nav class="jumplist">
+        <ul>
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/zh/categories/algorithm/">algorithm</a></li>
+    
+
+
+          
+    
+    
+    <li><a href="https://quinoa42.github.io/zh/tags/emacs/">Emacs</a></li>
+    
+
+    
+    
+    <li><a href="https://quinoa42.github.io/zh/tags/firefox/">Firefox</a></li>
+    
+
+
+        </ul>
+    </nav>
+</div>
+
+    </div>
+    <div class="right">
+      <a href="https://quinoa42.github.io/zh/oceanus/org-roam-tridactyl/">permalink to this post</a>
+    </div>
+  </footer>
+</article>
+
+    </main>
+    <footer id="footer">
+    
+    <hr />
+    <div><a href="https://github.com/quinoa42">GitHub</a></div>
+    <div><a href="https://bgm.tv/user/112851">Bangumi</a></div>
+    <div><a href="https://myanimelist.net/profile/quinoa42">MyAnimeList</a></div>
+    
+    </footer>
+  </body>
+</html>

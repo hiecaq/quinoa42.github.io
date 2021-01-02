@@ -5,20 +5,7 @@
     <link>https://quinoa42.github.io/en/</link>
     <description>Recent content on Emain Ablach</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Nov 2019 15:43:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://quinoa42.github.io/en/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>LeetCode 8: String to Integer (atoi)</title>
-      <link>https://quinoa42.github.io/en/oceanus/leetcode-8/</link>
-      <pubDate>Wed, 06 Nov 2019 00:25:00 +0800</pubDate>
-      
-      <guid>https://quinoa42.github.io/en/oceanus/leetcode-8/</guid>
-      <description>Started from today I&amp;rsquo;ll post some short solutions / reports to some algorithm-ish problems. Today&amp;rsquo;s one is String to Integer (atoi) from LeetCode. This one is fairly simple so I&amp;rsquo;ll skip the algorithm analysis part. I choose this simple problem because it&amp;rsquo;s a good opportunity to try Literate Programming beyond simple config maintenance. Having spending time figuring out how to make Org Mode and Org Babel behave in the way I want, I don&amp;rsquo;t feel like that I have enough time to solve a problem harder than simple string manipulation.</description>
-    </item>
-    
+    <lastBuildDate>Sun, 03 Nov 2019 15:43:00 +0800</lastBuildDate><atom:link href="https://quinoa42.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://quinoa42.github.io/en/about/</link>
@@ -30,17 +17,6 @@ PGP key fingerprint:
 0607 17ED 4DB8 1B0C 546B 3E8D 4A57 935B D3A7 3093 I am:
  a novice Emacs user and an ex-Vim user an Arch Linux user an amateur Programming Language linguist a Rustacean (hopefully) a gamer who mainly focuses on Nintendo platforms an Anime lover  You can find me at:
  GitHub https://github.com/quinoa42 Bangumi https://bgm.tv/ MyAnimeList https://myanimelist.net/profile/quinoa42  About this site This site is powered by Hugo, a static website generator.</description>
-    </item>
-    
-    <item>
-      <title>quinoa42&#39;s dotEmacs</title>
-      <link>https://quinoa42.github.io/en/dot-emacs/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0800</pubDate>
-      
-      <guid>https://quinoa42.github.io/en/dot-emacs/</guid>
-      <description>Here is a list of blogs / configurations that I&amp;rsquo;ve grabbed code from or absorbed ideas from. All of them worth reading.
- zzamboni&amp;rsquo;s Emacs config file Rafa’s Emacs settings file Ladicle&amp;rsquo;s Emacs Configuration Jamie Collinson&amp;rsquo;s Emacs Config munen&amp;rsquo;s Emacs configuration Karl Voit&amp;rsquo;s Emacs Configuration In Org-mode and the repo  This file might be out of sync. The newest version is available here.
- General Settings  Coding and Languages Tangle init.</description>
     </item>
     
     <item>

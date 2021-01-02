@@ -5,11 +5,7 @@
     <link>https://quinoa42.github.io/en/tags/osx/</link>
     <description>Recent content in OSX on Emain Ablach</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 22 Nov 2017 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://quinoa42.github.io/en/tags/osx/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 22 Nov 2017 00:00:00 +0800</lastBuildDate><atom:link href="https://quinoa42.github.io/en/tags/osx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Compile ruby with rbenv and brew-installed tcl-tk</title>
       <link>https://quinoa42.github.io/en/oceanus/ruby-tcl-tk/</link>
